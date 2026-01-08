@@ -1,0 +1,116 @@
+.footer {
+  position: relative;
+  background-color: #1a4f8b; /* RGM Blue */
+  color: #fff;
+  text-align: center;
+  padding: 50px 20px;
+  font-family: 'Arial', sans-serif;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1s ease-out;
+}
+
+/* Animated gradient overlay */
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(270deg, rgba(255,255,255,0.05), rgba(255,255,255,0.2), rgba(255,255,255,0.05));
+  animation: wave 10s linear infinite;
+  z-index: 0;
+}
+
+@keyframes wave {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.footer.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.footer h2, .footer p {
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 1; /* above overlay */
+}
+
+/* "Join the RGM Family" text white */
+.footer h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.footer p {
+  margin: 5px 0;
+  font-size: 0.95rem;
+}
+
+.footer a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer a:hover {
+  color: #ffd700; /* subtle gold glow */
+}
+
+/* Hover animation for text */
+.footer h2:hover, .footer p:hover {
+  transform: translateY(-5px);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+/* Social Icons */
+.social-icons {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+  z-index: 1; /* above overlay */
+}
+
+.social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background-color: #fff;
+  border-radius: 50%;
+  color: #1a4f8b;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+  background-color: #ffd700; /* glowing gold effect */
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  margin-top: 30px;
+  font-size: 0.9rem;
+  color: #e0e0e0;
+  position: relative;
+  z-index: 1; /* above overlay */
+}
+
+.footer-bottom a {
+  color: #fff;
+  font-weight: 500;
+}
+
+.footer-bottom a:hover {
+  color: #ffd700;
+}

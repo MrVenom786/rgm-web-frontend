@@ -1,0 +1,204 @@
+:root {
+  --blue: #1a4f8b;
+  --light-blue: #4a6fa5;
+  --gradient: linear-gradient(45deg, #1a4f8b, #4a6fa5);
+  --highlight-color: #f39c12;
+  --card-bg: #f0f8ff;
+}
+
+/* ================== CONTAINER ================== */
+.ed-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* ================== HERO SLIDESHOW ================== */
+.ed-hero {
+  width: 100%;
+  height: 500px;
+  min-height: 350px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  position: relative;
+  transition: background-image 1s ease-in-out;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.25);
+  color: var(--blue);
+  text-align: center;
+  padding: 20px;
+  border-radius: 16px;
+  box-sizing: border-box;
+}
+
+.hero-overlay h1 {
+  font-size: 42px;
+  font-weight: bold;
+  animation: textPop 1s ease;
+}
+
+.hero-overlay p {
+  font-size: 20px;
+  color: #fff;
+  font-weight: 500;
+  margin-top: 12px;
+  animation: textPop 1.2s ease;
+}
+
+/* HERO APPLY BUTTON */
+.hero-apply-btn {
+  margin-top: 20px;
+  background: var(--gradient);
+  color: #fff;
+  padding: 12px 30px;
+  font-weight: bold;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: all 0.3s;
+}
+
+.hero-apply-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+@keyframes textPop {
+  0% { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* ================== MAIN CONTENT ================== */
+.ed-content {
+  padding: 20px;
+}
+
+.ed-content h2 {
+  color: var(--blue);
+  margin-top: 30px;
+  margin-bottom: 15px;
+  font-size: 28px;
+  position: relative;
+  display: inline-block;
+}
+
+.ed-content h2::after {
+  content: "";
+  display: block;
+  height: 4px;
+  width: 60px;
+  background: var(--gradient);
+  border-radius: 2px;
+  margin-top: 6px;
+}
+
+.ed-content p,
+.ed-content ul li,
+.bottom-apply {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out;
+}
+
+.ed-content p.active,
+.ed-content ul li.active,
+.bottom-apply.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ed-content ul {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.ed-content ul li {
+  margin-bottom: 10px;
+  position: relative;
+  color: #555;
+}
+
+.ed-content ul li::before {
+  content: "•";
+  color: var(--highlight-color);
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+/* ================== BOTTOM APPLY BOX ================== */
+.bottom-apply {
+  text-align: center;
+  margin-top: 40px;
+  background: linear-gradient(135deg, #0d2a66, #1a4f8b);
+  color: #fff;
+  padding: 30px 25px;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.bottom-apply h3 {
+  margin-bottom: 12px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.bottom-apply p {
+  margin-bottom: 20px;
+  font-size: 18px;
+  opacity: 0.95;
+}
+
+/* APPLY BUTTON */
+.bottom-apply-btn {
+  display: inline-block;
+  background: #1a4f8b; /* solid company blue */
+  color: #fff;
+  padding: 14px 35px;
+  font-weight: bold;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  font-size: 18px;
+  animation: pulseBtn 2s infinite; /* pulse animation on the button */
+}
+
+/* Hover effect */
+.bottom-apply-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+/* Button pulse keyframes */
+@keyframes pulseBtn {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+  50% {
+    transform: scale(1.08); /* slight pulse */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+}

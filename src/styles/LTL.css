@@ -1,0 +1,225 @@
+:root {
+  --blue: #1a4f8b;
+}
+
+/* PAGE */
+.rgm-ltl-page {
+  font-family: Arial, sans-serif;
+  color: #333;
+  overflow-x: hidden;
+}
+
+/* ================= HERO ================= */
+.rgm-ltl-hero {
+  position: relative;
+  height: 85vh;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-image-box {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: fade 1s ease;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.6); /* transparent black */
+  padding: 70px 50px;
+  border-radius: 18px;
+  color: #fff;
+}
+
+
+.hero-content h1 {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.hero-content p {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+/* CTA BUTTON */
+.cta-btn {
+  margin-top: 20px;
+  padding: 18px 50px;
+  border-radius: 50px;
+  border: none;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  background: #fff;
+  color: var(--blue);
+  transition: transform 0.3s ease;
+}
+
+.cta-btn:hover {
+  transform: scale(1.08);
+}
+
+/* INTRO */
+.rgm-ltl-intro {
+  max-width: 900px;
+  margin: 90px auto;
+  padding: 0 20px;
+  text-align: center;
+  font-size: 18px;
+}
+
+/* MAIN SLIDESHOW */
+.rgm-ltl-main {
+  padding: 60px 20px;
+  text-align: center;
+  background: #f5f9ff;
+}
+
+.rgm-ltl-main h2 {
+  color: var(--blue);
+  font-size: 34px;
+  margin-bottom: 30px;
+}
+
+.main-slideshow-frame {
+  max-width: 900px;
+  height: 480px;
+  margin: auto;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 20px 45px rgba(0,0,0,0.25);
+}
+
+.main-slideshow-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: fade 1s ease;
+}
+
+/* FEATURES */
+.rgm-ltl-features h2 {
+  text-align: center;
+  color: var(--blue);
+  margin-bottom: 30px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.feature-card {
+  background: #f5f9ff;
+  padding: 25px;
+  border-radius: 16px;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px) scale(1.05);
+}
+
+/* WHY */
+.rgm-ltl-why {
+  margin: 60px 0;
+  text-align: center;
+}
+
+.rgm-ltl-why h2 {
+  color: var(--blue);
+  margin-bottom: 15px;
+}
+
+/* TESTIMONIAL */
+.rgm-ltl-testimonial {
+  background: #f0f8ff;
+  padding: 40px;
+  border-radius: 16px;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.rgm-ltl-testimonial blockquote {
+  font-style: italic;
+  font-size: 17px;
+}
+
+.rgm-ltl-testimonial span {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+  color: var(--blue);
+}
+
+/* CTA */
+.rgm-ltl-cta {
+  background: linear-gradient(135deg, var(--blue), #0e2d4e);
+  color: #fff;
+  padding: 60px 30px;
+  border-radius: 18px;
+  text-align: center;
+}
+
+.rgm-ltl-cta h2 {
+  color: #ffffff; /* make "Let's Ship Smarter" white */
+  font-size: 34px;
+  margin-bottom: 15px;
+}
+
+.cta-buttons {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.cta-primary {
+  padding: 16px 40px;
+  border-radius: 40px;
+  font-weight: bold;
+  text-decoration: none;
+  background: #fff;
+  color: var(--blue);
+  cursor: pointer;
+  border: none;
+}
+
+.cta-primary:hover {
+  transform: scale(1.08);
+}
+
+/* ANIMATIONS */
+@keyframes fade {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: 0.9s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

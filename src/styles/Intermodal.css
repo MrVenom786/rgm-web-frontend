@@ -1,0 +1,210 @@
+:root {
+  --blue: #1a4f8b;
+}
+
+/* PAGE */
+.rgm-intermodal-page {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* HERO */
+.rgm-intermodal-hero {
+  position: relative;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.hero-image-box {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.5);
+  animation: fade 1s ease;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 50px 40px;
+  background: rgba(0,0,0,0.4);
+  border-radius: 18px;
+  color: #fff;
+}
+
+.hero-content h1 { font-size: 42px; margin-bottom: 12px; }
+.hero-content p { font-size: 18px; }
+
+/* MAIN SECTION */
+.rgm-intermodal-main {
+  text-align: center;
+  margin: 70px 0;
+  position: relative;
+}
+
+.main-headline {
+  font-size: 34px;
+  color: #fff;
+  margin-bottom: 15px;
+  animation: headlineFade 1s ease forwards;
+}
+
+.main-subtext span {
+  display: inline-block;
+  margin-right: 5px;
+  animation: textPop 0.6s ease forwards;
+}
+
+/* Slideshow */
+.main-slideshow-frame {
+  max-width: 900px;
+  height: 480px;
+  margin: 30px auto;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 20px 45px rgba(0,0,0,0.25);
+}
+
+.main-slideshow-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: fade 1s ease;
+}
+
+/* Features strip */
+.main-features-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.feature-item {
+  background: linear-gradient(135deg, var(--blue), #163f6b);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-6px) scale(1.05);
+}
+
+/* FEATURES GRID */
+.rgm-intermodal-features h2 {
+  text-align: center;
+  color: var(--blue);
+  margin-bottom: 30px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.feature-card {
+  background: #f5f9ff;
+  padding: 25px;
+  border-radius: 14px;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px) scale(1.05);
+}
+
+/* WHY */
+.rgm-intermodal-why {
+  margin: 60px 0;
+  text-align: center;
+}
+
+.rgm-intermodal-why h2 { color: var(--blue); margin-bottom: 15px; }
+
+/* TESTIMONIAL */
+.rgm-intermodal-testimonial {
+  background: #eef5ff;
+  padding: 40px;
+  border-radius: 18px;
+  margin: 60px 0;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.rgm-intermodal-testimonial blockquote {
+  font-size: 18px;
+  font-style: italic;
+}
+
+.rgm-intermodal-testimonial span {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+  color: var(--blue);
+}
+
+/* CTA */
+.rgm-intermodal-cta {
+  background: linear-gradient(135deg, var(--blue), #163f6b);
+  color: #fff;
+  padding: 60px 30px;
+  border-radius: 18px;
+  text-align: center;
+}
+
+.cta-buttons {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.cta-primary,
+.cta-secondary {
+  padding: 14px 36px;
+  border-radius: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cta-primary { background: #fff; color: var(--blue); }
+.cta-secondary { border: 2px solid #fff; color: #fff; }
+.cta-primary:hover,
+.cta-secondary:hover { transform: scale(1.08); }
+/* CTA Headline */
+.rgm-intermodal-cta h2 {
+  color: #fff; /* Make headline white */
+}
+
+/* Animations */
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-30px);} to { opacity: 1; transform: translateY(0);} }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(40px);} to { opacity: 1; transform: translateY(0);} }
+@keyframes rotateGlow { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
+@keyframes fade { from { opacity: 0.4; } to { opacity: 1; } }
+@keyframes textPop { 0% {opacity:0; transform:translateY(10px);} 100% {opacity:1; transform:translateY(0);} }
+@keyframes headlineFade { from { opacity:0; transform:translateY(-10px);} to { opacity:1; transform:translateY(0);} }

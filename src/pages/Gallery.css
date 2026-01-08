@@ -1,0 +1,214 @@
+.gallery-page {
+  background: #f4f7fb;
+  padding-bottom: 80px;
+}
+
+/* ================= HEADER SLIDESHOW ================= */
+.header-slideshow {
+  position: relative;
+  height: 42vh;
+  min-height: 320px;
+  max-height: 520px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.header-slideshow .slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(1);
+  transition: opacity 1s ease, transform 6s ease;
+  z-index: 1;
+}
+
+.header-slideshow .slide.active {
+  opacity: 1;
+  transform: scale(1.03);
+}
+
+/* ================= SLIDE OVERLAY ================= */
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.45));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  text-align: center;
+  padding: 20px;
+}
+
+/* MAIN TITLE */
+.slide-overlay h1 {
+  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  font-weight: 900;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #1a4f8b; /* company color */
+  position: relative;
+  animation: titleReveal 1.3s ease forwards;
+  text-shadow:
+    0 6px 20px rgba(0,0,0,0.8),
+    0 0 15px rgba(26,79,139,0.6);
+}
+
+/* Blue underline */
+.slide-overlay h1::after {
+  content: "";
+  display: block;
+  width: 90px;
+  height: 4px;
+  background: #1a4f8b;
+  margin: 14px auto 0;
+  border-radius: 4px;
+  animation: underlineGrow 1.2s ease forwards;
+}
+
+/* PUNCHLINE */
+.slide-overlay p {
+  margin-top: 18px;
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  font-weight: 500;
+  color: #dce9ff;
+  max-width: 900px;
+  letter-spacing: 0.6px;
+  animation: punchlineFade 1.8s ease forwards;
+}
+
+/* ================= ANIMATIONS ================= */
+@keyframes titleReveal {
+  0% { opacity: 0; transform: translateY(-30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes underlineGrow {
+  0% { width: 0; }
+  100% { width: 90px; }
+}
+
+@keyframes punchlineFade {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= FILTERS ================= */
+.gallery-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+
+.gallery-tabs button {
+  border: 2px solid #1a4f8b;
+  padding: 10px 24px;
+  border-radius: 30px;
+  background: transparent;
+  color: #1a4f8b;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gallery-tabs button.active,
+.gallery-tabs button:hover {
+  background: #1a4f8b;
+  color: #fff;
+}
+
+/* ================= MASONRY ================= */
+.gallery-masonry {
+  column-count: 4;
+  column-gap: 18px;
+  padding: 0 40px;
+}
+
+@media (max-width: 1200px) { .gallery-masonry { column-count: 3; } }
+@media (max-width: 768px) { .gallery-masonry { column-count: 2; } }
+@media (max-width: 480px) { .gallery-masonry { column-count: 1; } }
+
+.gallery-item {
+  margin-bottom: 18px;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transform: translateY(30px);
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+
+.gallery-item.animate {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.gallery-item img,
+.gallery-item video {
+  width: 100%;
+  display: block;
+  border-radius: 14px;
+  transition: transform 0.6s ease;
+}
+
+.gallery-item:hover img,
+.gallery-item:hover video {
+  transform: scale(1.1);
+}
+
+/* VIDEO SLIDE-IN */
+.gallery-item video.animate {
+  animation: slideIn 0.7s ease forwards;
+}
+
+@keyframes slideIn {
+  0% { transform: translateX(-50px) scale(0.95); opacity: 0; }
+  100% { transform: translateX(0) scale(1); opacity: 1; }
+}
+
+/* OVERLAY */
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.65), transparent);
+  opacity: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 14px;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.gallery-overlay span {
+  color: white;
+  font-weight: 600;
+}
+
+/* LIGHTBOX */
+.lightbox,
+.video-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.lightbox img,
+.video-modal video {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+}

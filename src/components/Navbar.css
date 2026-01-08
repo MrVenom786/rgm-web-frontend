@@ -1,0 +1,197 @@
+/* ================= ROOT COLORS ================= */
+:root {
+  --blue: #1a4f8b;
+  --blue-dark: #123b68;
+  --light-bg: #f4f7fb;
+}
+
+header {
+  position: relative;   /* or remove position completely */
+  z-index: 10;
+  background: #fff;
+}
+
+
+/* ================= TOP BAR ================= */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* LOGO */
+.logo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-img {
+  width: 80px;
+  height: auto;
+}
+
+.logo-text h2 {
+  margin: 6px 0 0;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--blue);
+}
+
+/* ================= RIGHT LINKS ================= */
+.right-links {
+  display: flex;
+  align-items: center;
+}
+
+.right-links a {
+  margin-left: 26px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--blue);
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* underline animation */
+.right-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: var(--blue);
+  transition: width 0.3s ease;
+}
+
+.right-links a:hover::after {
+  width: 100%;
+}
+
+/* ================= APPLY NOW BUTTON ================= */
+.black-btn {
+  background: var(--blue);
+  color: #fff !important;
+  padding: 9px 20px;
+  border-radius: 6px;
+  margin-left: 30px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.black-btn::after {
+  display: none;
+}
+
+.black-btn:hover {
+  background: var(--blue-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(26, 79, 139, 0.35);
+}
+
+/* ================= MAIN NAV ================= */
+.main-nav {
+  background: #fff;
+  padding: 18px 40px;
+  border-bottom: 2px solid #eef2f7;
+}
+
+.right-nav {
+  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
+  list-style: none;
+  gap: 42px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* NAV ITEM */
+.right-nav li {
+  position: relative;
+}
+
+/* MENU LABEL */
+.right-nav li span {
+  cursor: pointer;
+  color: var(--blue);
+  padding-bottom: 8px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* animated underline */
+.right-nav li span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--blue);
+  transition: width 0.3s ease;
+}
+
+.right-nav li:hover span::after {
+  width: 100%;
+}
+
+/* ================= DROPDOWN ================= */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 14px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 10px 0;
+  min-width: 270px;
+  max-width: 340px;
+
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
+  z-index: 9999;
+
+  animation: dropdownFade 0.3s ease forwards;
+}
+
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* DROPDOWN LINKS */
+.dropdown a {
+  display: block;
+  padding: 12px 18px;
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--blue);
+  line-height: 1.35;
+  transition: all 0.25s ease;
+
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.dropdown a:hover {
+  background: var(--light-bg);
+  padding-left: 26px;
+  color: var(--blue-dark);
+}
+
+/* keep last dropdown inside viewport */
+.right-nav li:last-child .dropdown {
+  right: 0;
+  left: auto;
+}

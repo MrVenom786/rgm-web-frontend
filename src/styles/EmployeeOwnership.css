@@ -1,0 +1,242 @@
+:root {
+  --blue: #1a4f8b;
+  --light-blue: #4a79c7;
+  --white: #ffffff;
+}
+
+/* CONTAINER */
+.eo-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+/* HERO */
+.eo-hero {
+  position: relative;
+  min-height: 75vh;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 60px;
+}
+
+.eo-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  animation: heroZoom 14s linear infinite;
+  transition: opacity 1.2s ease;
+}
+
+@keyframes heroZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.12); }
+}
+
+.eo-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+}
+
+.eo-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: var(--white);
+  padding: 120px 20px;
+}
+
+.eo-hero-content h1 {
+  font-size: 44px;
+  margin-bottom: 15px;
+}
+
+.eo-hero-content p {
+  font-size: 20px;
+}
+
+/* INTRO */
+.eo-intro {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 60px;
+}
+
+/* IMAGE STRIP */
+.eo-image-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin: 60px 0;
+}
+
+.eo-image-strip img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.25);
+  transition: transform 0.6s ease;
+}
+
+.eo-image-strip img:hover {
+  transform: scale(1.06);
+}
+
+/* FEATURES */
+.eo-feature {
+  background: #f0f8ff;
+  padding: 26px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+.eo-feature.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.eo-feature h3 {
+  color: var(--blue);
+}
+
+/* CTA */
+.eo-cta {
+  background: linear-gradient(135deg, var(--blue), var(--light-blue));
+  color: var(--white);
+  padding: 70px 30px;
+  border-radius: 20px;
+  text-align: center;
+  margin-top: 80px;
+}
+
+.eo-apply-btn {
+  background: var(--white);
+  color: var(--blue);
+  padding: 16px 44px;
+  border-radius: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 25px;
+  transition: transform 0.3s ease;
+}
+
+.eo-apply-btn:hover {
+  transform: scale(1.08);
+}
+
+/* SCROLL ANIMATION */
+.fade-slide {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+.fade-slide.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* STORY BLOCK */
+.eo-story {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 60px;
+}
+
+.eo-story h2 {
+  font-size: 30px;
+  color: var(--blue);
+  margin-bottom: 15px;
+}
+
+.eo-story p {
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+/* IMAGE MOSAIC */
+.eo-image-mosaic {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  margin-bottom: 70px;
+}
+
+.eo-image-mosaic img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 20px 45px rgba(0,0,0,0.25);
+  transform: scale(0.95);
+  transition: transform 0.6s ease;
+}
+
+.eo-image-mosaic img:hover {
+  transform: scale(1.05);
+}
+/* MAIN SHOWCASE */
+.eo-main-showcase {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  align-items: center;
+  margin: 80px auto;
+  max-width: 1100px;
+}
+
+.eo-main-image {
+  height: 420px;
+  border-radius: 22px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+  animation: slowZoom 10s ease-in-out infinite;
+}
+
+.eo-main-text h2 {
+  font-size: 34px;
+  color: var(--blue);
+  margin-bottom: 15px;
+}
+
+.eo-main-text p {
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+/* FEATURE ALIVE EFFECT */
+.eo-feature {
+  background: linear-gradient(145deg, #f4f9ff, #ffffff);
+  border-left: 6px solid var(--blue);
+}
+
+/* ANIMATION */
+@keyframes slowZoom {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .eo-main-showcase {
+    grid-template-columns: 1fr;
+  }
+
+  .eo-main-image {
+    height: 320px;
+  }
+}
+.eo-hero-content h1 {
+  color: var(--blue);
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}

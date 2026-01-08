@@ -1,0 +1,188 @@
+:root {
+  --blue: #1a4f8b;
+  --light-blue: #4a6fa5;
+  --gradient: linear-gradient(45deg, #1a4f8b, #4a6fa5);
+  --highlight-color: #f39c12;
+  --card-bg: #f0f8ff;
+}
+
+/* ================== CONTAINER ================== */
+.ica-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* ================== HERO SECTION ================== */
+.ica-hero {
+  width: 100%;
+  max-width: 1100px;
+  height: 500px;
+  min-height: 350px;
+  margin: 0 auto 50px auto;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: background-image 1s ease-in-out;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.35);
+  color: var(--blue);
+  border-radius: 16px;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.hero-overlay h1 {
+  font-size: 42px;
+  margin-bottom: 12px;
+  animation: slideInDown 1s ease forwards;
+}
+
+.hero-overlay h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  animation: slideInUp 1s ease forwards;
+}
+
+.hero-overlay .apply-btn-link {
+  animation: pulse 2s infinite;
+}
+
+/* Hero Animations */
+@keyframes slideInDown {
+  0% { opacity: 0; transform: translateY(-30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* ================== MAIN CONTENT ================== */
+.ica-content {
+  padding: 20px;
+}
+
+.ica-content h2 {
+  color: var(--blue);
+  margin-top: 30px;
+  margin-bottom: 15px;
+  font-size: 28px;
+  position: relative;
+  display: inline-block;
+}
+
+.ica-content h2::after {
+  content: "";
+  display: block;
+  height: 4px;
+  width: 60px;
+  background: var(--gradient);
+  border-radius: 2px;
+  margin-top: 6px;
+}
+
+/* Scroll Animations */
+.ica-content p,
+.ica-content ul li,
+.highlight,
+.bottom-apply {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out;
+}
+
+.ica-content p.active,
+.ica-content ul li.active,
+.highlight.active,
+.bottom-apply.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Lists */
+.ica-content ul {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.ica-content ul li {
+  margin-bottom: 10px;
+  position: relative;
+  color: #555;
+}
+
+.ica-content ul li::before {
+  content: "•";
+  color: var(--highlight-color);
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+/* Highlight */
+.highlight {
+  font-weight: bold;
+  font-size: 18px;
+  color: var(--blue);
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.highlight::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 50px;
+  height: 3px;
+  background: var(--gradient);
+  border-radius: 2px;
+}
+
+/* Apply Button */
+.bottom-apply {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.apply-btn-link {
+  display: inline-block;
+  background: var(--gradient);
+  color: #fff;
+  padding: 12px 25px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.apply-btn-link:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+/* Animations for hero + page */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  60% { opacity: 1; transform: translateY(-5px); }
+  100% { opacity: 1; transform: translateY(0); }
+}

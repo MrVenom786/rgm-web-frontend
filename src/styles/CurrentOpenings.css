@@ -1,0 +1,153 @@
+:root {
+  --blue: #1a4f8b;
+}
+
+.co-container {
+  max-width: 800px;
+  margin: 100px auto;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  color: #fff;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to top, var(--blue) 0%, #3f7cac 100%);
+}
+
+/* Heading & Text Animations */
+.co-message h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: slideDown 1s forwards;
+  color: #fff;
+}
+
+.co-message p {
+  font-size: 18px;
+  line-height: 1.6;
+  opacity: 0;
+  animation: fadeInUp 1s 0.5s forwards;
+}
+
+/* Animations for Heading/Text */
+@keyframes slideDown {
+  0% { transform: translateY(-50px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  0% { transform: translateY(30px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Clouds animation */
+.cloud {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.cloud1 { width: 120px; height: 60px; top: 50px; left: -150px; animation: moveClouds 60s linear infinite; }
+.cloud1::before { width: 60px; height: 60px; top: -30px; left: 20px; }
+.cloud1::after { width: 80px; height: 80px; top: -20px; left: 50px; }
+
+.cloud2 { width: 100px; height: 50px; top: 120px; left: -200px; animation: moveClouds 80s linear infinite; }
+.cloud2::before { width: 50px; height: 50px; top: -25px; left: 15px; }
+.cloud2::after { width: 70px; height: 70px; top: -15px; left: 40px; }
+
+.cloud3 { width: 140px; height: 70px; top: 200px; left: -250px; animation: moveClouds 100s linear infinite; }
+.cloud3::before { width: 70px; height: 70px; top: -35px; left: 25px; }
+.cloud3::after { width: 90px; height: 90px; top: -25px; left: 60px; }
+
+@keyframes moveClouds {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(1300px); }
+}
+
+/* Road */
+.road {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background: repeating-linear-gradient(
+    to right,
+    #444,
+    #444 50px,
+    #555 50px,
+    #555 100px
+  );
+}
+
+/* Truck styles */
+.truck {
+  position: absolute;
+  bottom: 20px;
+  width: 150px;
+  height: 70px;
+  background: var(--blue);
+  border-radius: 5px;
+}
+
+.truck::before {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: #333;
+  border-radius: 50%;
+  bottom: -20px;
+  left: 20px;
+}
+
+.truck::after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: #333;
+  border-radius: 50%;
+  bottom: -20px;
+  right: 20px;
+}
+
+/* Trucks moving along curved path using CSS translate + rotate */
+.truck1 { animation: moveTruck1 10s linear infinite; }
+.truck2 { animation: moveTruck2 12s linear infinite; }
+.truck3 { animation: moveTruck3 14s linear infinite; }
+
+@keyframes moveTruck1 {
+  0% { transform: translateX(-200px) translateY(0) rotate(0deg); }
+  25% { transform: translateX(200px) translateY(-10px) rotate(-2deg); }
+  50% { transform: translateX(600px) translateY(0) rotate(0deg); }
+  75% { transform: translateX(1000px) translateY(-10px) rotate(2deg); }
+  100% { transform: translateX(1300px) translateY(0) rotate(0deg); }
+}
+
+@keyframes moveTruck2 {
+  0% { transform: translateX(-300px) translateY(10px) rotate(0deg); }
+  25% { transform: translateX(100px) translateY(0) rotate(1deg); }
+  50% { transform: translateX(500px) translateY(10px) rotate(-1deg); }
+  75% { transform: translateX(900px) translateY(0) rotate(1deg); }
+  100% { transform: translateX(1300px) translateY(10px) rotate(0deg); }
+}
+
+@keyframes moveTruck3 {
+  0% { transform: translateX(-400px) translateY(-10px) rotate(0deg); }
+  25% { transform: translateX(150px) translateY(-5px) rotate(-1deg); }
+  50% { transform: translateX(550px) translateY(-10px) rotate(1deg); }
+  75% { transform: translateX(950px) translateY(-5px) rotate(-1deg); }
+  100% { transform: translateX(1300px) translateY(-10px) rotate(0deg); }
+}

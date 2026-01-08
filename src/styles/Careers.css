@@ -1,0 +1,194 @@
+:root {
+  --blue: #084183;
+  --light-bg: #f9f9f9;
+  --accent: #1a4f8b;
+  --cta-bg: linear-gradient(135deg, #1a4f8b, #ffb347);
+  --section-shadow: rgba(0, 0, 0, 0.08);
+  --section-hover-shadow: rgba(0, 0, 0, 0.15);
+}
+
+/* Container */
+.rgm-careers-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* ===================== HERO ===================== */
+.rgm-hero {
+  height: 500px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #000;
+  border-radius: 16px;
+  margin-bottom: 50px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 1s ease;
+}
+
+.hero-overlay {
+  background: rgba(0,0,0,0.55);
+  padding: 40px 30px;
+  border-radius: 16px;
+  text-align: center;
+  color: #fff;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.hero-overlay h1 {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.hero-overlay h1 span {
+  color: var(--accent);
+}
+
+.hero-overlay p {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+/* ===================== SECTIONS ===================== */
+.rgm-section {
+  background: #fff;
+  padding: 50px 40px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  opacity: 0;
+  transform: translateY(40px);
+  position: relative;
+  box-shadow: 0 10px 25px var(--section-shadow);
+  transition: transform 0.8s ease, opacity 0.8s ease, box-shadow 0.3s ease;
+}
+
+.rgm-section:hover {
+  box-shadow: 0 15px 35px var(--section-hover-shadow);
+}
+
+.rgm-section h2 {
+  color: var(--blue);
+  margin-bottom: 20px;
+}
+
+.rgm-section h2::after {
+  content: '';
+  width: 60px;
+  height: 4px;
+  background: var(--accent);
+  display: block;
+  margin-top: 8px;
+  border-radius: 2px;
+}
+
+.rgm-section ul li {
+  margin-bottom: 12px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.rgm-section ul li:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateX(6px);
+}
+
+/* ===================== POSITIONS GRID ===================== */
+.positions-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.position-card {
+  flex: 1 1 280px;
+  background: #ffffff;              /* 🔒 force white */
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 10px 25px var(--section-shadow);
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+/* Hover effect (same for all cards) */
+.position-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 15px 35px var(--section-hover-shadow);
+}
+
+/* 🔥 FIX: opened card stays WHITE */
+.position-card.open {
+  background: #ffffff;              /* prevents blue box */
+}
+
+/* Title */
+.position-card h3 {
+  color: var(--blue);
+  margin-bottom: 10px;
+}
+
+/* Description */
+.position-desc {
+  margin-top: 12px;
+  color: #444;
+  line-height: 1.6;
+}
+
+/* ===================== CTA ===================== */
+.rgm-cta .cta-box {
+  background: var(--accent);
+  padding: 55px 40px;
+  border-radius: 18px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+}
+
+.rgm-cta .cta-box h2 {
+  color: #ffffff !important;
+}
+
+.rgm-cta .apply-btn {
+  background: #fff;
+  color: var(--accent);
+  padding: 16px 42px;
+  font-size: 20px;
+  border-radius: 30px;
+  font-weight: bold;
+  margin-top: 22px;
+  display: inline-block;
+  transition: all 0.4s ease;
+}
+
+.rgm-cta .apply-btn:hover {
+  background: var(--blue);
+  color: #fff;
+  transform: scale(1.07);
+}
+
+/* ===================== SCROLL ANIMATION ===================== */
+.fade-slide {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+.fade-slide.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===================== KEYFRAMES ===================== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}

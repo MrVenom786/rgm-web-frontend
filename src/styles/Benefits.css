@@ -1,0 +1,159 @@
+:root {
+  --blue: #1a4f8b;
+  --light-blue: #4a6fa5;
+  --gradient: linear-gradient(45deg, #1a4f8b, #4a6fa5);
+  --highlight-color: #f39c12;
+  --card-bg: #f0f8ff;
+}
+
+/* ================== CONTAINER ================== */
+.company-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* ================== HERO SECTION ================== */
+.company-hero {
+  width: 100%;
+  height: 500px;
+  min-height: 350px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 16px;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  color: #fff;
+  background: rgba(26, 79, 139, 0.35);
+  border-radius: 16px;
+  box-sizing: border-box;
+  animation: fadeUp 1.2s ease forwards;
+}
+
+.hero-overlay h1 {
+  font-size: 42px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.hero-overlay p {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+/* ================== CONTENT ================== */
+.company-content {
+  padding: 20px;
+}
+
+.company-content h2 {
+  color: var(--blue);
+  font-size: 32px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.company-content p {
+  margin-bottom: 18px;
+  font-size: 16px;
+}
+
+/* BENEFITS LIST */
+.benefits-list {
+  list-style: none;
+  padding-left: 0;
+  display: grid;
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+.benefits-list li {
+  background: var(--card-bg);
+  padding: 18px 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.benefits-list li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* ================== GROWTH CARDS ================== */
+.growth-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.growth-card {
+  background: var(--card-bg);
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.growth-card:hover {
+  transform: translateY(-8px);
+}
+
+.growth-card h3 {
+  color: var(--blue);
+  margin-bottom: 10px;
+}
+
+/* ================== GALLERY COLLAGE ================== */
+.gallery-collage {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+  margin: 40px 0;
+}
+
+.collage-item {
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  transition: transform 0.4s ease;
+}
+
+.collage-item img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.collage-item:hover img {
+  transform: scale(1.05);
+  opacity: 0.95;
+}
+
+/* ================== ANIMATIONS ================== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
