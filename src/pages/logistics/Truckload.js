@@ -90,7 +90,6 @@ function Truckload() {
 
         <div className="features-grid">
           <div className="feature-card">53’ Air-ride Flatbeds</div>
-          <div className="feature-card">Step Deck & Conestoga</div>
           <div className="feature-card">Oversized & Legal Loads</div>
           <div className="feature-card">Machinery & Equipment</div>
           <div className="feature-card">Steel, Lumber & Materials</div>
