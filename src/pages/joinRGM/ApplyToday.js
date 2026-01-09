@@ -208,7 +208,7 @@ function ApplyToday() {
           <input name="middleName" placeholder="Middle Name" value={form.middleName} onChange={handleChange} />
           <input name="lastName" placeholder="Last Name *" required value={form.lastName} onChange={handleChange} />
           <input name="suffix" placeholder="Suffix" value={form.suffix} onChange={handleChange} />
-          <input name="ssn" placeholder="SSN *" required value={form.ssn} onChange={handleChange} />
+          <input name="ssn" placeholder="SIN *" required value={form.ssn} onChange={handleChange} />
           <input type="date" name="dob" required value={form.dob} onChange={handleChange} />
           <input name="license" placeholder="License Number *" required value={form.license} onChange={handleChange} />
         </div>
@@ -219,7 +219,7 @@ function ApplyToday() {
           <input name="address2" placeholder="Address Line 2" value={form.address2} onChange={handleChange} />
           <input name="city" placeholder="City *" required value={form.city} onChange={handleChange} />
           <input name="state" placeholder="State *" required value={form.state} onChange={handleChange} />
-          <input name="zip" placeholder="ZIP *" required value={form.zip} onChange={handleChange} />
+          <input name="zip" placeholder="PINCODE *" required value={form.zip} onChange={handleChange} />
         </div>
 
         <div className="section-card full">
