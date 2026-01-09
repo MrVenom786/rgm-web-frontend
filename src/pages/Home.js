@@ -115,7 +115,7 @@ const Home = () => {
             className="counter fade-in"
             ref={(el) => (counterRefs.current[0] = el)}
           >
-            <h3><CountUp end={5000} duration={4} />+</h3>
+            <h3><CountUp end={500} duration={4} />+</h3>
             <p>Satisfied Customers</p>
             <div className="counter-bar">
               <div className="counter-bar-fill" style={{ width: "100%" }} />
@@ -127,7 +127,7 @@ const Home = () => {
             className="counter fade-in"
             ref={(el) => (counterRefs.current[1] = el)}
           >
-            <h3><CountUp end={100} duration={3} />+</h3>
+            <h3><CountUp end={50} duration={3} />+</h3>
             <p>Delighted Business Partners</p>
             <div className="counter-bar partner">
               <div className="counter-bar-fill partner-fill" />
