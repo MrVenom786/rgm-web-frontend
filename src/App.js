@@ -26,9 +26,6 @@ import WhyRGM from "./pages/solutions/WhyRGM";
 // Logistics
 import ThreePL from "./pages/logistics/ThreePL";
 import LTL from "./pages/logistics/LTL";
-import SpecialOPS from "./pages/logistics/SpecialOPS";
-import Intermodal from "./pages/logistics/Intermodal";
-import Bulk from "./pages/logistics/Bulk";
 import Truckload from "./pages/logistics/Truckload";
 import LogisticsWhyRGM from "./pages/logistics/WhyRGM";
 import WhoWeAre from "./pages/logistics/WhoWeAre";
@@ -71,9 +68,6 @@ function App() {
         {/* Logistics */}
         <Route path="/logistics/3pl" element={<ThreePL />} />
         <Route path="/logistics/ltl" element={<LTL />} />
-        <Route path="/logistics/special-ops" element={<SpecialOPS />} />
-        <Route path="/logistics/intermodal" element={<Intermodal />} />
-        <Route path="/logistics/bulk" element={<Bulk />} />
         <Route path="/logistics/truckload" element={<Truckload />} />
         <Route path="/logistics/why-rgm" element={<LogisticsWhyRGM />} />
         <Route path="/logistics/who-we-are" element={<WhoWeAre />} />
