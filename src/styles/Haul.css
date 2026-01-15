@@ -1,0 +1,228 @@
+:root {
+  --rgm-blue: #1a4f8b;
+  --rgm-red: #d32f2f;
+}
+
+/* ================= PAGE ================= */
+.haul-page {
+  font-family: "Segoe UI", Arial, sans-serif;
+  overflow-x: hidden;
+  background: #ffffff;
+}
+
+/* ================= HERO ================= */
+.haul-hero {
+  position: relative;
+  height: 90vh;
+}
+
+.haul-hero img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Overlay correctly covering image */
+.haul-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.haul-hero-content {
+  text-align: center;
+  max-width: 820px;
+  padding: 60px;
+  color: #ffffff;
+}
+
+.haul-hero-content h1 {
+  font-size: 3.2rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+  color: var(--rgm-blue);
+}
+
+.haul-hero-content p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #ffffff;
+}
+
+/* ================= BUTTONS ================= */
+.haul-hero-buttons,
+.haul-cta-buttons {
+  margin-top: 35px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.haul-btn {
+  padding: 14px 38px;
+  border-radius: 40px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.haul-btn.primary {
+  background: var(--rgm-red);
+  color: #ffffff;
+  box-shadow: 0 14px 30px rgba(211, 47, 47, 0.45);
+}
+
+.haul-btn.secondary {
+  background: #ffffff;
+  color: var(--rgm-red);
+}
+
+.haul-btn:hover {
+  transform: translateY(-4px);
+}
+
+/* ================= INTRO ================= */
+.haul-intro {
+  max-width: 900px;
+  margin: 100px auto;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.haul-intro h2 {
+  color: var(--rgm-blue);
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+/* ================= SERVICES ================= */
+.haul-services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+  padding: 80px 8%;
+}
+
+.haul-service-card {
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 18px;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
+  transition: 0.4s ease;
+}
+
+.haul-service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 28px 60px rgba(26, 79, 139, 0.35);
+}
+
+/* ================= BENEFITS (UPDATED) ================= */
+.haul-benefits {
+  padding: 90px 8%;
+  background: #f7f7f7;
+  text-align: center;
+}
+
+.haul-benefits h2 {
+  color: var(--rgm-blue);
+  font-size: 2.6rem;
+  margin-bottom: 45px;
+}
+
+/* Benefit list */
+.haul-benefit-list {
+  list-style: none;
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Individual benefit */
+.benefit-item {
+  position: relative;
+  background: #ffffff;
+  margin-bottom: 22px;
+  padding: 24px 30px 24px 64px;
+  border-radius: 14px;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: #333333;
+  text-align: left;
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.08);
+
+  opacity: 0;
+  transform: translateY(28px);
+  transition: all 0.6s ease;
+}
+
+/* Check icon */
+.benefit-item::before {
+  content: "✓";
+  position: absolute;
+  left: 26px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--rgm-red);
+}
+
+/* Reveal animation */
+.haul-reveal.visible .benefit-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger effect */
+.haul-reveal.visible .benefit-item:nth-child(1) {
+  transition-delay: 0.1s;
+}
+.haul-reveal.visible .benefit-item:nth-child(2) {
+  transition-delay: 0.25s;
+}
+.haul-reveal.visible .benefit-item:nth-child(3) {
+  transition-delay: 0.4s;
+}
+.haul-reveal.visible .benefit-item:nth-child(4) {
+  transition-delay: 0.55s;
+}
+
+/* ================= CTA ================= */
+.haul-cta {
+  background: linear-gradient(135deg, var(--rgm-blue), #0e2d4e);
+  padding: 90px 20px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.haul-cta h2 {
+  font-size: 2.6rem;
+  margin-bottom: 15px;
+}
+
+/* ================= SCROLL REVEAL ================= */
+.haul-reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: 0.9s ease;
+}
+
+.haul-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ================= IMAGE SAFETY ================= */
+/* Prevent zoom / sink completely */
+.haul-hero img {
+  transform: none !important;
+  animation: none !important;
+}
