@@ -1,41 +1,244 @@
-.haul-page {
-  padding: 60px 20px;
+/* ===========================
+   ROOT & GLOBAL RESET
+=========================== */
+:root {
+  --rgm-blue: #1a4f8b;
+  --rgm-blue-dark: #123a66;
+  --rgm-bg: #f4f7fb;
+  --border-light: #dce3ec;
+  --text-dark: #1e2a36;
+  --text-muted: #6b7c8f;
 }
 
-.haul-hero {
-  text-align: center;
-  margin-bottom: 50px;
+* {
+  box-sizing: border-box;
 }
 
-.haul-hero h1 {
-  font-size: 3rem;
-  color: #d32f2f;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background: var(--rgm-bg);
+  color: var(--text-dark);
 }
 
-.haul-hero p {
-  font-size: 1.2rem;
-  max-width: 600px;
-  margin: auto;
+/* ===========================
+   MAIN CONTAINER
+=========================== */
+.haul-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 40px 48px 120px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 25px 60px rgba(26, 79, 139, 0.15);
+  position: relative;
+  overflow: hidden;
 }
 
-.haul-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
+.haul-container h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  color: var(--rgm-blue);
 }
 
-.haul-card {
-  padding: 25px;
+.haul-container p {
+  max-width: 780px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* ===========================
+   BOT AREA (RIGHT SIDE)
+=========================== */
+.bot-wrapper {
+  position: fixed;              /* 🔥 ALWAYS fixed */
+  right: 24px;                  /* 🔥 inside frame, not touching edge */
+  bottom: 24px;                 /* 🔥 bottom-right corner */
+  width: 280px;
+  max-width: calc(100vw - 48px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 9999;
+  pointer-events: auto;
+}
+
+.bot-animation {
+  width: 140px;
+  height: 140px;
+}
+
+/* ===========================
+   BOT SPEECH BUBBLE
+=========================== */
+.bot-bubble {
+  width: 100%;
+  background: #1a4f8b;
+  color: #ffffff;
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.5;
+
+  /* 🔒 TEXT NEVER OVERFLOWS */
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow: hidden;
+
+  box-shadow: 0 12px 30px rgba(26, 79, 139, 0.35);
+}
+
+@keyframes bubbleFade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===========================
+   FORM LAYOUT
+=========================== */
+.haul-form {
+  margin-top: 40px;
+  max-width: 720px;
+}
+
+.haul-form input,
+.haul-form select,
+.haul-form textarea {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 16px;
   border-radius: 10px;
-  background: #f9f9f9;
-  transition: transform 0.3s ease;
+  border: 1px solid var(--border-light);
+  font-size: 15px;
+  transition: all 0.25s ease;
+  background: #fff;
 }
 
-.haul-card:hover {
-  transform: translateY(-8px);
+.haul-form textarea {
+  resize: vertical;
+  min-height: 120px;
 }
 
-.haul-cta {
-  text-align: center;
-  margin-top: 60px;
+.haul-form input:focus,
+.haul-form select:focus,
+.haul-form textarea:focus {
+  outline: none;
+  border-color: var(--rgm-blue);
+  box-shadow: 0 0 0 3px rgba(26, 79, 139, 0.15);
+}
+
+/* ===========================
+   CHECKBOX FIX (IMPORTANT)
+=========================== */
+.checkbox-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-dark);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.checkbox-line input[type="checkbox"] {
+  margin-top: 3px;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--rgm-blue);
+  cursor: pointer;
+}
+
+/* ===========================
+   FORM MESSAGE
+=========================== */
+.form-message {
+  margin: 14px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--rgm-blue-dark);
+}
+
+/* ===========================
+   SUBMIT BUTTON
+=========================== */
+.haul-form button {
+  margin-top: 18px;
+  background: var(--rgm-blue);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 26px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 10px 25px rgba(26, 79, 139, 0.3);
+}
+
+.haul-form button:hover {
+  background: var(--rgm-blue-dark);
+  transform: translateY(-1px);
+}
+
+.haul-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ===========================
+   RESPONSIVE SAFETY
+=========================== */
+@media (max-width: 1024px) {
+  .bot-wrapper {
+    position: static;
+    margin: 20px auto 0;
+  }
+
+  .haul-container {
+    padding-bottom: 60px;
+  }
+}
+
+@media (max-width: 600px) {
+  .haul-container {
+    padding: 28px 22px 60px;
+  }
+
+  .bot-wrapper {
+    width: 100%;
+  }
+
+  .bot-bubble {
+    font-size: 13px;
+  }
+}
+
+/* ===========================
+   SUBTLE PAGE LIFE EFFECTS
+=========================== */
+.haul-form input,
+.haul-form select,
+.haul-form textarea {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
