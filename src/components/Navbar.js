@@ -114,9 +114,6 @@ const Navbar = () => {
               <div className="dropdown">
                 <Link to="/logistics/3pl" onClick={closeMenu}>3PL</Link>
                 <Link to="/logistics/ltl" onClick={closeMenu}>LTL</Link>
-                <Link to="/logistics/special-ops" onClick={closeMenu}>Special OPS</Link>
-                <Link to="/logistics/intermodal" onClick={closeMenu}>Intermodal</Link>
-                <Link to="/logistics/bulk" onClick={closeMenu}>Bulk</Link>
                 <Link to="/logistics/truckload" onClick={closeMenu}>Truckload</Link>
                 <Link to="/logistics/why-rgm" onClick={closeMenu}>Why RGM Family</Link>
                 <Link to="/logistics/who-we-are" onClick={closeMenu}>Who We Are</Link>

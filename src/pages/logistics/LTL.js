@@ -3,19 +3,19 @@ import { useNavigate } from "react-router-dom";
 import "../../styles/LTL.css";
 
 // Import gallery images
-import g30 from "../../assets/gallery/images/gallery30.jpg";
-import g31 from "../../assets/gallery/images/gallery31.jpg";
-import g32 from "../../assets/gallery/images/gallery32.jpg";
-import g33 from "../../assets/gallery/images/gallery33.jpg";
-import g34 from "../../assets/gallery/images/gallery34.jpg";
-import g35 from "../../assets/gallery/images/gallery35.jpg";
-import g36 from "../../assets/gallery/images/gallery36.jpg";
-import g37 from "../../assets/gallery/images/gallery37.jpg";
-import g38 from "../../assets/gallery/images/gallery38.jpg";
-import g39 from "../../assets/gallery/images/gallery39.jpg";
-import g40 from "../../assets/gallery/images/gallery40.jpg";
-import g41 from "../../assets/gallery/images/gallery41.jpg";
-import g42 from "../../assets/gallery/images/gallery42.jpg";
+import g30 from "../../assets/gallery/images/gallery62.jpg";
+import g31 from "../../assets/gallery/images/gallery63.jpg";
+import g32 from "../../assets/gallery/images/gallery51.jpg";
+import g33 from "../../assets/gallery/images/gallery52.jpg";
+import g34 from "../../assets/gallery/images/gallery53.jpg";
+import g35 from "../../assets/gallery/images/gallery54.jpg";
+import g36 from "../../assets/gallery/images/gallery55.jpg";
+import g37 from "../../assets/gallery/images/gallery56.jpg";
+import g38 from "../../assets/gallery/images/gallery57.jpg";
+import g39 from "../../assets/gallery/images/gallery58.jpg";
+import g40 from "../../assets/gallery/images/gallery59.jpg";
+import g41 from "../../assets/gallery/images/gallery60.jpg";
+import g42 from "../../assets/gallery/images/gallery61.jpg";
 
 const heroImages = [g42, g41, g40, g39, g38, g37, g36, g35];
 const mainImages = [g34, g33, g32, g31, g30];

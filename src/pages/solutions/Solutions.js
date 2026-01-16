@@ -104,10 +104,7 @@ function Solutions() {
       <section className="equipment-section">
         <h2>Our Equipment</h2>
         <div className="equipment-list">
-          <span>48’ Flatbeds</span>
-          <span>53’ Step Decks</span>
-          <span>53’ RGNs</span>
-          <span>Stretch Multi-Axle Trailers</span>
+          <span>53’ Flatbeds</span>
         </div>
       </section>
 

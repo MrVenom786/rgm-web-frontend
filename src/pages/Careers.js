@@ -140,10 +140,11 @@ function Careers() {
         <h2>Benefits & Perks</h2>
         <ul>
           <li>Yearly travel insurance benefit.</li>
-          <li>Fleet fuel discount.</li>
+          <li>Fleet fuel discount for owner operators.</li>
           <li>High value cargo coverage & low deductible insurance for Your assets.</li>
-          <li>Family Assistance Fund for employee support</li>
-          <li>On-the-job training and career development</li>
+          <li>On the job paid training and career enhancement</li>
+          <li>higher earning potentials.</li>
+          <li>You get paid for what you deserve</li>
         </ul>
       </section>
 

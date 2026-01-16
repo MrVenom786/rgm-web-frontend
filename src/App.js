@@ -7,11 +7,11 @@ import Careers from "./pages/Careers";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
+import HaulWithRGM from "./pages/HaulWithRGM";
 
 // Join RGM Pages
 import ApplyToday from "./pages/joinRGM/ApplyToday";
 import InexperiencedClassA from "./pages/joinRGM/InexperiencedClassA";
-
 import ExperiencedDrivers from "./pages/joinRGM/ExperiencedDrivers";
 import CurrentOpenings from "./pages/joinRGM/CurrentOpenings";
 import Pay from "./pages/joinRGM/Pay";
@@ -26,9 +26,6 @@ import WhyRGM from "./pages/solutions/WhyRGM";
 // Logistics
 import ThreePL from "./pages/logistics/ThreePL";
 import LTL from "./pages/logistics/LTL";
-import SpecialOPS from "./pages/logistics/SpecialOPS";
-import Intermodal from "./pages/logistics/Intermodal";
-import Bulk from "./pages/logistics/Bulk";
 import Truckload from "./pages/logistics/Truckload";
 import LogisticsWhyRGM from "./pages/logistics/WhyRGM";
 import WhoWeAre from "./pages/logistics/WhoWeAre";
@@ -39,10 +36,12 @@ import CompanyBenefits from "./pages/company/Benefits";
 import Responsibility from "./pages/company/Responsibility";
 import Founder from "./pages/company/Founder";
 
+// ✅ ADD THIS
+import Haul from "./pages/Haul";
+
 function App() {
   return (
     <Router>
-      {/* Navbar will be shown on all pages */}
       <Navbar />
 
       <Routes>
@@ -52,11 +51,11 @@ function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/HaulWithRGM" element={<HaulWithRGM />} />
 
         {/* Join RGM Pages */}
         <Route path="/join/apply" element={<ApplyToday />} />
         <Route path="/join/inexperienced" element={<InexperiencedClassA />} />
-        
         <Route path="/join/experienced" element={<ExperiencedDrivers />} />
         <Route path="/join/openings" element={<CurrentOpenings />} />
         <Route path="/join/pay" element={<Pay />} />
@@ -71,9 +70,6 @@ function App() {
         {/* Logistics */}
         <Route path="/logistics/3pl" element={<ThreePL />} />
         <Route path="/logistics/ltl" element={<LTL />} />
-        <Route path="/logistics/special-ops" element={<SpecialOPS />} />
-        <Route path="/logistics/intermodal" element={<Intermodal />} />
-        <Route path="/logistics/bulk" element={<Bulk />} />
         <Route path="/logistics/truckload" element={<Truckload />} />
         <Route path="/logistics/why-rgm" element={<LogisticsWhyRGM />} />
         <Route path="/logistics/who-we-are" element={<WhoWeAre />} />
@@ -83,6 +79,9 @@ function App() {
         <Route path="/company/benefits" element={<CompanyBenefits />} />
         <Route path="/company/responsibility" element={<Responsibility />} />
         <Route path="/company/founder" element={<Founder />} />
+
+        {/* ✅ NEW HAUL ROUTE */}
+        <Route path="/haul" element={<Haul />} />
       </Routes>
     </Router>
   );

@@ -19,8 +19,16 @@ import carb from "../assets/images/hero/CARB.jpeg";
 import ctpat from "../assets/images/hero/CTPAT.jpeg";
 
 const heroImages = [
-  hero1, hero2, hero3, hero4, hero5,
-  hero6, hero7, hero8, hero9, hero10
+  hero1,
+  hero2,
+  hero3,
+  hero4,
+  hero5,
+  hero6,
+  hero7,
+  hero8,
+  hero9,
+  hero10,
 ];
 
 const Home = () => {
@@ -34,6 +42,7 @@ const Home = () => {
     intervalRef.current = setInterval(() => {
       setCurrent((prev) => (prev + 1) % heroImages.length);
     }, 5000);
+
     return () => clearInterval(intervalRef.current);
   }, []);
 
@@ -49,6 +58,7 @@ const Home = () => {
     );
 
     counterRefs.current.forEach((ref) => ref && observer.observe(ref));
+
     return () =>
       counterRefs.current.forEach((ref) => ref && observer.unobserve(ref));
   }, []);
@@ -73,12 +83,14 @@ const Home = () => {
             </p>
 
             <div className="hero-buttons">
+              {/* ✅ UPDATED LINK */}
               <button
                 className="hero-btn primary"
-                onClick={() => navigate("/solutions")}
+                onClick={() => navigate("/haul")}
               >
                 Haul with RGM
               </button>
+
               <button
                 className="hero-btn secondary"
                 onClick={() => navigate("/join/apply")}
@@ -115,19 +127,23 @@ const Home = () => {
             className="counter fade-in"
             ref={(el) => (counterRefs.current[0] = el)}
           >
-            <h3><CountUp end={5000} duration={4} />+</h3>
+            <h3>
+              <CountUp end={500} duration={4} />+
+            </h3>
             <p>Satisfied Customers</p>
             <div className="counter-bar">
               <div className="counter-bar-fill" style={{ width: "100%" }} />
             </div>
           </div>
 
-          {/* BUSINESS PARTNERS (NEW) */}
+          {/* DELIGHTED BUSINESS PARTNERS */}
           <div
             className="counter fade-in"
             ref={(el) => (counterRefs.current[1] = el)}
           >
-            <h3><CountUp end={100} duration={3} />+</h3>
+            <h3>
+              <CountUp end={50} duration={3} />+
+            </h3>
             <p>Delighted Business Partners</p>
             <div className="counter-bar partner">
               <div className="counter-bar-fill partner-fill" />

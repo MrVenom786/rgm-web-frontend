@@ -1,0 +1,171 @@
+/* ================= GLOBAL ================= */
+.haul-page {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  line-height: 1.6;
+  background-color: #fff;
+}
+
+.company-color { color: #1a4f8b; }
+
+/* ================= HERO ================= */
+.haul-hero {
+  position: relative; width: 100%; height: 80vh; overflow: hidden;
+}
+.haul-hero-image-full {
+  width: 100%; height: 100%; object-fit: cover; transition: opacity 1s ease-in-out;
+}
+.haul-hero-overlay {
+  position: absolute; top:0; left:0; width:100%; height:100%;
+  background: rgba(0,0,0,0.4);
+  display: flex; align-items:center; justify-content:center; padding:0 20px;
+}
+.haul-hero-content { color:#fff; text-align:center; max-width:800px; }
+.haul-hero-content h1 { font-size:3rem; margin-bottom:1rem; }
+.haul-hero-content p { font-size:1.2rem; margin-bottom:2rem; }
+.haul-hero-buttons { display:flex; gap:20px; flex-wrap:wrap; }
+.haul-btn { padding:12px 28px; border-radius:6px; font-weight:bold; text-decoration:none; cursor:pointer; transition:all 0.3s ease; }
+.haul-btn.primary { background-color:#1a4f8b; color:#fff; }
+.haul-btn.primary:hover { background-color:#153c6d; }
+.haul-btn.secondary { background-color:#fff; color:#1a4f8b; border:2px solid #1a4f8b; }
+.haul-btn.secondary:hover { background-color:#1a4f8b; color:#fff; }
+
+/* ================= MAIN SECTION SIDE-BY-SIDE ================= */
+.haul-section { padding:60px 10%; }
+.haul-section-content {
+  display:flex; align-items:center; gap:40px; flex-wrap:wrap;
+}
+.haul-section-content.reverse { flex-direction: row-reverse; }
+.haul-section-text { flex:1 1 500px; }
+.haul-section-text h2 { font-size:2rem; margin-bottom:20px; }
+.haul-section-text p, .haul-section-text ul { font-size:1.1rem; }
+.haul-section-image { flex:1 1 400px; display:flex; justify-content:center; }
+.haul-section-image img {
+  width:100%; max-width:400px; border-radius:10px; object-fit:cover;
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* ================= BENEFITS ================= */
+.haul-benefits { padding:60px 10%; max-width:1000px; margin:0 auto; }
+.haul-benefits h2 { font-size:2rem; margin-bottom:30px; text-align:center; }
+.haul-benefit-list { list-style-type:disc; padding-left:20px; }
+.benefit-item { margin-bottom:15px; font-size:1.1rem; }
+
+/* ================= CTA ================= */
+.haul-cta { padding:80px 10%; text-align:center; background-color:#1a4f8b; color:#fff; }
+.haul-cta h2 { font-size:2.2rem; margin-bottom:20px; }
+.haul-cta p { font-size:1.2rem; margin-bottom:30px; }
+.haul-cta-buttons { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; }
+
+/* ================= SCROLL REVEAL ================= */
+.haul-reveal { opacity:0; transform:translateY(20px); transition:opacity 1s ease, transform 1s ease; }
+.haul-reveal.visible { opacity:1; transform:translateY(0); }
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:1024px) { .haul-section-content { flex-direction:column; text-align:center; } .haul-section-image { margin-top:30px; } }
+@media(max-width:480px) { .haul-section-text h2 { font-size:1.8rem; } .haul-section-text p, .haul-section-text ul { font-size:0.95rem; } .haul-btn { padding:10px 18px; font-size:0.9rem; } }
+/* HERO ALIGNMENT FIX */
+.haul-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.haul-hero-container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.haul-hero-content {
+  text-align: center;
+  color: #fff;
+  max-width: 750px;
+}
+
+.haul-hero-content h1 {
+  font-size: 3.1rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.haul-hero-content p {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+/* CTA BUTTON COLOR FIX */
+.haul-cta .haul-btn.primary {
+  background-color: #ffffff;
+  color: #1a4f8b;
+}
+
+.haul-cta .haul-btn.primary:hover {
+  background-color: #e6eef6;
+  color: #1a4f8b;
+}
+
+.haul-cta .haul-btn.secondary {
+  background-color: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+.haul-cta .haul-btn.secondary:hover {
+  background-color: #ffffff;
+  color: #1a4f8b;
+}
+/* ===============================
+   HERO & CTA BUTTON – RED STYLE
+   (MATCHING PROVIDED CSS)
+================================ */
+
+/* PRIMARY RED BUTTON */
+.haul-btn.primary {
+  background: #d32f2f;
+  color: #ffffff;
+  border: none;
+  border-radius: 40px;
+  padding: 14px 36px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+/* SECONDARY WHITE BUTTON */
+.haul-btn.secondary {
+  background: #ffffff;
+  color: #d32f2f;
+  border: none;
+  border-radius: 40px;
+  padding: 14px 36px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+/* HOVER EFFECT (SAME AS YOUR HERO CSS) */
+.haul-btn:hover {
+  transform: translateY(-4px);
+}
+
+/* ===============================
+   CTA SECTION BUTTON FIX
+================================ */
+
+.haul-cta .haul-btn.primary {
+  background: #d32f2f;
+  color: #ffffff;
+}
+
+.haul-cta .haul-btn.secondary {
+  background: #ffffff;
+  color: #d32f2f;
+}
+
+.haul-cta .haul-btn:hover {
+  transform: translateY(-4px);
+}

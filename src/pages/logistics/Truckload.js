@@ -20,7 +20,6 @@ function Truckload() {
   const [heroIndex, setHeroIndex] = useState(0);
   const [mainIndex, setMainIndex] = useState(0);
 
-  // Hero slideshow
   useEffect(() => {
     const timer = setInterval(() => {
       setHeroIndex((prev) => (prev + 1) % heroImages.length);
@@ -28,7 +27,6 @@ function Truckload() {
     return () => clearInterval(timer);
   }, []);
 
-  // Main slideshow
   useEffect(() => {
     const timer = setInterval(() => {
       setMainIndex((prev) => (prev + 1) % mainImages.length);
@@ -39,19 +37,18 @@ function Truckload() {
   return (
     <div className="rgm-truckload-page">
 
-      {/* ================= HERO ================= */}
+      {/* HERO */}
       <section className="rgm-truckload-hero">
         <div className="hero-image-box">
           <img src={heroImages[heroIndex]} alt="Truckload Hero" />
         </div>
-
         <div className="hero-content">
           <h1>Flatbed Truckload Solutions</h1>
           <p>Trusted Capacity • Securement Excellence • Nationwide Reach</p>
         </div>
       </section>
 
-      {/* ================= INTRO ================= */}
+      {/* INTRO */}
       <section className="rgm-truckload-intro">
         <p>
           <strong>RGM Truckload</strong> delivers full flatbed solutions built on
@@ -60,10 +57,9 @@ function Truckload() {
         </p>
       </section>
 
-      {/* ================= MAIN SECTION ================= */}
+      {/* MAIN */}
       <section className="rgm-truckload-main">
         <h2 className="main-headline">Truckload Freight in Motion</h2>
-
         <p className="main-subtext">
           <span>Power.</span>
           <span>Precision.</span>
@@ -80,17 +76,15 @@ function Truckload() {
           <div className="feature-item">🔒 Securement First Operations</div>
           <div className="feature-item">🧰 Construction & Industrial Freight</div>
           <div className="feature-item">📡 Live Tracking & Updates</div>
-          <div className="feature-item">🇺🇸 Nationwide Coverage</div>
+          <div className="feature-item">🤝 🇺🇸 🇨🇦 Cross-Border</div>
         </div>
       </section>
 
-      {/* ================= FEATURES ================= */}
+      {/* FEATURES */}
       <section className="rgm-truckload-features">
         <h2>Truckload Capabilities</h2>
-
         <div className="features-grid">
-          <div className="feature-card">48’ & 53’ Flatbeds</div>
-          <div className="feature-card">Step Deck & Conestoga</div>
+          <div className="feature-card">53’ Air-ride Flatbeds</div>
           <div className="feature-card">Oversized & Legal Loads</div>
           <div className="feature-card">Machinery & Equipment</div>
           <div className="feature-card">Steel, Lumber & Materials</div>
@@ -98,7 +92,7 @@ function Truckload() {
         </div>
       </section>
 
-      {/* ================= WHY ================= */}
+      {/* WHY */}
       <section className="rgm-truckload-why">
         <h2>Why RGM Truckload?</h2>
         <p>
@@ -108,11 +102,10 @@ function Truckload() {
         </p>
       </section>
 
-      {/* ================= CTA ================= */}
+      {/* CTA */}
       <section className="rgm-truckload-cta">
         <h2>Let’s Move Your Flatbed Freight</h2>
         <p>Request a quote today and experience reliable flatbed trucking.</p>
-
         <div className="cta-buttons">
           <Link to="/contact" className="cta-primary">Get A Quote</Link>
           <Link to="/contact" className="cta-secondary">Click to Call</Link>

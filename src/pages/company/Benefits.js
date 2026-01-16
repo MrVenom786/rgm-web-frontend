@@ -59,13 +59,11 @@ function Benefits() {
         <h2>Our Benefits & Compensation</h2>
         <ul className="benefits-list">
           <li>💰 Competitive pay with performance-based incentives</li>
-          <li>🏖️ Paid vacation and personal time off</li>
           <li>🏥 Health insurance with wide network access</li>
-          <li>💊 Prescription drug coverage</li>
-          <li>🦷 Dental and vision insurance options</li>
           <li>🔒 Disability coverage for income protection</li>
-          <li>⚰️ Life insurance options for peace of mind</li>
-          <li>💼 401(k) retirement plan with future company match roadmap</li>
+          <li>🌴 Annually travel insurance will be reimbursed for every member.</li>
+          <li>🚚 Weekly pay cheques with no delays</li>
+          <li>📈 if You wait , you will get paid.</li>
         </ul>
 
         <h2>Investing in Our People</h2>
