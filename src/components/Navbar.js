@@ -114,6 +114,10 @@ const Navbar = () => {
               <div className="dropdown">
                 <Link to="/logistics/3pl" onClick={closeMenu}>3PL</Link>
                 <Link to="/logistics/ltl" onClick={closeMenu}>LTL</Link>
+<<<<<<< HEAD
+=======
+              
+>>>>>>> 32cfcb10f7188b974ff2636a2de42cdd761144c5
                 <Link to="/logistics/truckload" onClick={closeMenu}>Truckload</Link>
                 <Link to="/logistics/why-rgm" onClick={closeMenu}>Why RGM Family</Link>
                 <Link to="/logistics/who-we-are" onClick={closeMenu}>Who We Are</Link>
