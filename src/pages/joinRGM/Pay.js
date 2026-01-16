@@ -26,40 +26,53 @@ function Pay() {
 
   const imageReviews = [review1, review2];
 
+  /* LENGTH CONSTANTS (FIX ESLINT) */
+  const heroImagesLength = heroImages.length;
+  const textReviewsLength = textReviews.length;
+  const imageReviewsLength = imageReviews.length;
+
   const [currentHero, setCurrentHero] = useState(0);
   const [currentText, setCurrentText] = useState(0);
   const [currentImage, setCurrentImage] = useState(0);
 
+  /* HERO SLIDER */
   useEffect(() => {
     const i = setInterval(() => {
-      setCurrentHero((p) => (p + 1) % heroImages.length);
+      setCurrentHero((p) => (p + 1) % heroImagesLength);
     }, 5000);
     return () => clearInterval(i);
-  }, []);
+  }, [heroImagesLength]);
 
+  /* TEXT REVIEW SLIDER */
   useEffect(() => {
     const i = setInterval(() => {
-      setCurrentText((p) => (p + 1) % textReviews.length);
+      setCurrentText((p) => (p + 1) % textReviewsLength);
     }, 5000);
     return () => clearInterval(i);
-  }, []);
+  }, [textReviewsLength]);
 
+  /* IMAGE REVIEW SLIDER */
   useEffect(() => {
     const i = setInterval(() => {
-      setCurrentImage((p) => (p + 1) % imageReviews.length);
+      setCurrentImage((p) => (p + 1) % imageReviewsLength);
     }, 6000);
     return () => clearInterval(i);
-  }, []);
+  }, [imageReviewsLength]);
 
+  /* SCROLL REVEAL */
   useEffect(() => {
     const els = document.querySelectorAll(
       ".pay-content p, .pay-content h2, .pay-content ul li, .cta-box, .reviews-section"
     );
+
     const obs = new IntersectionObserver(
       (entries) =>
-        entries.forEach((e) => e.isIntersecting && e.target.classList.add("active")),
+        entries.forEach(
+          (e) => e.isIntersecting && e.target.classList.add("active")
+        ),
       { threshold: 0.2 }
     );
+
     els.forEach((el) => obs.observe(el));
     return () => els.forEach((el) => obs.unobserve(el));
   }, []);
@@ -75,7 +88,9 @@ function Pay() {
         <div className="hero-overlay">
           <h1>Driver Pay at RGM Family</h1>
           <p>Performance-based pay with transparency and trust</p>
-          <Link to="/join/apply" className="hero-apply-btn">Apply Now</Link>
+          <Link to="/join/apply" className="hero-apply-btn">
+            Apply Now
+          </Link>
         </div>
       </section>
 
@@ -127,7 +142,9 @@ function Pay() {
       {/* CTA */}
       <div className="cta-box">
         <h2>Drive It Like You Own It.</h2>
-        <Link to="/join/apply" className="apply-btn">Apply Now</Link>
+        <Link to="/join/apply" className="apply-btn">
+          Apply Now
+        </Link>
       </div>
 
       {/* REVIEWS */}
@@ -135,33 +152,55 @@ function Pay() {
         <h2>RGM Family Driver Reviews</h2>
 
         <div className="reviews-slider">
-          <button className="review-btn left" onClick={() =>
-            setCurrentText((p) => (p - 1 + textReviews.length) % textReviews.length)
-          }>
+          <button
+            className="review-btn left"
+            onClick={() =>
+              setCurrentText(
+                (p) => (p - 1 + textReviewsLength) % textReviewsLength
+              )
+            }
+          >
             &#10094;
           </button>
 
-          <div className="review-text fade">{textReviews[currentText]}</div>
+          <div className="review-text fade">
+            {textReviews[currentText]}
+          </div>
 
-          <button className="review-btn right" onClick={() =>
-            setCurrentText((p) => (p + 1) % textReviews.length)
-          }>
+          <button
+            className="review-btn right"
+            onClick={() =>
+              setCurrentText((p) => (p + 1) % textReviewsLength)
+            }
+          >
             &#10095;
           </button>
         </div>
 
         <div className="reviews-slider image-slider">
-          <button className="review-btn left" onClick={() =>
-            setCurrentImage((p) => (p - 1 + imageReviews.length) % imageReviews.length)
-          }>
+          <button
+            className="review-btn left"
+            onClick={() =>
+              setCurrentImage(
+                (p) => (p - 1 + imageReviewsLength) % imageReviewsLength
+              )
+            }
+          >
             &#10094;
           </button>
 
-          <img src={imageReviews[currentImage]} alt="RGM Review" className="review-img fade" />
+          <img
+            src={imageReviews[currentImage]}
+            alt="RGM Review"
+            className="review-img fade"
+          />
 
-          <button className="review-btn right" onClick={() =>
-            setCurrentImage((p) => (p + 1) % imageReviews.length)
-          }>
+          <button
+            className="review-btn right"
+            onClick={() =>
+              setCurrentImage((p) => (p + 1) % imageReviewsLength)
+            }
+          >
             &#10095;
           </button>
         </div>
