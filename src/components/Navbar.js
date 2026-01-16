@@ -10,12 +10,11 @@ const Navbar = () => {
   // Toggle dropdown on click
   const handleClick = (name) => {
     if (active === name && locked) {
-      // Close if already open by click
       setActive(null);
       setLocked(false);
     } else {
       setActive(name);
-      setLocked(true); // lock it open
+      setLocked(true);
     }
   };
 
@@ -73,8 +72,12 @@ const Navbar = () => {
             {active === "join" && (
               <div className="dropdown">
                 <Link to="/join/apply" onClick={closeMenu}>Apply Today</Link>
-                <Link to="/join/inexperienced" onClick={closeMenu}>Inexperienced Class A Professional Drivers</Link>
-                <Link to="/join/experienced" onClick={closeMenu}>Experienced Class A Professional Drivers</Link>
+                <Link to="/join/inexperienced" onClick={closeMenu}>
+                  Inexperienced Class A Professional Drivers
+                </Link>
+                <Link to="/join/experienced" onClick={closeMenu}>
+                  Experienced Class A Professional Drivers
+                </Link>
                 <Link to="/join/openings" onClick={closeMenu}>Current Openings</Link>
                 <Link to="/join/pay" onClick={closeMenu}>Pay</Link>
                 <Link to="/join/equipment" onClick={closeMenu}>Equipment</Link>
@@ -96,7 +99,9 @@ const Navbar = () => {
             {active === "transport" && (
               <div className="dropdown">
                 <Link to="/solutions" onClick={closeMenu}>Solutions</Link>
-                <Link to="/solutions/why-rgm" onClick={closeMenu}>Why RGM Family</Link>
+                <Link to="/solutions/why-rgm" onClick={closeMenu}>
+                  Why RGM Family
+                </Link>
               </div>
             )}
           </li>
@@ -114,13 +119,13 @@ const Navbar = () => {
               <div className="dropdown">
                 <Link to="/logistics/3pl" onClick={closeMenu}>3PL</Link>
                 <Link to="/logistics/ltl" onClick={closeMenu}>LTL</Link>
-<<<<<<< HEAD
-=======
-              
->>>>>>> 32cfcb10f7188b974ff2636a2de42cdd761144c5
                 <Link to="/logistics/truckload" onClick={closeMenu}>Truckload</Link>
-                <Link to="/logistics/why-rgm" onClick={closeMenu}>Why RGM Family</Link>
-                <Link to="/logistics/who-we-are" onClick={closeMenu}>Who We Are</Link>
+                <Link to="/logistics/why-rgm" onClick={closeMenu}>
+                  Why RGM Family
+                </Link>
+                <Link to="/logistics/who-we-are" onClick={closeMenu}>
+                  Who We Are
+                </Link>
               </div>
             )}
           </li>
@@ -136,10 +141,16 @@ const Navbar = () => {
 
             {active === "company" && (
               <div className="dropdown">
-                <Link to="/company/employee-ownership" onClick={closeMenu}>Employee Ownership</Link>
+                <Link to="/company/employee-ownership" onClick={closeMenu}>
+                  Employee Ownership
+                </Link>
                 <Link to="/company/benefits" onClick={closeMenu}>Benefits</Link>
-                <Link to="/company/responsibility" onClick={closeMenu}>Corporate Responsibility</Link>
-                <Link to="/company/founder" onClick={closeMenu}>About RGM Family Founder</Link>
+                <Link to="/company/responsibility" onClick={closeMenu}>
+                  Corporate Responsibility
+                </Link>
+                <Link to="/company/founder" onClick={closeMenu}>
+                  About RGM Family Founder
+                </Link>
               </div>
             )}
           </li>
