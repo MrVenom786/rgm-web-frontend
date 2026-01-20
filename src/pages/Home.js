@@ -31,12 +31,13 @@ const heroImages = [
   hero10,
 ];
 
-function Home() {
+const Home = () => {
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
   const intervalRef = useRef(null);
   const counterRefs = useRef([]);
 
+  /* SLIDESHOW */
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       setCurrent((prev) => (prev + 1) % heroImages.length);
@@ -45,27 +46,26 @@ function Home() {
     return () => clearInterval(intervalRef.current);
   }, []);
 
+  /* SCROLL ANIMATION */
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add("visible");
-          }
-        });
+        entries.forEach(
+          (e) => e.isIntersecting && e.target.classList.add("visible")
+        );
       },
       { threshold: 0.3 }
     );
 
     counterRefs.current.forEach((ref) => ref && observer.observe(ref));
 
-    return () => {
+    return () =>
       counterRefs.current.forEach((ref) => ref && observer.unobserve(ref));
-    };
   }, []);
 
   return (
     <div className="home">
+      {/* HERO */}
       <section className="hero-section">
         {heroImages.map((img, index) => (
           <div
@@ -83,6 +83,7 @@ function Home() {
             </p>
 
             <div className="hero-buttons">
+              {/* ✅ UPDATED LINK */}
               <button
                 className="hero-btn primary"
                 onClick={() => navigate("/haul")}
@@ -111,6 +112,7 @@ function Home() {
         </div>
       </section>
 
+      {/* WHY CHOOSE */}
       <section className="why-choose">
         <h2>Why Choose RGM?</h2>
         <p>
@@ -118,7 +120,9 @@ function Home() {
           moving securely across borders.
         </p>
 
+        {/* COUNTERS */}
         <div className="counters">
+          {/* SATISFIED CUSTOMERS */}
           <div
             className="counter fade-in"
             ref={(el) => (counterRefs.current[0] = el)}
@@ -127,8 +131,12 @@ function Home() {
               <CountUp end={500} duration={4} />+
             </h3>
             <p>Satisfied Customers</p>
+            <div className="counter-bar">
+              <div className="counter-bar-fill" style={{ width: "100%" }} />
+            </div>
           </div>
 
+          {/* DELIGHTED BUSINESS PARTNERS */}
           <div
             className="counter fade-in"
             ref={(el) => (counterRefs.current[1] = el)}
@@ -137,9 +145,13 @@ function Home() {
               <CountUp end={50} duration={3} />+
             </h3>
             <p>Delighted Business Partners</p>
+            <div className="counter-bar partner">
+              <div className="counter-bar-fill partner-fill" />
+            </div>
           </div>
         </div>
 
+        {/* CERTIFICATIONS */}
         <div className="certifications">
           <div
             className="cert-card fade-in"
@@ -173,6 +185,6 @@ function Home() {
       <Footer />
     </div>
   );
-}
+};
 
 export default Home;
