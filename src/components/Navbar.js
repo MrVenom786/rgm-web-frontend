@@ -117,7 +117,6 @@ const Navbar = () => {
 
             {active === "logistics" && (
               <div className="dropdown">
-                <Link to="/logistics/3pl" onClick={closeMenu}>3PL</Link>
                 <Link to="/logistics/ltl" onClick={closeMenu}>LTL</Link>
                 <Link to="/logistics/truckload" onClick={closeMenu}>Truckload</Link>
                 <Link to="/logistics/why-rgm" onClick={closeMenu}>
