@@ -59,11 +59,12 @@ function Benefits() {
         <h2>Our Benefits & Compensation</h2>
         <ul className="benefits-list">
           <li>💰 Competitive pay with performance-based incentives</li>
-          <li>🏥 Health insurance with wide network access</li>
-          <li>🔒 Disability coverage for income protection</li>
+          <li>🏥 Health insurance with wide network access whosoever need it</li>
+          <li>🔒 (Optional) Disability coverage for income protection</li>
           <li>🌴 Annually travel insurance will be reimbursed for every member.</li>
           <li>🚚 Weekly pay cheques with no delays</li>
           <li>📈 if You wait , you will get paid.</li>
+          <li>📚 detention/layover/waiting will be paid</li>
         </ul>
 
         <h2>Investing in Our People</h2>
