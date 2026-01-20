@@ -24,7 +24,6 @@ import Solutions from "./pages/solutions/Solutions";
 import WhyRGM from "./pages/solutions/WhyRGM";
 
 // Logistics
-import ThreePL from "./pages/logistics/ThreePL";
 import LTL from "./pages/logistics/LTL";
 import Truckload from "./pages/logistics/Truckload";
 import LogisticsWhyRGM from "./pages/logistics/WhyRGM";
@@ -68,7 +67,6 @@ function App() {
         <Route path="/solutions/why-rgm" element={<WhyRGM />} />
 
         {/* Logistics */}
-        <Route path="/logistics/3pl" element={<ThreePL />} />
         <Route path="/logistics/ltl" element={<LTL />} />
         <Route path="/logistics/truckload" element={<Truckload />} />
         <Route path="/logistics/why-rgm" element={<LogisticsWhyRGM />} />
