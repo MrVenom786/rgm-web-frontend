@@ -69,7 +69,7 @@ const Footer = () => {
 
       <div className="footer-bottom">
         <p>
-          &copy; {new Date().getFullYear()} RGM Trucking. All rights reserved.
+          &copy; {new Date().getFullYear()} RGM haul inc. All rights reserved.
         </p>
 
         <p>
