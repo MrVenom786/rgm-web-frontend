@@ -23,7 +23,12 @@ function ApplyToday() {
     email: "",
     confirmEmail: "",
     consent: false,
-    license: ""
+    license: "",
+
+    // FILES (MANDATORY)
+    licenseFile: null,
+    immigrationFile: null,
+    otherDocument: null
   });
 
   const [loading, setLoading] = useState(false);
@@ -39,15 +44,24 @@ function ApplyToday() {
   };
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type, checked, files } = e.target;
+
+    /* FILE HANDLING */
+    if (type === "file") {
+      setForm((prev) => ({ ...prev, [name]: files[0] }));
+      setHint("📎 Document uploaded successfully");
+      play(61, 90);
+      return;
+    }
+
     let val = type === "checkbox" ? checked : value;
 
-    /* NAME FIELDS → LETTERS ONLY */
+    /* NAME FIELDS */
     if (["firstName", "middleName", "lastName"].includes(name)) {
       val = val.replace(/[^a-zA-Z\s]/g, "");
     }
 
-    /* NUMBER FIELDS → DIGITS ONLY */
+    /* NUMBER FIELDS */
     if (["primaryPhone", "cellPhone", "ssn", "zip"].includes(name)) {
       val = val.replace(/\D/g, "");
     }
@@ -63,25 +77,19 @@ function ApplyToday() {
         setHint("😊 First name looks good");
         play(0, 30);
       }
-    }
-
-    else if (name === "lastName") {
+    } else if (name === "lastName") {
       setHint("👍 Last name saved");
       play(31, 60);
-    }
-
-    else if (name === "email") {
-      const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
-      if (!emailValid) {
+    } else if (name === "email") {
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      if (!valid) {
         setHint("❌ Email format is invalid");
         play(121, 150);
       } else {
         setHint("📧 Email looks correct");
         play(61, 90);
       }
-    }
-
-    else if (name === "confirmEmail") {
+    } else if (name === "confirmEmail") {
       if (val !== form.email) {
         setHint("❌ Emails don’t match");
         play(121, 150);
@@ -89,34 +97,10 @@ function ApplyToday() {
         setHint("✅ Emails match perfectly");
         play(61, 90);
       }
-    }
-
-    else if (name === "primaryPhone") {
-      if (val.length < 10) {
-        setHint("📱 Phone number must be at least 10 digits");
-        play(121, 150);
-      } else {
-        setHint("📞 Phone number looks valid");
-        play(91, 120);
-      }
-    }
-
-    else if (name === "ssn") {
-      if (val.length !== 9) {
-        setHint("⚠️ SSN must be 9 digits");
-        play(121, 150);
-      } else {
-        setHint("🔐 SSN looks valid");
-        play(91, 120);
-      }
-    }
-
-    else if (name === "consent" && checked) {
+    } else if (name === "consent" && checked) {
       setHint("🎉 Great! You can submit now");
       play(151, 180);
-    }
-
-    else {
+    } else {
       setHint("✍️ Keep going, great job!");
       play(0, 30);
     }
@@ -124,6 +108,14 @@ function ApplyToday() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    /* STRICT DOCUMENT VALIDATION */
+    if (!form.licenseFile || !form.immigrationFile || !form.otherDocument) {
+      setMessage("❌ All documents (License, Immigration & Other) are required");
+      setHint("📂 Please upload all required documents");
+      play(121, 150);
+      return;
+    }
 
     if (form.email !== form.confirmEmail) {
       setMessage("❌ Emails do not match");
@@ -139,47 +131,28 @@ function ApplyToday() {
 
     try {
       setLoading(true);
-      setMessage("");
-      setHint("🚀 Submitting your application...");
+      setHint("🚀 Uploading your application...");
       play(151, 180);
+
+      const formData = new FormData();
+      Object.keys(form).forEach((key) => {
+        formData.append(key, form[key]);
+      });
 
       const res = await fetch("http://localhost:5000/apply", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: formData
       });
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Submission failed");
 
       setMessage("🎉 Application submitted successfully!");
-      setHint("🥳 Your application has been sent!");
+      setHint("🥳 All documents uploaded!");
       play(181, 210);
-
-      setForm({
-        firstName: "",
-        middleName: "",
-        lastName: "",
-        suffix: "",
-        ssn: "",
-        dob: "",
-        address1: "",
-        address2: "",
-        country: "United States",
-        city: "",
-        state: "",
-        zip: "",
-        residence3yrs: "",
-        primaryPhone: "",
-        cellPhone: "",
-        email: "",
-        confirmEmail: "",
-        consent: false,
-        license: ""
-      });
     } catch (err) {
       setMessage(`❌ ${err.message}`);
-      setHint("⚠️ Could not send application. Try again.");
+      setHint("⚠️ Submission failed. Try again.");
       play(121, 150);
     } finally {
       setLoading(false);
@@ -202,17 +175,30 @@ function ApplyToday() {
       </div>
 
       <form className="apply-form" onSubmit={handleSubmit}>
+        {/* PERSONAL INFO */}
         <div className="section-card full">
           <h3>Personal Information</h3>
+
           <input name="firstName" placeholder="First Name *" required value={form.firstName} onChange={handleChange} />
           <input name="middleName" placeholder="Middle Name" value={form.middleName} onChange={handleChange} />
           <input name="lastName" placeholder="Last Name *" required value={form.lastName} onChange={handleChange} />
           <input name="suffix" placeholder="Suffix" value={form.suffix} onChange={handleChange} />
-          <input name="ssn" placeholder="SIN *" required value={form.ssn} onChange={handleChange} />
+          <input name="ssn" placeholder="SIN/HST *" required value={form.ssn} onChange={handleChange} />
           <input type="date" name="dob" required value={form.dob} onChange={handleChange} />
           <input name="license" placeholder="License Number *" required value={form.license} onChange={handleChange} />
+
+          <label>
+            Upload License Photo *
+            <input type="file" name="licenseFile" accept=".jpg,.jpeg,.png,.pdf" required onChange={handleChange} />
+          </label>
+
+          <label>
+            Upload Immigration Document *
+            <input type="file" name="immigrationFile" accept=".jpg,.jpeg,.png,.pdf" required onChange={handleChange} />
+          </label>
         </div>
 
+        {/* ADDRESS */}
         <div className="section-card full">
           <h3>Address</h3>
           <input name="address1" placeholder="Address Line 1 *" required value={form.address1} onChange={handleChange} />
@@ -222,11 +208,19 @@ function ApplyToday() {
           <input name="zip" placeholder="PINCODE *" required value={form.zip} onChange={handleChange} />
         </div>
 
+        {/* CONTACT & DOCS */}
         <div className="section-card full">
           <h3>Contact</h3>
+
           <input name="primaryPhone" placeholder="Primary Phone *" required value={form.primaryPhone} onChange={handleChange} />
           <input name="email" type="email" placeholder="Email *" required value={form.email} onChange={handleChange} />
           <input name="confirmEmail" type="email" placeholder="Confirm Email *" required value={form.confirmEmail} onChange={handleChange} />
+
+          <label>
+            Upload Other Documents *
+            <input type="file" name="otherDocument" accept=".jpg,.jpeg,.png,.pdf" required onChange={handleChange} />
+          </label>
+
           <label className="checkbox-container">
             <input type="checkbox" name="consent" checked={form.consent} onChange={handleChange} />
             I consent to receive communication and confirmation
