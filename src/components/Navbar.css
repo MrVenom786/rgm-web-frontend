@@ -5,12 +5,12 @@
   --light-bg: #f4f7fb;
 }
 
+/* ================= HEADER ================= */
 header {
-  position: relative;   /* or remove position completely */
+  position: relative;
   z-index: 10;
   background: #fff;
 }
-
 
 /* ================= TOP BAR ================= */
 .topbar {
@@ -41,7 +41,7 @@ header {
   color: var(--blue);
 }
 
-/* ================= RIGHT LINKS ================= */
+/* ================= RIGHT LINKS (PRIMARY LINKS) ================= */
 .right-links {
   display: flex;
   align-items: center;
@@ -73,7 +73,7 @@ header {
   width: 100%;
 }
 
-/* ================= APPLY NOW BUTTON ================= */
+/* APPLY NOW BUTTON */
 .black-btn {
   background: var(--blue);
   color: #fff !important;
@@ -152,10 +152,8 @@ header {
   padding: 10px 0;
   min-width: 270px;
   max-width: 340px;
-
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
   z-index: 9999;
-
   animation: dropdownFade 0.3s ease forwards;
 }
 
@@ -179,7 +177,6 @@ header {
   color: var(--blue);
   line-height: 1.35;
   transition: all 0.25s ease;
-
   white-space: normal;
   overflow-wrap: break-word;
 }
@@ -194,4 +191,64 @@ header {
 .right-nav li:last-child .dropdown {
   right: 0;
   left: auto;
+}
+
+/* ================= MOBILE MENU BUTTON ================= */
+.mobile-menu-btn {
+  display: none; /* only visible on mobile */
+  background: none;
+  border: none;
+  font-size: 26px;
+  cursor: pointer;
+  color: var(--blue);
+}
+
+/* ================= MOBILE STYLING ================= */
+@media (max-width: 768px) {
+  /* Primary links remain visible */
+  .right-links {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* Show hamburger button */
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  /* Hide main nav by default */
+  .main-nav {
+    display: none;
+  }
+
+  /* When mobile menu is open */
+  .main-nav.open {
+    display: block;
+    background: #f9faff;
+    padding: 12px 20px;
+  }
+
+  .right-nav {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .right-nav li {
+    width: 100%;
+  }
+
+  /* Dropdown in mobile becomes static and full width */
+  .right-nav li .dropdown {
+    position: static;
+    margin: 0;
+    padding: 8px 0;
+    border-radius: 6px;
+    box-shadow: none;
+    max-width: 100%;
+    background: #eef3ff;
+  }
+
+  .right-nav li .dropdown a {
+    padding: 10px 16px;
+  }
 }
