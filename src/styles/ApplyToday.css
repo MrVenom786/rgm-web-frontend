@@ -183,3 +183,56 @@
   .apply-form { grid-template-columns: 1fr; }
   .character-wrapper { width: 140px; }
 }
+/* ===============================
+   APPLY PAGE – MOBILE FIXES ONLY
+================================ */
+
+/* Prevent horizontal scroll globally */
+body {
+  overflow-x: hidden;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+
+  /* Reduce container padding */
+  .apply-container {
+    padding: 24px 18px;
+    margin: 20px 12px;
+  }
+
+  /* Character stays bottom-right but smaller */
+  .character-wrapper {
+    width: 120px;
+    bottom: 14px;
+    right: 14px;
+  }
+
+  /* Fix speech bubble overflow */
+  .speech-bubble {
+    max-width: 260px;
+    font-size: 14px;
+    padding: 12px 16px;
+
+    white-space: normal;      /* 🔥 KEY FIX */
+    word-break: break-word;  /* prevents overflow */
+    text-align: center;
+  }
+
+  /* Headings scale properly */
+  .apply-container h1 {
+    font-size: 1.6rem;
+  }
+
+  .apply-container p {
+    font-size: 0.95rem;
+  }
+}
+
+/* Extra safety for very small phones */
+@media (max-width: 420px) {
+  .speech-bubble {
+    max-width: 220px;
+    font-size: 13px;
+  }
+}
