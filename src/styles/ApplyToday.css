@@ -9,6 +9,7 @@
   font-family: "Segoe UI", sans-serif;
   position: relative;
   animation: gradientBG 10s ease infinite;
+  background-size: 200% 200%;
 }
 
 /* GRADIENT ANIMATION */
@@ -16,9 +17,6 @@
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
-}
-.apply-container {
-  background-size: 200% 200%;
 }
 
 /* HEADINGS */
@@ -68,6 +66,7 @@
   border: 1px solid #ccc;
   font-size: 15px;
   transition: all 0.3s ease;
+  width: 100%;
 }
 
 .apply-form input:focus,
@@ -79,6 +78,59 @@
   transform: scale(1.02);
 }
 
+/* FILE UPLOAD LABELS */
+.section-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0b3c6d;
+  margin-top: 12px;
+}
+
+/* FILE INPUTS */
+.apply-form input[type="file"] {
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px dashed #c7d2fe;
+  background: #f8faff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+/* FILE INPUT HOVER */
+.apply-form input[type="file"]:hover {
+  background: #eef3ff;
+  border-color: #1a73e8;
+}
+
+/* FILE INPUT FOCUS */
+.apply-form input[type="file"]:focus {
+  outline: none;
+  border-color: #1a73e8;
+  box-shadow: 0 0 8px rgba(26, 115, 232, 0.3);
+}
+
+/* FILE SELECTOR BUTTON */
+.apply-form input[type="file"]::file-selector-button {
+  background: linear-gradient(135deg, #1a73e8, #174ea6);
+  color: #ffffff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 10px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.apply-form input[type="file"]::file-selector-button:hover {
+  background: linear-gradient(135deg, #174ea6, #0b3c6d);
+  transform: scale(1.05);
+}
+
 /* CHECKBOX */
 .checkbox-container {
   display: flex;
@@ -86,7 +138,7 @@
   gap: 10px;
   font-size: 14px;
   color: #333;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 /* BUTTON */
@@ -106,6 +158,11 @@
 .submit-btn:hover {
   transform: translateY(-3px) scale(1.02);
   box-shadow: 0 12px 25px rgba(230,57,70,0.5);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* CHARACTER & SPEECH BUBBLE */
@@ -135,21 +192,19 @@
   transform: translateX(50%);
   background: linear-gradient(135deg, #1a73e8, #174ea6);
   color: #fff;
-  padding: 16px 24px;       /* more padding for bigger bubble */
+  padding: 16px 24px;
   border-radius: 18px;
-  font-size: 16px;           /* bigger font */
-  font-weight: 600;          /* bold for clarity */
-  max-width: 400px;          /* wider width */
-  white-space: nowrap;       /* prevent wrapping */
+  font-size: 16px;
+  font-weight: 600;
+  max-width: 400px;
+  white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;   /* show ... if text overflows */
+  text-overflow: ellipsis;
   text-align: center;
   opacity: 0.95;
   box-shadow: 0 6px 18px rgba(0,0,0,0.22);
   animation: bubblePulse 2s infinite;
 }
-
-
 
 @keyframes bubblePulse {
   0%, 100% { transform: translateX(50%) translateY(0); opacity: 0.95; }
@@ -180,6 +235,110 @@
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
-  .apply-form { grid-template-columns: 1fr; }
-  .character-wrapper { width: 140px; }
+  .character-wrapper {
+    width: 140px;
+  }
+}
+/* ================================
+   INTERACTIVE CONSENT CHECKBOX
+   (LEFT ALIGNED – FINAL VERSION)
+================================ */
+
+/* Container – force left alignment even in grid */
+.apply-form .checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  width: 100%;
+  max-width: 100%;
+
+  margin-top: 16px;
+  padding: 12px 14px;
+
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f8faff, #eef3ff);
+  border: 1px solid #dbe4ff;
+
+  cursor: pointer;
+
+  place-self: start;
+  justify-self: start;
+  align-self: start;
+
+  transition: all 0.35s ease;
+}
+
+/* Hover glow */
+.apply-form .checkbox-container:hover {
+  background: linear-gradient(135deg, #eef3ff, #e3ebff);
+  box-shadow: 0 8px 20px rgba(26, 115, 232, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Checkbox input */
+.apply-form .checkbox-container input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+
+  border-radius: 6px;
+  border: 2px solid #1a73e8;
+  background: #fff;
+
+  display: grid;
+  place-items: center;
+
+  margin: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+/* Checkmark */
+.apply-form .checkbox-container input[type="checkbox"]::after {
+  content: "✓";
+  font-size: 14px;
+  color: white;
+  transform: scale(0);
+  transition: transform 0.2s ease;
+}
+
+/* Checked state */
+.apply-form .checkbox-container input[type="checkbox"]:checked {
+  background: linear-gradient(135deg, #1a73e8, #174ea6);
+  border-color: #1a73e8;
+}
+
+.apply-form .checkbox-container input[type="checkbox"]:checked::after {
+  transform: scale(1);
+}
+
+/* Label text */
+.apply-form .checkbox-container {
+  font-size: 14.5px;
+  font-weight: 500;
+  color: #0b3c6d;
+  gap: 12px;
+}
+
+/* Active press effect */
+.apply-form .checkbox-container:active {
+  transform: scale(0.98);
+}
+
+/* Error highlight (optional – future ready) */
+.apply-form .checkbox-container.error {
+  border-color: #e63946;
+  background: #ffe3e3;
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+  .apply-form .checkbox-container {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
 }
