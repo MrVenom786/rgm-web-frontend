@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import CountUp from "react-countup";
 import { useNavigate } from "react-router-dom";
 
+/* HERO IMAGES */
 import hero1 from "../assets/images/hero/hero1.jpg";
 import hero2 from "../assets/images/hero/hero2.jpg";
 import hero3 from "../assets/images/hero/hero3.jpg";
@@ -15,8 +16,14 @@ import hero8 from "../assets/images/hero/hero8.jpg";
 import hero9 from "../assets/images/hero/hero9.jpg";
 import hero10 from "../assets/images/hero/hero10.jpg";
 
+/* CERTIFICATIONS */
 import carb from "../assets/images/hero/CARB.jpeg";
 import ctpat from "../assets/images/hero/CTPAT.jpeg";
+
+/* WHY RGM SLIDESHOW */
+import gallery64 from "../assets/gallery/images/gallery64.jpg";
+import gallery65 from "../assets/gallery/images/gallery65.jpg";
+import gallery66 from "../assets/gallery/images/gallery66.jpg";
 
 const heroImages = [
   hero1,
@@ -31,41 +38,60 @@ const heroImages = [
   hero10,
 ];
 
+const galleryImages = [gallery64, gallery65, gallery66];
+
 const Home = () => {
   const navigate = useNavigate();
+
+  /* HERO SLIDER */
   const [current, setCurrent] = useState(0);
-  const intervalRef = useRef(null);
+
+  /* WHY RGM SLIDER */
+  const [galleryIndex, setGalleryIndex] = useState(0);
+
   const counterRefs = useRef([]);
 
-  /* SLIDESHOW */
+  /* HERO SLIDESHOW */
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
+    const heroTimer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % heroImages.length);
     }, 5000);
 
-    return () => clearInterval(intervalRef.current);
+    return () => clearInterval(heroTimer);
+  }, []);
+
+  /* WHY RGM IMAGE SLIDESHOW */
+  useEffect(() => {
+    const galleryTimer = setInterval(() => {
+      setGalleryIndex((prev) => (prev + 1) % galleryImages.length);
+    }, 3500);
+
+    return () => clearInterval(galleryTimer);
   }, []);
 
   /* SCROLL ANIMATION */
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach(
-          (e) => e.isIntersecting && e.target.classList.add("visible")
-        );
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
       },
       { threshold: 0.3 }
     );
 
     counterRefs.current.forEach((ref) => ref && observer.observe(ref));
 
-    return () =>
+    return () => {
       counterRefs.current.forEach((ref) => ref && observer.unobserve(ref));
+    };
   }, []);
 
   return (
     <div className="home">
-      {/* HERO */}
+      {/* ================= HERO ================= */}
       <section className="hero-section">
         {heroImages.map((img, index) => (
           <div
@@ -83,7 +109,6 @@ const Home = () => {
             </p>
 
             <div className="hero-buttons">
-              {/* ✅ UPDATED LINK */}
               <button
                 className="hero-btn primary"
                 onClick={() => navigate("/haul")}
@@ -112,7 +137,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* WHY CHOOSE */}
+      {/* ================= WHY CHOOSE RGM ================= */}
       <section className="why-choose">
         <h2>Why Choose RGM?</h2>
         <p>
@@ -120,38 +145,50 @@ const Home = () => {
           moving securely across borders.
         </p>
 
-        {/* COUNTERS */}
-        <div className="counters">
-          {/* SATISFIED CUSTOMERS */}
-          <div
-            className="counter fade-in"
-            ref={(el) => (counterRefs.current[0] = el)}
-          >
-            <h3>
-              <CountUp end={500} duration={4} />+
-            </h3>
-            <p>Satisfied Customers</p>
-            <div className="counter-bar">
-              <div className="counter-bar-fill" style={{ width: "100%" }} />
+        <div className="why-choose-layout">
+          {/* LEFT CONTENT */}
+          <div className="why-choose-left">
+            <div
+              className="counter fade-in"
+              ref={(el) => (counterRefs.current[0] = el)}
+            >
+              <h3>
+                <CountUp end={500} duration={4} />+
+              </h3>
+              <p>Satisfied Customers</p>
+              <div className="counter-bar">
+                <div className="counter-bar-fill" />
+              </div>
+            </div>
+
+            <div
+              className="counter fade-in"
+              ref={(el) => (counterRefs.current[1] = el)}
+            >
+              <h3>
+                <CountUp end={50} duration={3} />+
+              </h3>
+              <p>Delighted Business Partners</p>
+              <div className="counter-bar partner">
+                <div className="counter-bar-fill partner-fill" />
+              </div>
             </div>
           </div>
 
-          {/* DELIGHTED BUSINESS PARTNERS */}
-          <div
-            className="counter fade-in"
-            ref={(el) => (counterRefs.current[1] = el)}
-          >
-            <h3>
-              <CountUp end={50} duration={3} />+
-            </h3>
-            <p>Delighted Business Partners</p>
-            <div className="counter-bar partner">
-              <div className="counter-bar-fill partner-fill" />
+          {/* RIGHT SLIDESHOW */}
+          <div className="why-choose-right">
+            <div className="why-slideshow">
+              <img
+                key={galleryIndex}
+                src={galleryImages[galleryIndex]}
+                alt="RGM Fleet & Operations"
+                className="why-slide-image"
+              />
             </div>
           </div>
         </div>
 
-        {/* CERTIFICATIONS */}
+        {/* ================= CERTIFICATIONS ================= */}
         <div className="certifications">
           <div
             className="cert-card fade-in"
