@@ -44,31 +44,47 @@ function Contact() {
         <div className="card slide-in-left">
           <FaPhoneAlt className="icon" />
           <h3>Call Us</h3>
-          <p><a href="tel:+1234567890">+1 437 882 1934</a></p>
+          <p><a href="tel:+14378821934">+1 437 882 1934</a></p>
         </div>
 
         <div className="card slide-in-right">
           <FaEnvelope className="icon" />
           <h3>Email Us</h3>
-          <p><a href="mailto:contact@rgmfamily.com"> email-dispatch@rgminc.co</a></p>
+          <p><a href="mailto:info@rgmline.co">info@rgmline.co</a></p>
         </div>
 
         <div className="card slide-in-left">
           <FaInstagram className="icon" />
           <h3>Instagram</h3>
-          <p><a href="https://www.instagram.com/rgmfamily" target="_blank" rel="noreferrer">@rgmfamily</a></p>
+          <p>
+            <a
+              href="https://www.instagram.com/rgmlinehaul?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+              target="_blank"
+              rel="noreferrer"
+            >
+              @rgmlinehaul
+            </a>
+          </p>
         </div>
 
         <div className="card slide-in-right">
           <FaFacebookF className="icon" />
           <h3>Facebook</h3>
-          <p><a href="https://www.facebook.com/rgmfamily" target="_blank" rel="noreferrer">@rgmfamily</a></p>
+          <p>
+            <a
+              href="https://www.facebook.com/profile.php?id=61575187632473&sk=about"
+              target="_blank"
+              rel="noreferrer"
+            >
+              @Rgmline Haulinc
+            </a>
+          </p>
         </div>
 
         <div className="card slide-in-left">
           <FaTwitter className="icon" />
           <h3>Twitter</h3>
-          <p><a href="https://twitter.com/rgmfamily" target="_blank" rel="noreferrer">@rgmfamily</a></p>
+          <p><a href="https://twitter.com" target="_blank" rel="noreferrer">@rgmfamily</a></p>
         </div>
       </section>
 
