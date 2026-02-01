@@ -6,10 +6,12 @@ import logo from "../assets/logo.png";
 const Navbar = () => {
   const [active, setActive] = useState(null);
   const [locked, setLocked] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Mobile menu toggle
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Toggle dropdown on click
+  // Toggle dropdown on click (DESKTOP ONLY)
   const handleClick = (name) => {
+    if (mobileMenuOpen) return; // ⛔ disable dropdown lock on mobile
+
     if (active === name && locked) {
       setActive(null);
       setLocked(false);
@@ -19,21 +21,19 @@ const Navbar = () => {
     }
   };
 
-  // Open dropdown on hover if not locked
+  // Hover only for desktop
   const handleMouseEnter = (name) => {
-    if (!locked) setActive(name);
+    if (!locked && !mobileMenuOpen) setActive(name);
   };
 
-  // Close dropdown on mouse leave if not locked
   const handleMouseLeave = () => {
-    if (!locked) setActive(null);
+    if (!locked && !mobileMenuOpen) setActive(null);
   };
 
-  // Close all menus
   const closeMenu = () => {
     setActive(null);
     setLocked(false);
-    setMobileMenuOpen(false); // close mobile menu
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -58,10 +58,11 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* MOBILE MENU BUTTON */}
+        {/* MOBILE MENU BUTTON ✅ FIXED */}
         <button
           className="mobile-menu-btn"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          onClick={() => setMobileMenuOpen((prev) => !prev)}
+          aria-label="Toggle menu"
         >
           ☰
         </button>
@@ -70,12 +71,15 @@ const Navbar = () => {
       {/* MAIN NAV */}
       <nav className="main-nav">
         <ul className={`right-nav ${mobileMenuOpen ? "open" : ""}`}>
+          
           {/* JOIN RGM */}
           <li
             onMouseEnter={() => handleMouseEnter("join")}
             onMouseLeave={handleMouseLeave}
           >
-            <span onClick={() => handleClick("join")}>Join the RGM family ▾</span>
+            <span onClick={() => handleClick("join")}>
+              Join the RGM family ▾
+            </span>
             {(active === "join" || mobileMenuOpen) && (
               <div className="dropdown">
                 <Link to="/join/apply" onClick={closeMenu}>Apply Today</Link>
@@ -94,12 +98,14 @@ const Navbar = () => {
             )}
           </li>
 
-          {/* TRANSPORTATION SOLUTIONS */}
+          {/* TRANSPORT */}
           <li
             onMouseEnter={() => handleMouseEnter("transport")}
             onMouseLeave={handleMouseLeave}
           >
-            <span onClick={() => handleClick("transport")}>Transportation Solutions ▾</span>
+            <span onClick={() => handleClick("transport")}>
+              Transportation Solutions ▾
+            </span>
             {(active === "transport" || mobileMenuOpen) && (
               <div className="dropdown">
                 <Link to="/solutions" onClick={closeMenu}>Solutions</Link>
@@ -110,12 +116,14 @@ const Navbar = () => {
             )}
           </li>
 
-          {/* RGM LOGISTICS */}
+          {/* LOGISTICS */}
           <li
             onMouseEnter={() => handleMouseEnter("logistics")}
             onMouseLeave={handleMouseLeave}
           >
-            <span onClick={() => handleClick("logistics")}>RGM Logistics ▾</span>
+            <span onClick={() => handleClick("logistics")}>
+              RGM Logistics ▾
+            </span>
             {(active === "logistics" || mobileMenuOpen) && (
               <div className="dropdown">
                 <Link to="/logistics/ltl" onClick={closeMenu}>LTL</Link>
@@ -126,18 +134,26 @@ const Navbar = () => {
             )}
           </li>
 
-          {/* OUR COMPANY */}
+          {/* COMPANY */}
           <li
             onMouseEnter={() => handleMouseEnter("company")}
             onMouseLeave={handleMouseLeave}
           >
-            <span onClick={() => handleClick("company")}>Our Company ▾</span>
+            <span onClick={() => handleClick("company")}>
+              Our Company ▾
+            </span>
             {(active === "company" || mobileMenuOpen) && (
               <div className="dropdown">
-                <Link to="/company/employee-ownership" onClick={closeMenu}>Employee Ownership</Link>
+                <Link to="/company/employee-ownership" onClick={closeMenu}>
+                  Employee Ownership
+                </Link>
                 <Link to="/company/benefits" onClick={closeMenu}>Benefits</Link>
-                <Link to="/company/responsibility" onClick={closeMenu}>Corporate Responsibility</Link>
-                <Link to="/company/founder" onClick={closeMenu}>About RGM Family Founder</Link>
+                <Link to="/company/responsibility" onClick={closeMenu}>
+                  Corporate Responsibility
+                </Link>
+                <Link to="/company/founder" onClick={closeMenu}>
+                  About RGM Family Founder
+                </Link>
               </div>
             )}
           </li>
