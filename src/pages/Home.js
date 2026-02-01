@@ -23,7 +23,6 @@ import ctpat from "../assets/images/hero/CTPAT.jpeg";
 /* WHY RGM SLIDESHOW */
 import gallery64 from "../assets/gallery/images/gallery64.jpg";
 import gallery65 from "../assets/gallery/images/gallery65.jpg";
-import gallery66 from "../assets/gallery/images/gallery66.jpg";
 
 const heroImages = [
   hero1,
@@ -38,7 +37,7 @@ const heroImages = [
   hero10,
 ];
 
-const galleryImages = [gallery64, gallery65, gallery66];
+const galleryImages = [gallery64, gallery65];
 
 const Home = () => {
   const navigate = useNavigate();
