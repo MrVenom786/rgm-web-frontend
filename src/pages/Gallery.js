@@ -13,7 +13,7 @@ const vidCtx = require.context(
   /\.(mp4)$/
 );
 
-/* SMART CATEGORY DETECTION (WAREHOUSE REMOVED) */
+/* SMART CATEGORY DETECTION */
 const detectCategory = (name) => {
   const n = name.toLowerCase();
   if (n.includes("fleet") || n.includes("truck")) return "Fleet";
@@ -22,20 +22,31 @@ const detectCategory = (name) => {
   return "General";
 };
 
-/* PREPARE MEDIA */
+/* PREPARE IMAGES */
 const images = imgCtx.keys().map((k) => ({
   src: imgCtx(k),
   type: "image",
   category: detectCategory(k),
 }));
 
-const videos = vidCtx.keys().map((k) => ({
-  src: vidCtx(k),
-  type: "video",
-  category: "Videos",
-}));
+/* PREPARE VIDEOS (DEDUPLICATED) */
+const videos = Array.from(
+  new Map(
+    vidCtx.keys().map((k) => {
+      const src = vidCtx(k);
+      return [
+        src,
+        {
+          src,
+          type: "video",
+          category: "Videos",
+        },
+      ];
+    })
+  ).values()
+);
 
-/* FILTER CATEGORIES (WAREHOUSE REMOVED) */
+/* FILTER CATEGORIES */
 const categories = ["All", "Fleet", "Drivers", "On Road", "Videos"];
 
 const Gallery = () => {
@@ -46,11 +57,11 @@ const Gallery = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const videoRef = useRef(null);
 
-  /* VIDEO LOOP AUTOPLAY */
+  /* VIDEO AUTO-LOOP */
   useEffect(() => {
     if (!videos.length) return;
-    const vid = videoRef.current;
 
+    const vid = videoRef.current;
     const handleEnded = () => {
       setCurrentVideo((prev) => (prev + 1) % videos.length);
     };
@@ -59,7 +70,7 @@ const Gallery = () => {
     return () => vid?.removeEventListener("ended", handleEnded);
   }, []);
 
-  /* HEADER SLIDESHOW - REORDER FIRST 20 IMAGES TO END */
+  /* HEADER SLIDESHOW */
   const slideshowImages = [
     ...images.slice(20),
     ...images.slice(0, 20),
@@ -69,7 +80,6 @@ const Gallery = () => {
     const slideInterval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slideshowImages.length);
     }, 4000);
-
     return () => clearInterval(slideInterval);
   }, []);
 
@@ -86,10 +96,8 @@ const Gallery = () => {
     const items = document.querySelectorAll(".gallery-item");
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate");
-          }
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add("animate");
         });
       },
       { threshold: 0.2 }
@@ -101,7 +109,7 @@ const Gallery = () => {
 
   return (
     <div className="gallery-page">
-      {/* HEADER SLIDESHOW (IMAGES ONLY) */}
+      {/* HEADER SLIDESHOW */}
       <section className="header-slideshow">
         {slideshowImages.map((img, i) => (
           <div
@@ -114,13 +122,7 @@ const Gallery = () => {
         <div className="slide-overlay">
           <div>
             <h1 style={{ color: "#1a4f8b" }}>RGM Family</h1>
-            <p
-              style={{
-                fontSize: "1.5rem",
-                marginTop: "8px",
-                color: "#ffffff",
-              }}
-            >
+            <p style={{ fontSize: "1.5rem", marginTop: "8px", color: "#fff" }}>
               Driven by Commitment • Powered by Precision • Delivering Trust Every
               Mile
             </p>
@@ -128,7 +130,7 @@ const Gallery = () => {
         </div>
       </section>
 
-      {/* FILTERS */}
+      {/* FILTER TABS */}
       <div className="gallery-tabs">
         {categories.map((c) => (
           <button
