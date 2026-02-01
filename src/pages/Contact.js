@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Contact.css";
-import { FaInstagram, FaFacebookF, FaTwitter, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
+import { FaInstagram, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 
 /* HERO IMAGES (4 specific images) */
 const heroImages = [
@@ -30,9 +30,7 @@ function Contact() {
         style={{ backgroundImage: `url(${heroImages[currentSlide]})` }}
       >
         <div className="hero-overlay">
-          <h1 className="hero-animated">
-            Get in Touch with RGM Family
-          </h1>
+          <h1 className="hero-animated">Get in Touch with RGM Family</h1>
           <p className="hero-punchline">
             We are here to answer your questions and help you join the RGM family.
           </p>
@@ -44,13 +42,17 @@ function Contact() {
         <div className="card slide-in-left">
           <FaPhoneAlt className="icon" />
           <h3>Call Us</h3>
-          <p><a href="tel:+14378821934">+1 437 882 1934</a></p>
+          <p>
+            <a href="tel:+14378821934">+1 437 882 1934</a>
+          </p>
         </div>
 
         <div className="card slide-in-right">
           <FaEnvelope className="icon" />
           <h3>Email Us</h3>
-          <p><a href="mailto:info@rgmline.co">info@rgmline.co</a></p>
+          <p>
+            <a href="mailto:info@rgmline.co">info@rgmline.co</a>
+          </p>
         </div>
 
         <div className="card slide-in-left">
@@ -65,26 +67,6 @@ function Contact() {
               @rgmlinehaul
             </a>
           </p>
-        </div>
-
-        <div className="card slide-in-right">
-          <FaFacebookF className="icon" />
-          <h3>Facebook</h3>
-          <p>
-            <a
-              href="https://www.facebook.com/profile.php?id=61575187632473&sk=about"
-              target="_blank"
-              rel="noreferrer"
-            >
-              @Rgmline Haulinc
-            </a>
-          </p>
-        </div>
-
-        <div className="card slide-in-left">
-          <FaTwitter className="icon" />
-          <h3>Twitter</h3>
-          <p><a href="https://twitter.com" target="_blank" rel="noreferrer">@rgmfamily</a></p>
         </div>
       </section>
 
