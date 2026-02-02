@@ -33,34 +33,42 @@ const Footer = () => {
         <p>Stay connected and follow us on social media!</p>
 
         <div className="social-icons">
+          {/* FACEBOOK – Personal Profile */}
           <a
-            href="https://www.facebook.com"
+            href="https://www.facebook.com/profile.php?id=61575187632473&sk=about"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="RGM Facebook Profile"
           >
             <FaFacebookF />
           </a>
 
+          {/* INSTAGRAM – RGMLINEHAUL */}
           <a
-            href="https://www.instagram.com"
+            href="https://www.instagram.com/rgmlinehaul?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="RGM Instagram Profile"
           >
             <FaInstagram />
           </a>
 
+          {/* TWITTER */}
           <a
             href="https://twitter.com"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Twitter"
           >
             <FaTwitter />
           </a>
 
+          {/* YOUTUBE */}
           <a
             href="https://www.youtube.com"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="YouTube"
           >
             <FaYoutube />
           </a>
@@ -74,8 +82,8 @@ const Footer = () => {
 
         <p>
           Contact:&nbsp;
-          <a href="mailto:email-dispatch@rgminc.co">
-            email-dispatch@rgminc.co
+          <a href="mailto:info@rgminc.co">
+            info@rgminc.co
           </a>
           &nbsp;|&nbsp;
           <a href="tel:+14378821934">+1 437 882 1934</a>
