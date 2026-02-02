@@ -4,16 +4,14 @@ import "./Navbar.css";
 import logo from "../assets/logo.png";
 
 const Navbar = () => {
-  const [active, setActive] = useState(null);
+  const [active, setActive] = useState(null); // desktop hover
   const [locked, setLocked] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileSubMenu, setMobileSubMenu] = useState(null); // ✅ NEW
 
-  // ✅ mobile-only sub menu toggle
-  const [mobileSubOpen, setMobileSubOpen] = useState(false);
-
-  /* ================= DESKTOP LOGIC ================= */
-
+  /* ================= DESKTOP ================= */
   const handleClick = (name) => {
-    if (window.innerWidth <= 768) return;
+    if (mobileMenuOpen) return;
 
     if (active === name && locked) {
       setActive(null);
@@ -25,21 +23,28 @@ const Navbar = () => {
   };
 
   const handleMouseEnter = (name) => {
-    if (!locked && window.innerWidth > 768) {
-      setActive(name);
-    }
+    if (!locked && !mobileMenuOpen) setActive(name);
   };
 
   const handleMouseLeave = () => {
-    if (!locked && window.innerWidth > 768) {
-      setActive(null);
-    }
+    if (!locked && !mobileMenuOpen) setActive(null);
   };
 
-  const closeAll = () => {
+  /* ================= MOBILE ================= */
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen((prev) => !prev);
+    setMobileSubMenu(null); // close all submenus
+  };
+
+  const toggleMobileSubMenu = (name) => {
+    setMobileSubMenu((prev) => (prev === name ? null : name));
+  };
+
+  const closeMenu = () => {
     setActive(null);
     setLocked(false);
-    setMobileSubOpen(false);
+    setMobileMenuOpen(false);
+    setMobileSubMenu(null);
   };
 
   return (
@@ -53,31 +58,27 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* PRIMARY LINKS (ALWAYS VISIBLE) */}
         <div className="right-links">
-          <Link to="/" onClick={closeAll}>Home</Link>
-          <Link to="/careers" onClick={closeAll}>Careers</Link>
-          <Link to="/gallery" onClick={closeAll}>Gallery</Link>
-          <Link to="/contact" onClick={closeAll}>Contact</Link>
-          <Link className="black-btn" to="/join/apply" onClick={closeAll}>
+          <Link to="/" onClick={closeMenu}>Home</Link>
+          <Link to="/careers" onClick={closeMenu}>Careers</Link>
+          <Link to="/gallery" onClick={closeMenu}>Gallery</Link>
+          <Link to="/contact" onClick={closeMenu}>Contact</Link>
+          <Link className="black-btn" to="/join/apply" onClick={closeMenu}>
             Apply Now
           </Link>
         </div>
-      </div>
 
-      {/* ================= MOBILE SUB NAV BUTTON ================= */}
-      <div className="mobile-sub-toggle">
         <button
           className="mobile-menu-btn"
-          onClick={() => setMobileSubOpen((prev) => !prev)}
-          aria-label="Toggle sub menu"
+          onClick={toggleMobileMenu}
+          aria-label="Toggle menu"
         >
           ☰
         </button>
       </div>
 
       {/* ================= MAIN NAV ================= */}
-      <nav className={`main-nav ${mobileSubOpen ? "open" : ""}`}>
+      <nav className={`main-nav ${mobileMenuOpen ? "open" : ""}`}>
         <ul className="right-nav">
 
           {/* JOIN RGM */}
@@ -85,23 +86,30 @@ const Navbar = () => {
             onMouseEnter={() => handleMouseEnter("join")}
             onMouseLeave={handleMouseLeave}
           >
-            <span onClick={() => handleClick("join")}>
+            <span
+              onClick={() =>
+                mobileMenuOpen
+                  ? toggleMobileSubMenu("join")
+                  : handleClick("join")
+              }
+            >
               Join the RGM family ▾
             </span>
-            {(active === "join" || mobileSubOpen) && (
+
+            {(active === "join" || mobileSubMenu === "join") && (
               <div className="dropdown">
-                <Link to="/join/apply" onClick={closeAll}>Apply Today</Link>
-                <Link to="/join/inexperienced" onClick={closeAll}>
+                <Link to="/join/apply" onClick={closeMenu}>Apply Today</Link>
+                <Link to="/join/inexperienced" onClick={closeMenu}>
                   Inexperienced Class A Professional Drivers
                 </Link>
-                <Link to="/join/experienced" onClick={closeAll}>
+                <Link to="/join/experienced" onClick={closeMenu}>
                   Experienced Class A Professional Drivers
                 </Link>
-                <Link to="/join/openings" onClick={closeAll}>Current Openings</Link>
-                <Link to="/join/pay" onClick={closeAll}>Pay</Link>
-                <Link to="/join/equipment" onClick={closeAll}>Equipment</Link>
-                <Link to="/join/benefits" onClick={closeAll}>Benefits</Link>
-                <Link to="/join/cdl-schools" onClick={closeAll}>CDL Schools</Link>
+                <Link to="/join/openings" onClick={closeMenu}>Current Openings</Link>
+                <Link to="/join/pay" onClick={closeMenu}>Pay</Link>
+                <Link to="/join/equipment" onClick={closeMenu}>Equipment</Link>
+                <Link to="/join/benefits" onClick={closeMenu}>Benefits</Link>
+                <Link to="/join/cdl-schools" onClick={closeMenu}>CDL Schools</Link>
               </div>
             )}
           </li>
@@ -111,13 +119,20 @@ const Navbar = () => {
             onMouseEnter={() => handleMouseEnter("transport")}
             onMouseLeave={handleMouseLeave}
           >
-            <span onClick={() => handleClick("transport")}>
+            <span
+              onClick={() =>
+                mobileMenuOpen
+                  ? toggleMobileSubMenu("transport")
+                  : handleClick("transport")
+              }
+            >
               Transportation Solutions ▾
             </span>
-            {(active === "transport" || mobileSubOpen) && (
+
+            {(active === "transport" || mobileSubMenu === "transport") && (
               <div className="dropdown">
-                <Link to="/solutions" onClick={closeAll}>Solutions</Link>
-                <Link to="/solutions/why-rgm" onClick={closeAll}>
+                <Link to="/solutions" onClick={closeMenu}>Solutions</Link>
+                <Link to="/solutions/why-rgm" onClick={closeMenu}>
                   Why RGM Family
                 </Link>
               </div>
@@ -129,15 +144,22 @@ const Navbar = () => {
             onMouseEnter={() => handleMouseEnter("logistics")}
             onMouseLeave={handleMouseLeave}
           >
-            <span onClick={() => handleClick("logistics")}>
+            <span
+              onClick={() =>
+                mobileMenuOpen
+                  ? toggleMobileSubMenu("logistics")
+                  : handleClick("logistics")
+              }
+            >
               RGM Logistics ▾
             </span>
-            {(active === "logistics" || mobileSubOpen) && (
+
+            {(active === "logistics" || mobileSubMenu === "logistics") && (
               <div className="dropdown">
-                <Link to="/logistics/ltl" onClick={closeAll}>LTL</Link>
-                <Link to="/logistics/truckload" onClick={closeAll}>Truckload</Link>
-                <Link to="/logistics/why-rgm" onClick={closeAll}>Why RGM Family</Link>
-                <Link to="/logistics/who-we-are" onClick={closeAll}>Who We Are</Link>
+                <Link to="/logistics/ltl" onClick={closeMenu}>LTL</Link>
+                <Link to="/logistics/truckload" onClick={closeMenu}>Truckload</Link>
+                <Link to="/logistics/why-rgm" onClick={closeMenu}>Why RGM Family</Link>
+                <Link to="/logistics/who-we-are" onClick={closeMenu}>Who We Are</Link>
               </div>
             )}
           </li>
@@ -147,19 +169,26 @@ const Navbar = () => {
             onMouseEnter={() => handleMouseEnter("company")}
             onMouseLeave={handleMouseLeave}
           >
-            <span onClick={() => handleClick("company")}>
+            <span
+              onClick={() =>
+                mobileMenuOpen
+                  ? toggleMobileSubMenu("company")
+                  : handleClick("company")
+              }
+            >
               Our Company ▾
             </span>
-            {(active === "company" || mobileSubOpen) && (
+
+            {(active === "company" || mobileSubMenu === "company") && (
               <div className="dropdown">
-                <Link to="/company/employee-ownership" onClick={closeAll}>
+                <Link to="/company/employee-ownership" onClick={closeMenu}>
                   Employee Ownership
                 </Link>
-                <Link to="/company/benefits" onClick={closeAll}>Benefits</Link>
-                <Link to="/company/responsibility" onClick={closeAll}>
+                <Link to="/company/benefits" onClick={closeMenu}>Benefits</Link>
+                <Link to="/company/responsibility" onClick={closeMenu}>
                   Corporate Responsibility
                 </Link>
-                <Link to="/company/founder" onClick={closeAll}>
+                <Link to="/company/founder" onClick={closeMenu}>
                   About RGM Family Founder
                 </Link>
               </div>
