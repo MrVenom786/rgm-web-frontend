@@ -41,7 +41,7 @@ header {
   color: var(--blue);
 }
 
-/* ================= RIGHT LINKS (PRIMARY LINKS) ================= */
+/* ================= RIGHT LINKS ================= */
 .right-links {
   display: flex;
   align-items: center;
@@ -54,10 +54,8 @@ header {
   font-size: 15px;
   color: var(--blue);
   position: relative;
-  transition: color 0.3s ease;
 }
 
-/* underline animation */
 .right-links a::after {
   content: "";
   position: absolute;
@@ -81,17 +79,10 @@ header {
   border-radius: 6px;
   margin-left: 30px;
   font-weight: 700;
-  transition: all 0.3s ease;
 }
 
 .black-btn::after {
   display: none;
-}
-
-.black-btn:hover {
-  background: var(--blue-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(26, 79, 139, 0.35);
 }
 
 /* ================= MAIN NAV ================= */
@@ -111,21 +102,17 @@ header {
   font-weight: 700;
 }
 
-/* NAV ITEM */
 .right-nav li {
   position: relative;
 }
 
-/* MENU LABEL */
 .right-nav li span {
   cursor: pointer;
   color: var(--blue);
   padding-bottom: 8px;
   position: relative;
-  transition: color 0.3s ease;
 }
 
-/* animated underline */
 .right-nav li span::after {
   content: "";
   position: absolute;
@@ -154,31 +141,14 @@ header {
   max-width: 340px;
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
   z-index: 9999;
-  animation: dropdownFade 0.3s ease forwards;
 }
 
-@keyframes dropdownFade {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* DROPDOWN LINKS */
 .dropdown a {
   display: block;
   padding: 12px 18px;
   text-decoration: none;
   font-weight: 500;
   color: var(--blue);
-  line-height: 1.35;
-  transition: all 0.25s ease;
-  white-space: normal;
-  overflow-wrap: break-word;
 }
 
 .dropdown a:hover {
@@ -187,7 +157,6 @@ header {
   color: var(--blue-dark);
 }
 
-/* keep last dropdown inside viewport */
 .right-nav li:last-child .dropdown {
   right: 0;
   left: auto;
@@ -195,7 +164,7 @@ header {
 
 /* ================= MOBILE MENU BUTTON ================= */
 .mobile-menu-btn {
-  display: none; /* only visible on mobile */
+  display: none;
   background: none;
   border: none;
   font-size: 26px;
@@ -203,52 +172,73 @@ header {
   color: var(--blue);
 }
 
-/* ================= MOBILE STYLING ================= */
+/* ================= MOBILE ONLY ================= */
 @media (max-width: 768px) {
-  /* Primary links remain visible */
+
+  /* keep desktop intact */
+  .topbar {
+    padding: 10px 16px;
+  }
+
+  /* logo + text stay aligned */
+  .logo-section {
+    align-items: flex-start;
+  }
+
+  .logo-text h2 {
+    font-size: 16px;
+    white-space: nowrap;
+  }
+
+  /* primary links still visible */
   .right-links {
     gap: 12px;
     flex-wrap: wrap;
   }
 
-  /* Show hamburger button */
-  .mobile-menu-btn {
-    display: block;
+  .right-links a {
+    font-size: 13px;
   }
 
-  /* Hide main nav by default */
+  /* hamburger visible */
+  .mobile-menu-btn {
+    display: block;
+    margin-left: 10px;
+  }
+
+  /* hide nav by default */
   .main-nav {
     display: none;
   }
 
-  /* When mobile menu is open */
+  /* open state */
   .main-nav.open {
     display: block;
+    padding: 10px 16px;
     background: #f9faff;
-    padding: 12px 20px;
   }
 
+  /* stack nav items */
   .right-nav {
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
   }
 
   .right-nav li {
     width: 100%;
   }
 
-  /* Dropdown in mobile becomes static and full width */
+  /* dropdown becomes inline */
   .right-nav li .dropdown {
     position: static;
-    margin: 0;
-    padding: 8px 0;
-    border-radius: 6px;
+    margin-top: 6px;
     box-shadow: none;
-    max-width: 100%;
     background: #eef3ff;
+    border-radius: 6px;
   }
 
   .right-nav li .dropdown a {
-    padding: 10px 16px;
+    padding: 10px 14px;
+    font-size: 14px;
   }
 }
