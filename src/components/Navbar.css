@@ -242,3 +242,63 @@ header {
     font-size: 14px;
   }
 }
+/* ================= MOBILE MENU FIX (NO DESKTOP IMPACT) ================= */
+@media (max-width: 768px) {
+
+  /* Keep topbar normal */
+  header {
+    position: relative;
+  }
+
+  /* Mobile nav overlays page instead of pushing content */
+  .main-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    display: none;
+    z-index: 999;
+  }
+
+  .main-nav.open {
+    display: block;
+    background: #ffffff;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Stack menu items */
+  .right-nav {
+    flex-direction: column;
+    gap: 0;
+    padding: 10px 0;
+  }
+
+  .right-nav li {
+    width: 100%;
+    border-bottom: 1px solid #eef2f7;
+  }
+
+  .right-nav li span {
+    display: block;
+    padding: 14px 20px;
+  }
+
+  /* Mobile dropdowns hidden by default */
+  .right-nav li .dropdown {
+    display: none;
+    position: static;
+    margin: 0;
+    box-shadow: none;
+    border-radius: 0;
+    background: #f4f7fb;
+  }
+
+  /* Show dropdown ONLY when active */
+  .right-nav li .dropdown {
+    display: block;
+  }
+
+  .right-nav li .dropdown a {
+    padding: 12px 24px;
+  }
+}
