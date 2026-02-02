@@ -1,254 +1,175 @@
-/* ================= ROOT COLORS ================= */
-:root {
-  --blue: #1a4f8b;
-  --blue-dark: #123b68;
-  --light-bg: #f4f7fb;
-}
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./Navbar.css";
+import logo from "../assets/logo.png";
 
-/* ================= HEADER ================= */
-header {
-  position: relative;
-  z-index: 10;
-  background: #fff;
-}
+const Navbar = () => {
+  const [active, setActive] = useState(null);
+  const [locked, setLocked] = useState(false);
 
-/* ================= TOP BAR ================= */
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 40px;
-  background: #ffffff;
-  border-bottom: 1px solid #e5e5e5;
-}
+  // ✅ mobile-only sub menu toggle
+  const [mobileSubOpen, setMobileSubOpen] = useState(false);
 
-/* LOGO */
-.logo-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  /* ================= DESKTOP LOGIC ================= */
 
-.logo-img {
-  width: 80px;
-  height: auto;
-}
+  const handleClick = (name) => {
+    if (window.innerWidth <= 768) return;
 
-.logo-text h2 {
-  margin: 6px 0 0;
-  font-size: 22px;
-  font-weight: 900;
-  color: var(--blue);
-}
+    if (active === name && locked) {
+      setActive(null);
+      setLocked(false);
+    } else {
+      setActive(name);
+      setLocked(true);
+    }
+  };
 
-/* ================= RIGHT LINKS (PRIMARY LINKS) ================= */
-.right-links {
-  display: flex;
-  align-items: center;
-}
+  const handleMouseEnter = (name) => {
+    if (!locked && window.innerWidth > 768) {
+      setActive(name);
+    }
+  };
 
-.right-links a {
-  margin-left: 26px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 15px;
-  color: var(--blue);
-  position: relative;
-  transition: color 0.3s ease;
-}
+  const handleMouseLeave = () => {
+    if (!locked && window.innerWidth > 768) {
+      setActive(null);
+    }
+  };
 
-/* underline animation */
-.right-links a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -6px;
-  width: 0;
-  height: 2px;
-  background: var(--blue);
-  transition: width 0.3s ease;
-}
+  const closeAll = () => {
+    setActive(null);
+    setLocked(false);
+    setMobileSubOpen(false);
+  };
 
-.right-links a:hover::after {
-  width: 100%;
-}
+  return (
+    <header>
+      {/* ================= TOP BAR ================= */}
+      <div className="topbar">
+        <div className="logo-section">
+          <img src={logo} alt="RGM Logo" className="logo-img" />
+          <div className="logo-text">
+            <h2>RGM Line Haul Inc.</h2>
+          </div>
+        </div>
 
-/* APPLY NOW BUTTON */
-.black-btn {
-  background: var(--blue);
-  color: #fff !important;
-  padding: 9px 20px;
-  border-radius: 6px;
-  margin-left: 30px;
-  font-weight: 700;
-  transition: all 0.3s ease;
-}
+        {/* PRIMARY LINKS (ALWAYS VISIBLE) */}
+        <div className="right-links">
+          <Link to="/" onClick={closeAll}>Home</Link>
+          <Link to="/careers" onClick={closeAll}>Careers</Link>
+          <Link to="/gallery" onClick={closeAll}>Gallery</Link>
+          <Link to="/contact" onClick={closeAll}>Contact</Link>
+          <Link className="black-btn" to="/join/apply" onClick={closeAll}>
+            Apply Now
+          </Link>
+        </div>
+      </div>
 
-.black-btn::after {
-  display: none;
-}
+      {/* ================= MOBILE SUB NAV BUTTON ================= */}
+      <div className="mobile-sub-toggle">
+        <button
+          className="mobile-menu-btn"
+          onClick={() => setMobileSubOpen((prev) => !prev)}
+          aria-label="Toggle sub menu"
+        >
+          ☰
+        </button>
+      </div>
 
-.black-btn:hover {
-  background: var(--blue-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(26, 79, 139, 0.35);
-}
+      {/* ================= MAIN NAV ================= */}
+      <nav className={`main-nav ${mobileSubOpen ? "open" : ""}`}>
+        <ul className="right-nav">
 
-/* ================= MAIN NAV ================= */
-.main-nav {
-  background: #fff;
-  padding: 18px 40px;
-  border-bottom: 2px solid #eef2f7;
-}
+          {/* JOIN RGM */}
+          <li
+            onMouseEnter={() => handleMouseEnter("join")}
+            onMouseLeave={handleMouseLeave}
+          >
+            <span onClick={() => handleClick("join")}>
+              Join the RGM family ▾
+            </span>
+            {(active === "join" || mobileSubOpen) && (
+              <div className="dropdown">
+                <Link to="/join/apply" onClick={closeAll}>Apply Today</Link>
+                <Link to="/join/inexperienced" onClick={closeAll}>
+                  Inexperienced Class A Professional Drivers
+                </Link>
+                <Link to="/join/experienced" onClick={closeAll}>
+                  Experienced Class A Professional Drivers
+                </Link>
+                <Link to="/join/openings" onClick={closeAll}>Current Openings</Link>
+                <Link to="/join/pay" onClick={closeAll}>Pay</Link>
+                <Link to="/join/equipment" onClick={closeAll}>Equipment</Link>
+                <Link to="/join/benefits" onClick={closeAll}>Benefits</Link>
+                <Link to="/join/cdl-schools" onClick={closeAll}>CDL Schools</Link>
+              </div>
+            )}
+          </li>
 
-.right-nav {
-  margin-left: auto;
-  display: flex;
-  justify-content: flex-end;
-  list-style: none;
-  gap: 42px;
-  font-size: 16px;
-  font-weight: 700;
-}
+          {/* TRANSPORT */}
+          <li
+            onMouseEnter={() => handleMouseEnter("transport")}
+            onMouseLeave={handleMouseLeave}
+          >
+            <span onClick={() => handleClick("transport")}>
+              Transportation Solutions ▾
+            </span>
+            {(active === "transport" || mobileSubOpen) && (
+              <div className="dropdown">
+                <Link to="/solutions" onClick={closeAll}>Solutions</Link>
+                <Link to="/solutions/why-rgm" onClick={closeAll}>
+                  Why RGM Family
+                </Link>
+              </div>
+            )}
+          </li>
 
-/* NAV ITEM */
-.right-nav li {
-  position: relative;
-}
+          {/* LOGISTICS */}
+          <li
+            onMouseEnter={() => handleMouseEnter("logistics")}
+            onMouseLeave={handleMouseLeave}
+          >
+            <span onClick={() => handleClick("logistics")}>
+              RGM Logistics ▾
+            </span>
+            {(active === "logistics" || mobileSubOpen) && (
+              <div className="dropdown">
+                <Link to="/logistics/ltl" onClick={closeAll}>LTL</Link>
+                <Link to="/logistics/truckload" onClick={closeAll}>Truckload</Link>
+                <Link to="/logistics/why-rgm" onClick={closeAll}>Why RGM Family</Link>
+                <Link to="/logistics/who-we-are" onClick={closeAll}>Who We Are</Link>
+              </div>
+            )}
+          </li>
 
-/* MENU LABEL */
-.right-nav li span {
-  cursor: pointer;
-  color: var(--blue);
-  padding-bottom: 8px;
-  position: relative;
-  transition: color 0.3s ease;
-}
+          {/* COMPANY */}
+          <li
+            onMouseEnter={() => handleMouseEnter("company")}
+            onMouseLeave={handleMouseLeave}
+          >
+            <span onClick={() => handleClick("company")}>
+              Our Company ▾
+            </span>
+            {(active === "company" || mobileSubOpen) && (
+              <div className="dropdown">
+                <Link to="/company/employee-ownership" onClick={closeAll}>
+                  Employee Ownership
+                </Link>
+                <Link to="/company/benefits" onClick={closeAll}>Benefits</Link>
+                <Link to="/company/responsibility" onClick={closeAll}>
+                  Corporate Responsibility
+                </Link>
+                <Link to="/company/founder" onClick={closeAll}>
+                  About RGM Family Founder
+                </Link>
+              </div>
+            )}
+          </li>
 
-/* animated underline */
-.right-nav li span::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
-  height: 2px;
-  background: var(--blue);
-  transition: width 0.3s ease;
-}
+        </ul>
+      </nav>
+    </header>
+  );
+};
 
-.right-nav li:hover span::after {
-  width: 100%;
-}
-
-/* ================= DROPDOWN ================= */
-.dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  margin-top: 14px;
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 10px 0;
-  min-width: 270px;
-  max-width: 340px;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
-  z-index: 9999;
-  animation: dropdownFade 0.3s ease forwards;
-}
-
-@keyframes dropdownFade {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* DROPDOWN LINKS */
-.dropdown a {
-  display: block;
-  padding: 12px 18px;
-  text-decoration: none;
-  font-weight: 500;
-  color: var(--blue);
-  line-height: 1.35;
-  transition: all 0.25s ease;
-  white-space: normal;
-  overflow-wrap: break-word;
-}
-
-.dropdown a:hover {
-  background: var(--light-bg);
-  padding-left: 26px;
-  color: var(--blue-dark);
-}
-
-/* keep last dropdown inside viewport */
-.right-nav li:last-child .dropdown {
-  right: 0;
-  left: auto;
-}
-
-/* ================= MOBILE MENU BUTTON ================= */
-.mobile-menu-btn {
-  display: none; /* only visible on mobile */
-  background: none;
-  border: none;
-  font-size: 26px;
-  cursor: pointer;
-  color: var(--blue);
-}
-
-/* ================= MOBILE STYLING ================= */
-@media (max-width: 768px) {
-  /* Primary links remain visible */
-  .right-links {
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  /* Show hamburger button */
-  .mobile-menu-btn {
-    display: block;
-  }
-
-  /* Hide main nav by default */
-  .main-nav {
-    display: none;
-  }
-
-  /* When mobile menu is open */
-  .main-nav.open {
-    display: block;
-    background: #f9faff;
-    padding: 12px 20px;
-  }
-
-  .right-nav {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .right-nav li {
-    width: 100%;
-  }
-
-  /* Dropdown in mobile becomes static and full width */
-  .right-nav li .dropdown {
-    position: static;
-    margin: 0;
-    padding: 8px 0;
-    border-radius: 6px;
-    box-shadow: none;
-    max-width: 100%;
-    background: #eef3ff;
-  }
-
-  .right-nav li .dropdown a {
-    padding: 10px 16px;
-  }
-}
+export default Navbar;
