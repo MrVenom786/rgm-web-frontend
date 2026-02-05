@@ -86,7 +86,7 @@ const Footer = () => {
             info@rgminc.co
           </a>
           &nbsp;|&nbsp;
-          <a href="tel:+14378821934">+1 437 882 1934</a>
+          <a href="tel:+14378821934">+1 437 882 1734</a>
         </p>
       </div>
     </footer>
