@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import "./Gallery.css";
 
 /* AUTO LOAD MEDIA */
@@ -50,7 +50,7 @@ const videos = Array.from(
 const categories = ["All", "Fleet", "Drivers", "On Road", "Videos"];
 
 const Gallery = () => {
-  const [active, setActive] = useState("All");
+  const [activeCategory, setActiveCategory] = useState("All");
   const [lightbox, setLightbox] = useState(null);
   const [videoModal, setVideoModal] = useState(null);
   const [currentVideo, setCurrentVideo] = useState(0);
@@ -59,37 +59,36 @@ const Gallery = () => {
 
   /* VIDEO AUTO-LOOP */
   useEffect(() => {
-    if (!videos.length) return;
-
     const vid = videoRef.current;
+    if (!vid) return;
+
     const handleEnded = () => {
       setCurrentVideo((prev) => (prev + 1) % videos.length);
     };
 
-    vid?.addEventListener("ended", handleEnded);
-    return () => vid?.removeEventListener("ended", handleEnded);
-  }, []);
+    vid.addEventListener("ended", handleEnded);
+    return () => vid.removeEventListener("ended", handleEnded);
+  }, [videos.length]);
 
   /* HEADER SLIDESHOW */
-  const slideshowImages = [
-    ...images.slice(20),
-    ...images.slice(0, 20),
-  ];
+  const slideshowImages = useMemo(
+    () => [...images.slice(20), ...images.slice(0, 20)],
+    []
+  );
 
   useEffect(() => {
     const slideInterval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slideshowImages.length);
     }, 4000);
     return () => clearInterval(slideInterval);
-  }, []);
+  }, [slideshowImages.length]);
 
   /* FILTER MEDIA */
-  const media =
-    active === "All"
-      ? [...videos, ...images]
-      : active === "Videos"
-      ? videos
-      : images.filter((i) => i.category === active);
+  const media = useMemo(() => {
+    if (activeCategory === "All") return [...videos, ...images];
+    if (activeCategory === "Videos") return videos;
+    return images.filter((i) => i.category === activeCategory);
+  }, [activeCategory]);
 
   /* SCROLL ANIMATION */
   useEffect(() => {
@@ -120,13 +119,10 @@ const Gallery = () => {
         ))}
 
         <div className="slide-overlay">
-          <div>
-            <h1 style={{ color: "#1a4f8b" }}>RGM Family</h1>
-            <p style={{ fontSize: "1.5rem", marginTop: "8px", color: "#fff" }}>
-              Driven by Commitment • Powered by Precision • Delivering Trust Every
-              Mile
-            </p>
-          </div>
+          <h1 style={{ color: "#1a4f8b" }}>RGM Family</h1>
+          <p style={{ fontSize: "1.5rem", marginTop: "8px", color: "#fff" }}>
+            Driven by Commitment • Powered by Precision • Delivering Trust Every Mile
+          </p>
         </div>
       </section>
 
@@ -135,8 +131,8 @@ const Gallery = () => {
         {categories.map((c) => (
           <button
             key={c}
-            className={active === c ? "active" : ""}
-            onClick={() => setActive(c)}
+            className={activeCategory === c ? "active" : ""}
+            onClick={() => setActiveCategory(c)}
           >
             {c}
           </button>
@@ -151,7 +147,7 @@ const Gallery = () => {
               <img
                 src={item.src}
                 loading="lazy"
-                alt=""
+                alt={item.category}
                 onClick={() => setLightbox(item.src)}
               />
             ) : (
@@ -177,7 +173,7 @@ const Gallery = () => {
       {/* IMAGE LIGHTBOX */}
       {lightbox && (
         <div className="lightbox" onClick={() => setLightbox(null)}>
-          <img src={lightbox} alt="" />
+          <img src={lightbox} alt="Preview" />
         </div>
       )}
 
