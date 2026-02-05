@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import "../../styles/WhyRGM.css";
 
 import g10 from "../../assets/gallery/images/gallery46.jpg";
@@ -21,7 +20,6 @@ function WhyRGM() {
   const [heroIndex, setHeroIndex] = useState(0);
   const [mainIndex, setMainIndex] = useState(0);
   const sectionsRef = useRef([]);
-  const navigate = useNavigate();
 
   /* SLIDESHOWS */
   useEffect(() => {
@@ -55,13 +53,6 @@ function WhyRGM() {
     sectionsRef.current.forEach((sec) => observer.observe(sec));
   }, []);
 
-  /* APPLY NOW HANDLER (BULLETPROOF) */
-  const handleApplyNow = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    navigate("/join/apply");
-  };
-
   return (
     <div className="why-page">
 
@@ -79,14 +70,6 @@ function WhyRGM() {
             At RGM, you’re not just joining a company — you’re becoming part of a
             family that grows together.
           </p>
-
-          <button
-            className="cta-btn"
-            type="button"
-            onClick={handleApplyNow}
-          >
-            Apply Now
-          </button>
         </div>
       </section>
 
@@ -158,14 +141,6 @@ function WhyRGM() {
           </h3>
 
           <p>Join a company that puts drivers first.</p>
-
-          <button
-            className="cta-btn"
-            type="button"
-            onClick={handleApplyNow}
-          >
-            Apply Now
-          </button>
         </div>
       </section>
 
