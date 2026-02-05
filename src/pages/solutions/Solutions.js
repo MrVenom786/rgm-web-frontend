@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import "../../styles/Solutions.css";
 
 // HERO IMAGES
@@ -47,9 +46,6 @@ function Solutions() {
         <div className="hero-overlay">
           <h1>RGM Transportation Solutions</h1>
           <p>Reliable, scalable, and safety-focused freight solutions built for today’s needs.</p>
-          <Link to="/join/apply" className="hero-apply-btn">
-            Apply Now
-          </Link>
         </div>
       </section>
 
