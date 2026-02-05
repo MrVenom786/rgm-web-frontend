@@ -43,7 +43,7 @@ function Contact() {
           <FaPhoneAlt className="icon" />
           <h3>Call Us</h3>
           <p>
-            <a href="tel:+14378821934">+1 437 882 1934</a>
+            <a href="tel:+14378821934">+1 437 882 1734</a>
           </p>
         </div>
 
@@ -51,7 +51,7 @@ function Contact() {
           <FaEnvelope className="icon" />
           <h3>Email Us</h3>
           <p>
-            <a href="mailto:info@rgmline.co">info@rgmline.co</a>
+            <a href="mailto:info@rgmline.co">info@rgminc.co</a>
           </p>
         </div>
 
