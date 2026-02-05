@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Footer.css";
-import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import { FaFacebookF, FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
   const footerRef = useRef(null);
@@ -52,26 +52,6 @@ const Footer = () => {
           >
             <FaInstagram />
           </a>
-
-          {/* TWITTER */}
-          <a
-            href="https://twitter.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Twitter"
-          >
-            <FaTwitter />
-          </a>
-
-          {/* YOUTUBE */}
-          <a
-            href="https://www.youtube.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="YouTube"
-          >
-            <FaYoutube />
-          </a>
         </div>
       </div>
 
@@ -82,9 +62,7 @@ const Footer = () => {
 
         <p>
           Contact:&nbsp;
-          <a href="mailto:info@rgminc.co">
-            info@rgminc.co
-          </a>
+          <a href="mailto:info@rgminc.co">info@rgminc.co</a>
           &nbsp;|&nbsp;
           <a href="tel:+14378821934">+1 437 882 1734</a>
         </p>
