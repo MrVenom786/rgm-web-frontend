@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/Solutions.css";
+import review1 from "../../assets/reviews/review1.png";
+import review2 from "../../assets/reviews/review2.png";
+
+
 
 // HERO IMAGES
 const heroImages = [
@@ -141,6 +145,46 @@ function Solutions() {
           <li>✔ Customer-First Approach</li>
         </ul>
       </section>
+
+{/* REVIEWS */}
+<section className="solutions-reviews">
+  <h2>What Our Customers Say</h2>
+
+  <div className="review-box">
+    <p className="review-text">“{reviews[currentReview]}”</p>
+    <span className="review-author">— RGM Customer</span>
+  </div>
+
+  {/* REVIEW IMAGES */}
+  <div className="review-images">
+    <img src={review1} alt="CarrierSource Review 1" />
+    <img src={review2} alt="CarrierSource Review 2" />
+  </div>
+
+  {/* DOTS */}
+  <div className="review-dots">
+    {reviews.map((_, i) => (
+      <span
+        key={i}
+        className={i === currentReview ? "dot active" : "dot"}
+        onClick={() => setCurrentReview(i)}
+      />
+    ))}
+  </div>
+
+  {/* SOURCE LINK */}
+  <p className="review-source">
+    Reviews source:{" "}
+    <a
+      href="https://www.carriersource.io/carriers/rgm-line-haul-inc#reviews"
+      target="_blank"
+      rel="noreferrer"
+    >
+      CarrierSource
+    </a>
+  </p>
+</section>
+
 
       {/* CTA */}
       <section className="solutions-cta">
