@@ -91,3 +91,214 @@
 /* GALLERY SLIDESHOW */
 .gallery-item.inactive { opacity: 0.3; }
 .gallery-item.active { opacity: 1; }
+/* ================== REVIEWS SOURCE ================== */
+.review-ref {
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--blue);
+  display: inline-block;
+  padding: 12px 25px;
+  border-radius: 10px;
+  background: rgba(26,79,139,0.08);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  animation: pulseSource 1.8s infinite;
+}
+
+.review-ref a {
+  color: #163f6b;
+  font-weight: bold;
+  text-decoration: underline;
+}
+/* ===== CAREER SOURCE LINK ANIMATION ===== */
+.career-source-link {
+  display: inline-block;
+  margin-top: 18px;
+  font-weight: 600;
+  color: var(--blue);
+  text-decoration: none;
+  position: relative;
+  animation: careerPulse 2.5s infinite;
+}
+
+.career-source-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: var(--blue);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.career-source-link:hover::after {
+  transform: scaleX(1);
+}
+
+@keyframes careerPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.65; }
+}
+/* ================= REVIEWS SECTION ================= */
+
+.solutions-reviews {
+  padding: 70px 20px;
+  text-align: center;
+  background: #f8fbff;
+}
+
+.solutions-reviews h2 {
+  color: var(--blue);
+  margin-bottom: 30px;
+  font-size: 30px;
+}
+
+/* TEXT BOX */
+.review-box {
+  max-width: 650px;
+  margin: 0 auto 35px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.review-text {
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.review-author {
+  display: block;
+  margin-top: 12px;
+  font-weight: bold;
+  color: var(--blue);
+}
+
+/* ================= SLIDER ================= */
+
+.review-slider-wrapper {
+  width: 550px;              /* ✅ fixed proper width */
+  max-width: 95%;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.review-slider {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+}
+
+.review-slide {
+  min-width: 100%;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.review-slide img {
+  width: 100%;
+  height: 300px;             /* ✅ controlled height */
+  object-fit: contain;       /* keeps image ratio */
+  background: #fff;
+  padding: 10px;
+  border-radius: 14px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* ================= DOTS ================= */
+
+.review-dots {
+  margin-top: 18px;
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  margin: 0 6px;
+  background-color: #ccc;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background-color: var(--blue);
+  transform: scale(1.2);
+}
+
+/* ================= SOURCE ================= */
+
+.review-source {
+  margin-top: 20px;
+  font-weight: 600;
+}
+
+.review-source a {
+  color: var(--blue);
+  text-decoration: underline;
+  transition: 0.3s ease;
+}
+
+.review-source a:hover {
+  opacity: 0.7;
+}
+/* ================= SOURCE BADGE ================= */
+
+.review-source {
+  margin-top: 25px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: 30px;
+  background: linear-gradient(45deg, rgba(26,79,139,0.08), rgba(74,111,165,0.15));
+  box-shadow: 0 8px 20px rgba(26,79,139,0.15);
+  animation: floatSource 4s ease-in-out infinite;
+}
+
+.source-label {
+  font-weight: 500;
+  color: #444;
+  font-size: 14px;
+}
+
+.source-link {
+  font-weight: 700;
+  color: var(--blue);
+  text-decoration: none;
+  position: relative;
+  transition: 0.3s ease;
+}
+
+/* animated underline */
+.source-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 2px;
+  background: var(--gradient);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.source-link:hover::after {
+  transform: scaleX(1);
+}
+
+.source-link:hover {
+  transform: translateY(-2px);
+}
+
+/* floating animation */
+@keyframes floatSource {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0px); }
+}
