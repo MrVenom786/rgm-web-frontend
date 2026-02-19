@@ -302,3 +302,37 @@
   50% { transform: translateY(-4px); }
   100% { transform: translateY(0px); }
 }
+/* ================= MOBILE FIX FOR REVIEW SLIDER ================= */
+
+@media (max-width: 600px) {
+
+  .review-slider-wrapper {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .review-slide img {
+    height: 220px;          /* smaller height for mobile */
+    object-fit: contain;    /* keeps full image visible */
+    padding: 6px;
+  }
+
+  .review-box {
+    padding: 18px;
+  }
+
+  .review-text {
+    font-size: 15px;
+  }
+
+  .solutions-reviews h2 {
+    font-size: 24px;
+  }
+
+  .review-source {
+    flex-direction: column;
+    gap: 5px;
+    padding: 8px 14px;
+  }
+
+}
