@@ -22,7 +22,6 @@ function HaulWithRGM() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  /* BOT STATES */
   const [botText, setBotText] = useState("");
   const [fullText, setFullText] = useState(
     "HHi 👋 I’ll help you get a quick rate quote."
@@ -31,7 +30,6 @@ function HaulWithRGM() {
   const lottieRef = useRef(null);
   const typingIndex = useRef(0);
 
-  /* BOT TYPING EFFECT */
   useEffect(() => {
     setBotText("");
     typingIndex.current = 0;
@@ -54,19 +52,16 @@ function HaulWithRGM() {
     }
   };
 
-  /* INPUT HANDLER */
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     let val = type === "checkbox" ? checked : value;
 
-    /* PHONE → DIGITS ONLY */
     if (name === "phone") {
       val = val.replace(/\D/g, "").slice(0, 10);
     }
 
     setForm((prev) => ({ ...prev, [name]: val }));
 
-    /* BOT INTELLIGENCE */
     switch (name) {
       case "companyName":
         setFullText(
@@ -113,7 +108,6 @@ function HaulWithRGM() {
     }
   };
 
-  /* SUBMIT */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -130,11 +124,15 @@ function HaulWithRGM() {
       setFullText(".Submitting your request… 🚚");
       play(150, 180);
 
-      const res = await fetch("http://localhost:5000/rate-quote", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form)
-      });
+      // ✅ UPDATED BACKEND URL (Railway instead of localhost)
+      const res = await fetch(
+        "https://rgm-web-backend-production.up.railway.app/rate-quote",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form)
+        }
+      );
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Failed");
@@ -174,7 +172,6 @@ function HaulWithRGM() {
         and efficiently with RGM Logistics.
       </p>
 
-      {/* BOT */}
       <div className="bot-wrapper">
         <Lottie
           animationData={characterAnimation}
@@ -185,7 +182,6 @@ function HaulWithRGM() {
         <div className="bot-bubble">{botText}</div>
       </div>
 
-      {/* FORM */}
       <form className="haul-form" onSubmit={handleSubmit}>
         <input name="companyName" placeholder="Company Name *" required value={form.companyName} onChange={handleChange} />
         <input name="companyWebsite" placeholder="Company Website *" required value={form.companyWebsite} onChange={handleChange} />
@@ -237,4 +233,3 @@ function HaulWithRGM() {
 }
 
 export default HaulWithRGM;
-
