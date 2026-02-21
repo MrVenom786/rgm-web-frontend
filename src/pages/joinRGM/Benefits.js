@@ -46,8 +46,7 @@ function Benefits() {
         <p>
           RGM is a fast-growing transportation company built with one clear
           mission — <strong>put drivers and employees first</strong>.  
-          Though we are only <strong>1 year established</strong>, our focus on
-          transparency, performance-based growth, and family values sets us apart.
+           Our focus on transparency, performance-based growth and family values sets us apart.
         </p>
 
         <p>
