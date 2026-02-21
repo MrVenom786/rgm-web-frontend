@@ -18,7 +18,7 @@ function CDLSchools() {
 
         <h2>We’re Working on This Page</h2>
         <p>
-          Our CDL Schools page is currently under development as we partner with
+          Our Current Opening page is currently under development as we partner with
           trusted training programs to better support new drivers.
         </p>
 
