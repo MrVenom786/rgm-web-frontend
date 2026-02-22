@@ -29,13 +29,13 @@ body {
   max-width: 1200px;
   margin: 40px auto;
   padding: 40px 48px 120px;
-  background: #fff;
+  background: #ffffff;
   border-radius: 14px;
-  box-shadow: 0 25px 60px rgba(26, 79, 139, 0.15);
+  box-shadow: 0 25px 60px rgba(26, 79, 139, 0.12);
   position: relative;
-  overflow: hidden;
 }
 
+/* Headings */
 .haul-container h1 {
   font-size: 32px;
   margin-bottom: 10px;
@@ -50,19 +50,18 @@ body {
 }
 
 /* ===========================
-   BOT AREA (RIGHT SIDE)
+   BOT AREA
 =========================== */
 .bot-wrapper {
-  position: fixed;              /* 🔥 ALWAYS fixed */
-  right: 24px;                  /* 🔥 inside frame, not touching edge */
-  bottom: 24px;                 /* 🔥 bottom-right corner */
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
   width: 280px;
-  max-width: calc(100vw - 48px);
+  max-width: calc(100vw - 64px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 9999;
-  pointer-events: auto;
+  z-index: 1000;
 }
 
 .bot-animation {
@@ -71,30 +70,30 @@ body {
 }
 
 /* ===========================
-   BOT SPEECH BUBBLE
+   BOT BUBBLE
 =========================== */
 .bot-bubble {
   width: 100%;
-  background: #1a4f8b;
+  background: var(--rgm-blue);
   color: #ffffff;
   padding: 14px 16px;
   border-radius: 14px;
   font-size: 14px;
   line-height: 1.5;
+  text-align: left;
 
-  /* 🔒 TEXT NEVER OVERFLOWS */
   white-space: normal;
   word-break: break-word;
   overflow-wrap: break-word;
-  overflow: hidden;
 
-  box-shadow: 0 12px 30px rgba(26, 79, 139, 0.35);
+  box-shadow: 0 12px 30px rgba(26, 79, 139, 0.3);
+  animation: bubbleFade 0.3s ease;
 }
 
 @keyframes bubbleFade {
   from {
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -110,6 +109,7 @@ body {
   max-width: 720px;
 }
 
+/* Inputs */
 .haul-form input,
 .haul-form select,
 .haul-form textarea {
@@ -128,6 +128,7 @@ body {
   min-height: 120px;
 }
 
+/* Focus state */
 .haul-form input:focus,
 .haul-form select:focus,
 .haul-form textarea:focus {
@@ -137,24 +138,22 @@ body {
 }
 
 /* ===========================
-   CHECKBOX FIX (IMPORTANT)
+   CHECKBOX STYLING
 =========================== */
-.checkbox-line {
+.haul-form label {
   display: flex;
   align-items: flex-start;
   gap: 10px;
   font-size: 14px;
-  color: var(--text-dark);
   margin-bottom: 14px;
-  line-height: 1.5;
+  cursor: pointer;
 }
 
-.checkbox-line input[type="checkbox"] {
+.haul-form input[type="checkbox"] {
   margin-top: 3px;
   width: 16px;
   height: 16px;
   accent-color: var(--rgm-blue);
-  cursor: pointer;
 }
 
 /* ===========================
@@ -181,7 +180,7 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.25s ease;
-  box-shadow: 0 10px 25px rgba(26, 79, 139, 0.3);
+  box-shadow: 0 10px 25px rgba(26, 79, 139, 0.25);
 }
 
 .haul-form button:hover {
@@ -196,12 +195,12 @@ body {
 }
 
 /* ===========================
-   RESPONSIVE SAFETY
+   RESPONSIVE
 =========================== */
 @media (max-width: 1024px) {
   .bot-wrapper {
     position: static;
-    margin: 20px auto 0;
+    margin: 30px auto 0;
   }
 
   .haul-container {
@@ -222,23 +221,8 @@ body {
     font-size: 13px;
   }
 }
-
-/* ===========================
-   SUBTLE PAGE LIFE EFFECTS
-=========================== */
-.haul-form input,
-.haul-form select,
-.haul-form textarea {
-  animation: fadeIn 0.4s ease forwards;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.bot-wrapper {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
 }
