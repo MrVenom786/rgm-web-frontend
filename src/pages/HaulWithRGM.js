@@ -79,16 +79,16 @@ function HaulWithRGM() {
     if (name === "email") {
       const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
       if (!valid && value.length > 3) {
-        setFullText(" .Hmm 🤔 that email looks incorrect.");
+        setFullText(" Hmm 🤔 that email looks incorrect.");
         play(120, 150);
       } else if (valid) {
-        setFullText(" .Perfect! We'll contact you there.");
+        setFullText(" Perfect! We'll contact you there.");
         play(60, 90);
       }
     }
 
     if ((name === "agreeSms" || name === "agreeEmail") && val === true) {
-      setFullText(" .Great 👍 You're ready to submit!");
+      setFullText(" Great 👍 You're ready to submit!");
       play(150, 180);
     }
   };
