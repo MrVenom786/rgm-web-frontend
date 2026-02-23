@@ -32,14 +32,7 @@ function ApplyToday() {
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [hint, setHint] = useState("👋 Hi! I’ll help you fill this form.");
   const lottieRef = useRef();
-
-  const play = (from, to) => {
-    if (lottieRef.current) {
-      lottieRef.current.playSegments([from, to], true);
-    }
-  };
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
@@ -66,16 +59,12 @@ function ApplyToday() {
       return;
     }
 
-    if (!form.consent) {
-      setMessage("❌ Consent is required.");
-      return;
-    }
+    setLoading(true);
+    setMessage("");
 
     try {
-      setLoading(true);
-      setMessage("");
-
       const formData = new FormData();
+
       Object.keys(form).forEach((key) => {
         formData.append(key, form[key]);
       });
@@ -85,14 +74,13 @@ function ApplyToday() {
         body: formData,
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        throw new Error(data.message || "Submission failed");
+        throw new Error("Server error");
       }
 
-      setMessage("🎉 Application submitted successfully!");
+      const data = await response.json();
 
+      setMessage("✅ Application submitted successfully!");
       setForm({
         firstName: "",
         middleName: "",
@@ -117,9 +105,9 @@ function ApplyToday() {
         immigrationFile: null,
         otherDocument: null,
       });
-
     } catch (error) {
-      setMessage("❌ " + error.message);
+      console.error(error);
+      setMessage("❌ Submission failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -127,74 +115,77 @@ function ApplyToday() {
 
   return (
     <div className="apply-container">
-      <h1>Apply Today – Join the RGM Family</h1>
-      <p>Please complete the application below.</p>
-
-      <div className="character-wrapper">
+      <div className="animation-section">
         <Lottie
+          lottieRef={lottieRef}
           animationData={characterAnimation}
           loop
-          lottieRef={lottieRef}
-          className="character-animation"
         />
-        <div className="speech-bubble">{hint}</div>
       </div>
 
-      <form className="apply-form" onSubmit={handleSubmit}>
-        <div className="section-card full">
-          <h3>Personal Information</h3>
+      <form onSubmit={handleSubmit} className="apply-form">
+        <h2>Apply Today</h2>
 
-          <input name="firstName" placeholder="First Name *" required value={form.firstName} onChange={handleChange} />
-          <input name="middleName" placeholder="Middle Name" value={form.middleName} onChange={handleChange} />
-          <input name="lastName" placeholder="Last Name *" required value={form.lastName} onChange={handleChange} />
-          <input name="suffix" placeholder="Suffix" value={form.suffix} onChange={handleChange} />
-          <input name="ssn" placeholder="SIN/HST *" required value={form.ssn} onChange={handleChange} />
-          <input type="date" name="dob" required value={form.dob} onChange={handleChange} />
-          <input name="license" placeholder="License Number *" required value={form.license} onChange={handleChange} />
+        <input
+          name="firstName"
+          placeholder="First Name"
+          value={form.firstName}
+          onChange={handleChange}
+          required
+        />
 
-          <label>
-            Upload License Photo *
-            <input type="file" name="licenseFile" accept=".jpg,.jpeg,.png,.pdf" required onChange={handleChange} />
-          </label>
+        <input
+          name="lastName"
+          placeholder="Last Name"
+          value={form.lastName}
+          onChange={handleChange}
+          required
+        />
 
-          <label>
-            Upload Immigration Document *
-            <input type="file" name="immigrationFile" accept=".jpg,.jpeg,.png,.pdf" required onChange={handleChange} />
-          </label>
-        </div>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={handleChange}
+          required
+        />
 
-        <div className="section-card full">
-          <h3>Address</h3>
-          <input name="address1" placeholder="Address Line 1 *" required value={form.address1} onChange={handleChange} />
-          <input name="address2" placeholder="Address Line 2" value={form.address2} onChange={handleChange} />
-          <input name="city" placeholder="City *" required value={form.city} onChange={handleChange} />
-          <input name="state" placeholder="State *" required value={form.state} onChange={handleChange} />
-          <input name="zip" placeholder="PINCODE *" required value={form.zip} onChange={handleChange} />
-        </div>
+        <input
+          type="email"
+          name="confirmEmail"
+          placeholder="Confirm Email"
+          value={form.confirmEmail}
+          onChange={handleChange}
+          required
+        />
 
-        <div className="section-card full">
-          <h3>Contact</h3>
+        <input
+          type="file"
+          name="licenseFile"
+          onChange={handleChange}
+          required
+        />
 
-          <input name="primaryPhone" placeholder="Primary Phone *" required value={form.primaryPhone} onChange={handleChange} />
-          <input name="email" type="email" placeholder="Email *" required value={form.email} onChange={handleChange} />
-          <input name="confirmEmail" type="email" placeholder="Confirm Email *" required value={form.confirmEmail} onChange={handleChange} />
+        <input
+          type="file"
+          name="immigrationFile"
+          onChange={handleChange}
+          required
+        />
 
-          <label>
-            Upload Other Documents *
-            <input type="file" name="otherDocument" accept=".jpg,.jpeg,.png,.pdf" required onChange={handleChange} />
-          </label>
+        <input
+          type="file"
+          name="otherDocument"
+          onChange={handleChange}
+          required
+        />
 
-          <label className="checkbox-container">
-            <input type="checkbox" name="consent" checked={form.consent} onChange={handleChange} />
-            I consent to receive communication and confirmation
-          </label>
-        </div>
-
-        {message && <div className="form-message">{message}</div>}
-
-        <button className="submit-btn full" type="submit" disabled={loading}>
+        <button type="submit" disabled={loading}>
           {loading ? "Submitting..." : "Submit Application"}
         </button>
+
+        {message && <p className="form-message">{message}</p>}
       </form>
     </div>
   );
