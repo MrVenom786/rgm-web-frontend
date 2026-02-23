@@ -4,7 +4,13 @@ import "../styles/HaulWithRGM.css";
 import characterAnimation from "../assets/animations/character.json";
 
 function HaulWithRGM() {
-  const API_URL = process.env.REACT_APP_API_URL;
+
+  // ✅ Automatically detect backend URL
+  const API_URL =
+    process.env.REACT_APP_API_URL ||
+    (window.location.hostname === "localhost"
+      ? "http://localhost:5000/api"
+      : "https://rgm-web-backend-production.up.railway.app/api");
 
   const [form, setForm] = useState({
     companyName: "",
@@ -26,13 +32,13 @@ function HaulWithRGM() {
 
   const [botText, setBotText] = useState("");
   const [fullText, setFullText] = useState(
-    " .Hi 👋 I’ll help you get a quick rate quote."
+    "Hi 👋 I’ll help you get a quick rate quote."
   );
 
   const lottieRef = useRef(null);
 
   /* ===========================
-     TYPEWRITER EFFECT (FIXED)
+     TYPEWRITER EFFECT
   =========================== */
   useEffect(() => {
     let index = 0;
@@ -70,25 +76,24 @@ function HaulWithRGM() {
       [name]: val,
     }));
 
-    // Smart Bot Reactions
     if (name === "companyName" && value.length > 2) {
-      setFullText(" .Nice! Tell me more about your shipment.");
+      setFullText("Nice! Tell me more about your shipment.");
       play(0, 30);
     }
 
     if (name === "email") {
       const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
       if (!valid && value.length > 3) {
-        setFullText(" Hmm 🤔 that email looks incorrect.");
+        setFullText("Hmm 🤔 that email looks incorrect.");
         play(120, 150);
       } else if (valid) {
-        setFullText(" Perfect! We'll contact you there.");
+        setFullText("Perfect! We'll contact you there.");
         play(60, 90);
       }
     }
 
     if ((name === "agreeSms" || name === "agreeEmail") && val === true) {
-      setFullText(" Great 👍 You're ready to submit!");
+      setFullText("Great 👍 You're ready to submit!");
       play(150, 180);
     }
   };
@@ -99,15 +104,9 @@ function HaulWithRGM() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!API_URL) {
-      setMessage(" .API URL not configured.");
-      setFullText(" .System configuration error.");
-      return;
-    }
-
     if (!form.agreeSms && !form.agreeEmail) {
-      setMessage(" .Please agree to at least one communication option.");
-      setFullText(" .Consent is required before submitting.");
+      setMessage("Please agree to at least one communication option.");
+      setFullText("Consent is required before submitting.");
       play(120, 150);
       return;
     }
@@ -115,7 +114,7 @@ function HaulWithRGM() {
     try {
       setLoading(true);
       setMessage("");
-      setFullText(" .Submitting your request… 🚚");
+      setFullText("Submitting your request… 🚚");
       play(150, 180);
 
       const res = await fetch(`${API_URL}/rate-quote`, {
@@ -130,8 +129,8 @@ function HaulWithRGM() {
         throw new Error(data.message || "Failed");
       }
 
-      setMessage(" .Rate quote submitted successfully!");
-      setFullText(" .All done 🎉 Our team will contact you soon.");
+      setMessage("Rate quote submitted successfully!");
+      setFullText("All done 🎉 Our team will contact you soon.");
       play(180, 210);
 
       setForm({
@@ -148,9 +147,10 @@ function HaulWithRGM() {
         agreeSms: false,
         agreeEmail: false,
       });
+
     } catch (err) {
-      setMessage(" .Something went wrong. Please try again.");
-      setFullText(" .Submission failed. Try again.");
+      setMessage("Something went wrong. Please try again.");
+      setFullText("Submission failed. Try again.");
       play(120, 150);
     } finally {
       setLoading(false);
