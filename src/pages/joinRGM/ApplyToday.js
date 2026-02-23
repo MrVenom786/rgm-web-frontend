@@ -2,10 +2,9 @@ import { useState, useRef } from "react";
 import Lottie from "lottie-react";
 import "../../styles/ApplyToday.css";
 import characterAnimation from "../../assets/animations/character.json";
+import { API_BASE } from "../../api";
 
 function ApplyToday() {
-  const API_URL = process.env.REACT_APP_API_URL;
-
   const [form, setForm] = useState({
     firstName: "",
     middleName: "",
@@ -57,11 +56,6 @@ function ApplyToday() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!API_URL) {
-      setMessage("❌ API URL not configured. Contact developer.");
-      return;
-    }
-
     if (!form.licenseFile || !form.immigrationFile || !form.otherDocument) {
       setMessage("❌ All documents are required.");
       return;
@@ -86,7 +80,7 @@ function ApplyToday() {
         formData.append(key, form[key]);
       });
 
-      const response = await fetch(`${API_URL}/apply`, {
+      const response = await fetch(`${API_BASE}/api/apply`, {
         method: "POST",
         body: formData,
       });
@@ -98,6 +92,7 @@ function ApplyToday() {
       }
 
       setMessage("🎉 Application submitted successfully!");
+
       setForm({
         firstName: "",
         middleName: "",
@@ -122,6 +117,7 @@ function ApplyToday() {
         immigrationFile: null,
         otherDocument: null,
       });
+
     } catch (error) {
       setMessage("❌ " + error.message);
     } finally {
