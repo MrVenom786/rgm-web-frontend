@@ -1,77 +1,122 @@
-/* ===============================
-   MAIN CONTAINER
-================================ */
-
+/* PAGE CONTAINER */
 .apply-container {
-  max-width: 1000px;
-  margin: 50px auto;
+  max-width: 950px;
+  margin: 40px auto;
   padding: 40px;
   background: linear-gradient(135deg, #f5f9ff, #eef3ff);
-  border-radius: 16px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-  display: flex;
-  gap: 40px;
-  align-items: flex-start;
-  justify-content: space-between;
+  border-radius: 14px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
   font-family: "Segoe UI", sans-serif;
+  position: relative;
+  animation: gradientBG 10s ease infinite;
+  background-size: 200% 200%;
 }
 
-/* ===============================
-   ANIMATION SECTION
-================================ */
-
-.animation-section {
-  flex: 1;
-  max-width: 300px;
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.animation-section canvas {
-  width: 100% !important;
-  height: auto !important;
-}
-
-/* ===============================
-   FORM SECTION
-================================ */
-
-.apply-form {
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.apply-form h2 {
+/* HEADINGS */
+.apply-container h1 {
+  text-align: center;
   color: #0b3c6d;
   margin-bottom: 10px;
-  text-align: left;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 1s ease;
 }
 
-/* ===============================
-   INPUTS
-================================ */
+.apply-container p {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  animation: fadeInUp 1s ease 0.2s both;
+}
 
-.apply-form input {
+/* FORM LAYOUT */
+.apply-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* SECTION CARDS */
+.section-card {
+  background: linear-gradient(145deg, #ffffff, #f0f4ff);
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeUp 0.6s ease both;
+}
+
+.section-card.full {
+  width: 100%;
+}
+
+.section-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.section-card h3 {
+  margin-bottom: 18px;
+  margin-top: 0;
+  color: #0b3c6d;
+  border-left: 5px solid #e63946;
+  padding-left: 12px;
+}
+
+/* INPUT SPACING - prevent tight stacking */
+.section-card input,
+.section-card label {
+  display: block;
+  margin-bottom: 14px;
+  width: 100%;
+}
+
+.section-card input:last-of-type,
+.section-card label:last-of-type {
+  margin-bottom: 0;
+}
+
+.section-card label:not(.checkbox-container) {
+  margin-top: 16px;
+}
+
+/* FORM INPUTS */
+.apply-form input,
+.apply-form select {
   padding: 12px 14px;
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 15px;
   transition: all 0.3s ease;
   width: 100%;
+  box-sizing: border-box;
 }
 
-.apply-form input:focus {
+.apply-form input:focus,
+.apply-form select:focus {
   outline: none;
   border-color: #1a73e8;
   box-shadow: 0 0 8px rgba(26, 115, 232, 0.3);
   background: #f0f8ff;
-  transform: scale(1.02);
 }
 
-/* ===============================
-   FILE INPUT STYLING
-================================ */
+/* FILE UPLOAD LABELS */
+.section-card label:not(.checkbox-container) {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0b3c6d;
+}
 
+/* FILE INPUTS */
 .apply-form input[type="file"] {
   padding: 10px;
   border-radius: 8px;
@@ -79,11 +124,18 @@
   background: #f8faff;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 14px;
 }
 
 .apply-form input[type="file"]:hover {
   background: #eef3ff;
   border-color: #1a73e8;
+}
+
+.apply-form input[type="file"]:focus {
+  outline: none;
+  border-color: #1a73e8;
+  box-shadow: 0 0 8px rgba(26, 115, 232, 0.3);
 }
 
 .apply-form input[type="file"]::file-selector-button {
@@ -102,12 +154,78 @@
   background: linear-gradient(135deg, #174ea6, #0b3c6d);
 }
 
-/* ===============================
-   BUTTON
-================================ */
+/* CHECKBOX CONTAINER */
+.apply-form .checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 16px;
+  margin-bottom: 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f8faff, #eef3ff);
+  border: 1px solid #dbe4ff;
+  cursor: pointer;
+  gap: 12px;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: #0b3c6d;
+  transition: all 0.35s ease;
+}
 
-.apply-form button {
-  padding: 14px;
+.apply-form .checkbox-container:hover {
+  background: linear-gradient(135deg, #eef3ff, #e3ebff);
+  box-shadow: 0 8px 20px rgba(26, 115, 232, 0.15);
+  transform: translateY(-1px);
+}
+
+.apply-form .checkbox-container:active {
+  transform: scale(0.98);
+}
+
+.apply-form .checkbox-container input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 2px solid #1a73e8;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.apply-form .checkbox-container input[type="checkbox"]::after {
+  content: "✓";
+  font-size: 14px;
+  color: white;
+  transform: scale(0);
+  transition: transform 0.2s ease;
+}
+
+.apply-form .checkbox-container input[type="checkbox"]:checked {
+  background: linear-gradient(135deg, #1a73e8, #174ea6);
+  border-color: #1a73e8;
+}
+
+.apply-form .checkbox-container input[type="checkbox"]:checked::after {
+  transform: scale(1);
+}
+
+.apply-form .checkbox-container.error {
+  border-color: #e63946;
+  background: #ffe3e3;
+}
+
+/* BUTTON */
+.submit-btn {
+  padding: 15px;
   background: linear-gradient(135deg, #e63946, #d62828);
   color: white;
   font-size: 16px;
@@ -116,63 +234,120 @@
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 6px 15px rgba(230, 57, 70, 0.4);
+  margin-top: 8px;
 }
 
-.apply-form button:hover {
-  transform: translateY(-2px);
+.submit-btn.full {
+  width: 100%;
+}
+
+.submit-btn:hover {
+  transform: translateY(-3px) scale(1.02);
   box-shadow: 0 12px 25px rgba(230, 57, 70, 0.5);
 }
 
-.apply-form button:disabled {
+.submit-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  transform: none;
 }
 
-/* ===============================
-   MESSAGE
-================================ */
+/* CHARACTER & SPEECH BUBBLE - fixed bottom right */
+.character-wrapper {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 180px;
+  z-index: 999;
+  animation: float 3s ease-in-out infinite;
+}
 
+.character-animation {
+  width: 100%;
+  height: auto;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.speech-bubble {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #1a73e8, #174ea6);
+  color: #fff;
+  padding: 16px 24px;
+  border-radius: 18px;
+  font-size: 15px;
+  font-weight: 600;
+  max-width: 280px;
+  white-space: normal;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+  animation: bubblePulse 2s infinite;
+}
+
+@keyframes bubblePulse {
+  0%, 100% { opacity: 0.95; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(-3px); }
+}
+
+/* FORM MESSAGE */
 .form-message {
-  padding: 10px 12px;
+  margin: 16px 0 10px;
+  padding: 12px 14px;
   border-radius: 8px;
   font-weight: bold;
-  animation: fadeIn 0.4s ease;
-}
-
-.form-message:contains("❌") {
+  animation: fadeInUp 0.5s ease both;
   background: #ffe3e3;
   color: #d62828;
 }
 
-.form-message:contains("✅") {
+.form-message.success {
   background: #e6ffed;
   color: #1b8a3e;
 }
 
-/* ===============================
-   ANIMATIONS
-================================ */
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-@keyframes fadeIn {
+@keyframes fadeInUp {
   from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ===============================
-   RESPONSIVE
-================================ */
-
-@media (max-width: 900px) {
+/* RESPONSIVE */
+@media (max-width: 768px) {
   .apply-container {
-    flex-direction: column;
-    align-items: center;
+    margin: 20px auto;
+    padding: 24px;
   }
 
-  .animation-section {
-    max-width: 200px;
+  .character-wrapper {
+    width: 140px;
+    bottom: 15px;
+    right: 15px;
   }
 
-  .apply-form {
-    width: 100%;
+  .speech-bubble {
+    max-width: 220px;
+    font-size: 14px;
+    padding: 12px 18px;
+  }
+
+  .section-card {
+    padding: 20px;
+  }
+
+  .apply-form .checkbox-container {
+    padding: 10px 12px;
+    font-size: 14px;
   }
 }
