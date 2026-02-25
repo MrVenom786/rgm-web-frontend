@@ -2,16 +2,9 @@ import { useState, useRef, useEffect } from "react";
 import Lottie from "lottie-react";
 import "../styles/HaulWithRGM.css";
 import characterAnimation from "../assets/animations/character.json";
+import { API_BASE } from "../api";
 
 function HaulWithRGM() {
-
-  // ✅ Automatically detect backend URL
-  const API_URL =
-    process.env.REACT_APP_API_URL ||
-    (window.location.hostname === "localhost"
-      ? "http://localhost:5000/api"
-      : "https://rgm-web-backend-production.up.railway.app/api");
-
   const [form, setForm] = useState({
     companyName: "",
     companyWebsite: "",
@@ -117,7 +110,7 @@ function HaulWithRGM() {
       setFullText("Submitting your request… 🚚");
       play(150, 180);
 
-      const res = await fetch(`${API_URL}/rate-quote`, {
+      const res = await fetch(`${API_BASE}/api/rate-quote`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
