@@ -223,9 +223,34 @@
   background: #ffe3e3;
 }
 
-/* BUTTON */
+/* Input group wrapper for inline errors */
+.apply-form .input-group {
+  margin-bottom: 14px;
+  width: 100%;
+}
+
+.apply-form .input-group .field-error {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #d62828;
+  font-weight: 500;
+}
+
+.apply-form .input-group input.input-error {
+  border-color: #e63946;
+  background: #fff5f5;
+}
+
+.apply-form .input-group input.input-error:focus {
+  border-color: #e63946;
+  box-shadow: 0 0 8px rgba(230, 57, 70, 0.25);
+}
+
+/* BUTTON – mobile-friendly touch target (min 44px), always clickable */
 .submit-btn {
-  padding: 15px;
+  padding: 15px 20px;
+  min-height: 48px;
   background: linear-gradient(135deg, #e63946, #d62828);
   color: white;
   font-size: 16px;
@@ -235,6 +260,11 @@
   transition: all 0.3s ease;
   box-shadow: 0 6px 15px rgba(230, 57, 70, 0.4);
   margin-top: 8px;
+  position: relative;
+  z-index: 10;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
 .submit-btn.full {
@@ -244,6 +274,10 @@
 .submit-btn:hover {
   transform: translateY(-3px) scale(1.02);
   box-shadow: 0 12px 25px rgba(230, 57, 70, 0.5);
+}
+
+.submit-btn:active {
+  transform: scale(0.98);
 }
 
 .submit-btn:disabled {
@@ -328,6 +362,7 @@
   .apply-container {
     margin: 20px auto;
     padding: 24px;
+    padding-bottom: 200px; /* Space so submit button is not covered by fixed Lottie bot */
   }
 
   .character-wrapper {
@@ -349,5 +384,10 @@
   .apply-form .checkbox-container {
     padding: 10px 12px;
     font-size: 14px;
+  }
+
+  .submit-btn {
+    min-height: 48px;
+    padding: 16px 20px;
   }
 }
