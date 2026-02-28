@@ -167,28 +167,70 @@ body {
 }
 
 /* ===========================
-   SUBMIT BUTTON
+   INPUT GROUP & FIELD ERRORS
 =========================== */
-.haul-form button {
+.haul-form .input-group {
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.haul-form .input-group .field-error {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #c53030;
+  font-weight: 500;
+}
+
+.haul-form .input-group input.input-error {
+  border-color: #e53e3e;
+  background: #fff5f5;
+}
+
+.haul-form .input-group input.input-error:focus {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.2);
+}
+
+/* ===========================
+   SUBMIT BUTTON – mobile-friendly, always clickable
+=========================== */
+.haul-form button,
+.haul-form .submit-btn {
   margin-top: 18px;
+  min-height: 48px;
+  padding: 14px 26px;
   background: var(--rgm-blue);
   color: #fff;
   border: none;
   border-radius: 10px;
-  padding: 14px 26px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.25s ease;
   box-shadow: 0 10px 25px rgba(26, 79, 139, 0.25);
+  position: relative;
+  z-index: 10;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  width: 100%;
+  max-width: 100%;
 }
 
-.haul-form button:hover {
+.haul-form button:hover,
+.haul-form .submit-btn:hover {
   background: var(--rgm-blue-dark);
   transform: translateY(-1px);
 }
 
-.haul-form button:disabled {
+.haul-form button:active,
+.haul-form .submit-btn:active {
+  transform: scale(0.98);
+}
+
+.haul-form button:disabled,
+.haul-form .submit-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
@@ -220,9 +262,11 @@ body {
   .bot-bubble {
     font-size: 13px;
   }
-}
-.bot-wrapper {
-  position: fixed;
-  right: 32px;
-  bottom: 32px;
+
+  /* Ensure submit button stays clickable and has enough touch area on mobile */
+  .haul-form button,
+  .haul-form .submit-btn {
+    min-height: 48px;
+    padding: 16px 20px;
+  }
 }
