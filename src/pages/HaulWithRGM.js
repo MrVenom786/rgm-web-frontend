@@ -3,6 +3,7 @@ import Lottie from "lottie-react";
 import "../styles/HaulWithRGM.css";
 import characterAnimation from "../assets/animations/character.json";
 import { API_BASE } from "../api";
+import { isValidName, isValidPhone, isValidGmail, isValidWebsiteWww } from "../utils/validation";
 
 function HaulWithRGM() {
   const [form, setForm] = useState({
@@ -22,6 +23,7 @@ function HaulWithRGM() {
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({ companyWebsite: "", email: "" });
 
   const [botText, setBotText] = useState("");
   const [fullText, setFullText] = useState(
@@ -69,17 +71,31 @@ function HaulWithRGM() {
       [name]: val,
     }));
 
+    // Clear inline error when user types
+    if (name === "companyWebsite" || name === "email") {
+      setFieldErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+
     if (name === "companyName" && value.length > 2) {
       setFullText("Nice! Tell me more about your shipment.");
       play(0, 30);
     }
 
-    if (name === "email") {
-      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-      if (!valid && value.length > 3) {
-        setFullText("Hmm 🤔 that email looks incorrect.");
+    if (name === "companyWebsite") {
+      if (value.length > 4 && !isValidWebsiteWww(value)) {
+        setFullText("🌐 Use format: www.example.com");
         play(120, 150);
-      } else if (valid) {
+      } else if (value.length > 4 && isValidWebsiteWww(value)) {
+        setFullText("✓ Website looks good!");
+        play(60, 90);
+      }
+    }
+
+    if (name === "email") {
+      if (value.length > 4 && !isValidGmail(value)) {
+        setFullText("📧 Use a Gmail address: yourname@gmail.com");
+        play(120, 150);
+      } else if (isValidGmail(value)) {
         setFullText("Perfect! We'll contact you there.");
         play(60, 90);
       }
@@ -100,6 +116,33 @@ function HaulWithRGM() {
     if (!form.agreeSms && !form.agreeEmail) {
       setMessage("Please agree to at least one communication option.");
       setFullText("Consent is required before submitting.");
+      play(120, 150);
+      return;
+    }
+
+    if (!isValidName(form.name)) {
+      setMessage("Name should contain only letters (no numbers).");
+      setFullText("Name must be letters only.");
+      play(120, 150);
+      return;
+    }
+    if (!isValidPhone(form.phone)) {
+      setMessage("Phone must contain at least 10 digits (no letters).");
+      setFullText("Phone needs at least 10 digits.");
+      play(120, 150);
+      return;
+    }
+    if (!isValidGmail(form.email)) {
+      setMessage("Please enter a valid Gmail address (e.g. yourname@gmail.com).");
+      setFieldErrors((prev) => ({ ...prev, email: "Use format: yourname@gmail.com" }));
+      setFullText("📧 Enter a Gmail address like yourname@gmail.com");
+      play(120, 150);
+      return;
+    }
+    if (!isValidWebsiteWww(form.companyWebsite)) {
+      setMessage("Please enter website in format: www.example.com");
+      setFieldErrors((prev) => ({ ...prev, companyWebsite: "Use format: www.example.com" }));
+      setFullText("🌐 Use format: www.example.com");
       play(120, 150);
       return;
     }
@@ -125,6 +168,7 @@ function HaulWithRGM() {
       setMessage("Rate quote submitted successfully!");
       setFullText("All done 🎉 Our team will contact you soon.");
       play(180, 210);
+      setFieldErrors({ companyWebsite: "", email: "" });
 
       setForm({
         companyName: "",
@@ -180,13 +224,21 @@ function HaulWithRGM() {
           onChange={handleChange}
         />
 
-        <input
-          name="companyWebsite"
-          placeholder="Company Website *"
-          required
-          value={form.companyWebsite}
-          onChange={handleChange}
-        />
+        <div className="input-group">
+          <input
+            name="companyWebsite"
+            placeholder="Company Website (e.g. www.example.com) *"
+            required
+            value={form.companyWebsite}
+            onChange={handleChange}
+            className={fieldErrors.companyWebsite ? "input-error" : ""}
+            aria-invalid={!!fieldErrors.companyWebsite}
+            aria-describedby={fieldErrors.companyWebsite ? "website-error" : undefined}
+          />
+          {fieldErrors.companyWebsite && (
+            <span id="website-error" className="field-error" role="alert">{fieldErrors.companyWebsite}</span>
+          )}
+        </div>
 
         <input
           name="name"
@@ -204,14 +256,22 @@ function HaulWithRGM() {
           onChange={handleChange}
         />
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email *"
-          required
-          value={form.email}
-          onChange={handleChange}
-        />
+        <div className="input-group">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email (Gmail only, e.g. name@gmail.com) *"
+            required
+            value={form.email}
+            onChange={handleChange}
+            className={fieldErrors.email ? "input-error" : ""}
+            aria-invalid={!!fieldErrors.email}
+            aria-describedby={fieldErrors.email ? "email-error" : undefined}
+          />
+          {fieldErrors.email && (
+            <span id="email-error" className="field-error" role="alert">{fieldErrors.email}</span>
+          )}
+        </div>
 
         <textarea
           name="freightDetails"
@@ -243,7 +303,7 @@ function HaulWithRGM() {
 
         {message && <div className="form-message">{message}</div>}
 
-        <button type="submit" disabled={loading}>
+        <button type="submit" className="submit-btn" disabled={loading} aria-label="Get rate quote">
           {loading ? "Submitting..." : "Get Rate Quote"}
         </button>
       </form>
