@@ -3,6 +3,14 @@ import Lottie from "lottie-react";
 import "../../styles/ApplyToday.css";
 import characterAnimation from "../../assets/animations/character.json";
 import { API_BASE } from "../../api";
+import {
+  isValidName,
+  isValidPhone,
+  isValidGmail,
+  isValidCity,
+  isValidState,
+  isValidZip,
+} from "../../utils/validation";
 
 function ApplyToday() {
   const [form, setForm] = useState({
@@ -33,6 +41,7 @@ function ApplyToday() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [hint, setHint] = useState("👋 Hi! I'll help you fill this form.");
+  const [fieldErrors, setFieldErrors] = useState({ email: "", confirmEmail: "" });
   const lottieRef = useRef();
 
   const play = (from, to) => {
@@ -51,6 +60,33 @@ function ApplyToday() {
 
     const val = type === "checkbox" ? checked : value;
     setForm((prev) => ({ ...prev, [name]: val }));
+
+    // Clear inline error when user types
+    if (name === "email" || name === "confirmEmail") {
+      setFieldErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+
+    // Lottie bot hints for email fields (Gmail format)
+    if (name === "email") {
+      if (value.length === 0) {
+        setHint("👋 Hi! I'll help you fill this form.");
+      } else if (value.length > 4 && !isValidGmail(value)) {
+        setHint("📧 Use a Gmail address like: yourname@gmail.com");
+        play(120, 150);
+      } else if (isValidGmail(value)) {
+        setHint("✓ Looks good! Confirm your email below.");
+        play(60, 90);
+      }
+    }
+    if (name === "confirmEmail") {
+      if (form.email && value && value !== form.email) {
+        setHint("⚠️ Emails don't match. Check and try again.");
+        play(120, 150);
+      } else if (form.email && isValidGmail(form.email) && value === form.email) {
+        setHint("✓ Emails match! You're good to go.");
+        play(60, 90);
+      }
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -61,8 +97,53 @@ function ApplyToday() {
       return;
     }
 
+    if (!isValidName(form.firstName)) {
+      setMessage("❌ First name should contain only letters (no numbers).");
+      return;
+    }
+    if (!isValidName(form.lastName)) {
+      setMessage("❌ Last name should contain only letters (no numbers).");
+      return;
+    }
+    if (form.middleName && !isValidName(form.middleName)) {
+      setMessage("❌ Middle name should contain only letters.");
+      return;
+    }
+
+    if (!isValidPhone(form.primaryPhone)) {
+      setMessage("❌ Primary phone must contain at least 10 digits (no letters).");
+      return;
+    }
+    if (form.cellPhone && !isValidPhone(form.cellPhone)) {
+      setMessage("❌ Cell phone must contain at least 10 digits (no letters).");
+      return;
+    }
+
+    if (!isValidGmail(form.email)) {
+      setMessage("❌ Please enter a valid Gmail address (e.g. yourname@gmail.com).");
+      setFieldErrors((prev) => ({ ...prev, email: "Use format: yourname@gmail.com" }));
+      setHint("📧 Enter a Gmail address like yourname@gmail.com");
+      play(120, 150);
+      return;
+    }
     if (form.email !== form.confirmEmail) {
       setMessage("❌ Emails do not match.");
+      setFieldErrors((prev) => ({ ...prev, confirmEmail: "Must match the email above" }));
+      setHint("⚠️ Make sure both email fields match.");
+      play(120, 150);
+      return;
+    }
+
+    if (!isValidCity(form.city)) {
+      setMessage("❌ City should contain only letters.");
+      return;
+    }
+    if (!isValidState(form.state)) {
+      setMessage("❌ State should contain only letters.");
+      return;
+    }
+    if (!isValidZip(form.zip)) {
+      setMessage("❌ PINCODE/ZIP must be at least 3 characters (letters and numbers only).");
       return;
     }
 
@@ -92,6 +173,7 @@ function ApplyToday() {
       }
 
       setMessage("🎉 Application submitted successfully!");
+      setFieldErrors({ email: "", confirmEmail: "" });
       setForm({
         firstName: "",
         middleName: "",
@@ -174,8 +256,38 @@ function ApplyToday() {
           <h3>Contact</h3>
 
           <input name="primaryPhone" placeholder="Primary Phone *" required value={form.primaryPhone} onChange={handleChange} />
-          <input name="email" type="email" placeholder="Email *" required value={form.email} onChange={handleChange} />
-          <input name="confirmEmail" type="email" placeholder="Confirm Email *" required value={form.confirmEmail} onChange={handleChange} />
+          <div className="input-group">
+            <input
+              name="email"
+              type="email"
+              placeholder="Email (Gmail only, e.g. name@gmail.com) *"
+              required
+              value={form.email}
+              onChange={handleChange}
+              className={fieldErrors.email ? "input-error" : ""}
+              aria-invalid={!!fieldErrors.email}
+              aria-describedby={fieldErrors.email ? "email-error" : undefined}
+            />
+            {fieldErrors.email && (
+              <span id="email-error" className="field-error" role="alert">{fieldErrors.email}</span>
+            )}
+          </div>
+          <div className="input-group">
+            <input
+              name="confirmEmail"
+              type="email"
+              placeholder="Confirm Email *"
+              required
+              value={form.confirmEmail}
+              onChange={handleChange}
+              className={fieldErrors.confirmEmail ? "input-error" : ""}
+              aria-invalid={!!fieldErrors.confirmEmail}
+              aria-describedby={fieldErrors.confirmEmail ? "confirmEmail-error" : undefined}
+            />
+            {fieldErrors.confirmEmail && (
+              <span id="confirmEmail-error" className="field-error" role="alert">{fieldErrors.confirmEmail}</span>
+            )}
+          </div>
 
           <label>
             Upload Other Documents *
@@ -188,9 +300,13 @@ function ApplyToday() {
           </label>
         </div>
 
-        {message && <div className="form-message">{message}</div>}
+        {message && (
+          <div className={`form-message ${message.startsWith("🎉") ? "success" : ""}`}>
+            {message}
+          </div>
+        )}
 
-        <button className="submit-btn full" type="submit" disabled={loading}>
+        <button className="submit-btn full" type="submit" disabled={loading} aria-label="Submit application">
           {loading ? "Submitting..." : "Submit Application"}
         </button>
       </form>
