@@ -86,10 +86,10 @@ function Solutions() {
           <h2>Linehaul Solutions</h2>
           <p>
             RGM’s Linehaul services support consistent and dependable freight
-            movement across the United States.
+            movement across the United States & Canada.
           </p>
           <ul>
-            <li>48-state coverage</li>
+            <li>48-state of U.S. & 13 of Canada coverage</li>
             <li>Safety-focused operations</li>
             <li>On-time & damage-free delivery</li>
           </ul>
