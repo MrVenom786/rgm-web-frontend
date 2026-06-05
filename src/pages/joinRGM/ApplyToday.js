@@ -2,17 +2,13 @@ import { useState, useRef } from "react";
 import Lottie from "lottie-react";
 import "../../styles/ApplyToday.css";
 import characterAnimation from "../../assets/animations/character.json";
-import { API_BASE } from "../../api";
-import {
-  isValidName,
-  isValidPhone,
-  isValidGmail,
-  isValidCity,
-  isValidState,
-  isValidZip,
-} from "../../utils/validation";
+import { API_URL } from "../../config/apiConfig";
 
 function ApplyToday() {
+  // File size limit: 1 MB
+  const MAX_FILE_SIZE = 1048576; // 1 MB in bytes
+  const ALLOWED_FILE_TYPES = ["application/pdf", "image/jpeg", "image/png"];
+
   const [form, setForm] = useState({
     firstName: "",
     middleName: "",
@@ -40,8 +36,7 @@ function ApplyToday() {
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [hint, setHint] = useState("👋 Hi! I'll help you fill this form.");
-  const [fieldErrors, setFieldErrors] = useState({ email: "", confirmEmail: "" });
+  const [hint, setHint] = useState("👋 Hi! I’ll help you fill this form.");
   const lottieRef = useRef();
 
   const play = (from, to) => {
@@ -50,100 +45,110 @@ function ApplyToday() {
     }
   };
 
+  // Validate file size and type
+  const validateFile = (file, fileName) => {
+    if (!file) return { valid: false, error: `${fileName} is required.` };
+
+    if (!ALLOWED_FILE_TYPES.includes(file.type)) {
+      return {
+        valid: false,
+        error: `❌ ${fileName} must be a PDF or JPEG file. Got: ${file.type || "Unknown format"}`,
+      };
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+      const sizeMB = (file.size / 1048576).toFixed(2);
+      return {
+        valid: false,
+        error: `❌ ${fileName} is too large (${sizeMB} MB). Maximum allowed size is 1 MB.`,
+      };
+    }
+
+    return { valid: true, error: null };
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
 
     if (type === "file") {
-      setForm((prev) => ({ ...prev, [name]: files[0] }));
+      const file = files[0];
+      if (file) {
+        // Map field names to readable names
+        const fieldNameMap = {
+          licenseFile: "License Photo",
+          immigrationFile: "Immigration Document",
+          otherDocument: "Other Documents",
+        };
+        const readableName = fieldNameMap[name] || name;
+
+        // Validate the file
+        const validation = validateFile(file, readableName);
+        if (!validation.valid) {
+          setMessage(validation.error);
+          // Reset the file input
+          e.target.value = "";
+          return;
+        }
+
+        // File is valid, clear any previous error message and update form
+        setMessage("");
+        setForm((prev) => ({ ...prev, [name]: file }));
+      }
       return;
     }
 
     const val = type === "checkbox" ? checked : value;
     setForm((prev) => ({ ...prev, [name]: val }));
-
-    // Clear inline error when user types
-    if (name === "email" || name === "confirmEmail") {
-      setFieldErrors((prev) => ({ ...prev, [name]: "" }));
-    }
-
-    // Lottie bot hints for email fields (Gmail format)
-    if (name === "email") {
-      if (value.length === 0) {
-        setHint("👋 Hi! I'll help you fill this form.");
-      } else if (value.length > 4 && !isValidGmail(value)) {
-        setHint("📧 Use a Gmail address like: yourname@gmail.com");
-        play(120, 150);
-      } else if (isValidGmail(value)) {
-        setHint("✓ Looks good! Confirm your email below.");
-        play(60, 90);
-      }
-    }
-    if (name === "confirmEmail") {
-      if (form.email && value && value !== form.email) {
-        setHint("⚠️ Emails don't match. Check and try again.");
-        play(120, 150);
-      } else if (form.email && isValidGmail(form.email) && value === form.email) {
-        setHint("✓ Emails match! You're good to go.");
-        play(60, 90);
-      }
-    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.licenseFile || !form.immigrationFile || !form.otherDocument) {
-      setMessage("❌ All documents are required.");
+    if (!API_URL) {
+      setMessage("❌ API URL not configured. Contact developer.");
       return;
     }
 
-    if (!isValidName(form.firstName)) {
-      setMessage("❌ First name should contain only letters (no numbers).");
-      return;
-    }
-    if (!isValidName(form.lastName)) {
-      setMessage("❌ Last name should contain only letters (no numbers).");
-      return;
-    }
-    if (form.middleName && !isValidName(form.middleName)) {
-      setMessage("❌ Middle name should contain only letters.");
+    // Validate all required documents
+    if (!form.licenseFile) {
+      setMessage("❌ License Photo is required.");
       return;
     }
 
-    if (!isValidPhone(form.primaryPhone)) {
-      setMessage("❌ Primary phone must contain at least 10 digits (no letters).");
-      return;
-    }
-    if (form.cellPhone && !isValidPhone(form.cellPhone)) {
-      setMessage("❌ Cell phone must contain at least 10 digits (no letters).");
+    if (!form.immigrationFile) {
+      setMessage("❌ Immigration Document is required.");
       return;
     }
 
-    if (!isValidGmail(form.email)) {
-      setMessage("❌ Please enter a valid Gmail address (e.g. yourname@gmail.com).");
-      setFieldErrors((prev) => ({ ...prev, email: "Use format: yourname@gmail.com" }));
-      setHint("📧 Enter a Gmail address like yourname@gmail.com");
-      play(120, 150);
+    if (!form.otherDocument) {
+      setMessage("❌ Other Documents are required.");
       return;
     }
+
+    // Validate file sizes and types before submission
+    const licenseValidation = validateFile(form.licenseFile, "License Photo");
+    if (!licenseValidation.valid) {
+      setMessage(licenseValidation.error);
+      return;
+    }
+
+    const immigrationValidation = validateFile(
+      form.immigrationFile,
+      "Immigration Document"
+    );
+    if (!immigrationValidation.valid) {
+      setMessage(immigrationValidation.error);
+      return;
+    }
+
+    const otherValidation = validateFile(form.otherDocument, "Other Documents");
+    if (!otherValidation.valid) {
+      setMessage(otherValidation.error);
+      return;
+    }
+
     if (form.email !== form.confirmEmail) {
       setMessage("❌ Emails do not match.");
-      setFieldErrors((prev) => ({ ...prev, confirmEmail: "Must match the email above" }));
-      setHint("⚠️ Make sure both email fields match.");
-      play(120, 150);
-      return;
-    }
-
-    if (!isValidCity(form.city)) {
-      setMessage("❌ City should contain only letters.");
-      return;
-    }
-    if (!isValidState(form.state)) {
-      setMessage("❌ State should contain only letters.");
-      return;
-    }
-    if (!isValidZip(form.zip)) {
-      setMessage("❌ PINCODE/ZIP must be at least 3 characters (letters and numbers only).");
       return;
     }
 
@@ -156,24 +161,41 @@ function ApplyToday() {
       setLoading(true);
       setMessage("");
 
+      // Check if API URL is configured
+      if (!API_URL || API_URL.trim() === "") {
+        throw new Error("API URL is not configured. Please contact support.");
+      }
+
       const formData = new FormData();
       Object.keys(form).forEach((key) => {
         formData.append(key, form[key]);
       });
 
-      const response = await fetch(`${API_BASE}/api/apply`, {
+      const submitUrl = `${API_URL}/apply`;
+      console.log("Submitting to:", submitUrl);
+
+      const response = await fetch(submitUrl, {
         method: "POST",
         body: formData,
       });
 
-      const data = await response.json();
+      console.log("Response status:", response.status);
+
+      // Try to parse response as JSON
+      let data;
+      try {
+        data = await response.json();
+      } catch (parseError) {
+        console.error("Failed to parse response as JSON:", parseError);
+        data = {};
+      }
 
       if (!response.ok) {
-        throw new Error(data.message || "Submission failed");
+        const errorMessage = data.message || `Server error: ${response.status}`;
+        throw new Error(errorMessage);
       }
 
       setMessage("🎉 Application submitted successfully!");
-      setFieldErrors({ email: "", confirmEmail: "" });
       setForm({
         firstName: "",
         middleName: "",
@@ -199,7 +221,20 @@ function ApplyToday() {
         otherDocument: null,
       });
     } catch (error) {
-      setMessage("❌ " + error.message);
+      console.error("Form submission error:", error);
+      
+      // Provide more specific error messages
+      let displayMessage = "❌ ";
+      
+      if (error.message.includes("Failed to fetch")) {
+        displayMessage += "Unable to connect to server. Please check your internet connection and try again.";
+      } else if (error.message.includes("API URL is not configured")) {
+        displayMessage += error.message;
+      } else {
+        displayMessage += error.message || "Submission failed. Please try again.";
+      }
+      
+      setMessage(displayMessage);
     } finally {
       setLoading(false);
     }
@@ -235,11 +270,13 @@ function ApplyToday() {
           <label>
             Upload License Photo *
             <input type="file" name="licenseFile" accept=".jpg,.jpeg,.png,.pdf" required onChange={handleChange} />
+            <small style={{ color: "#666", marginTop: "5px", display: "block" }}>Max file size: 1 MB. Allowed formats: PDF, JPEG, PNG</small>
           </label>
 
           <label>
             Upload Immigration Document *
             <input type="file" name="immigrationFile" accept=".jpg,.jpeg,.png,.pdf" required onChange={handleChange} />
+            <small style={{ color: "#666", marginTop: "5px", display: "block" }}>Max file size: 1 MB. Allowed formats: PDF, JPEG, PNG</small>
           </label>
         </div>
 
@@ -256,42 +293,13 @@ function ApplyToday() {
           <h3>Contact</h3>
 
           <input name="primaryPhone" placeholder="Primary Phone *" required value={form.primaryPhone} onChange={handleChange} />
-          <div className="input-group">
-            <input
-              name="email"
-              type="email"
-              placeholder="Email (Gmail only, e.g. name@gmail.com) *"
-              required
-              value={form.email}
-              onChange={handleChange}
-              className={fieldErrors.email ? "input-error" : ""}
-              aria-invalid={!!fieldErrors.email}
-              aria-describedby={fieldErrors.email ? "email-error" : undefined}
-            />
-            {fieldErrors.email && (
-              <span id="email-error" className="field-error" role="alert">{fieldErrors.email}</span>
-            )}
-          </div>
-          <div className="input-group">
-            <input
-              name="confirmEmail"
-              type="email"
-              placeholder="Confirm Email *"
-              required
-              value={form.confirmEmail}
-              onChange={handleChange}
-              className={fieldErrors.confirmEmail ? "input-error" : ""}
-              aria-invalid={!!fieldErrors.confirmEmail}
-              aria-describedby={fieldErrors.confirmEmail ? "confirmEmail-error" : undefined}
-            />
-            {fieldErrors.confirmEmail && (
-              <span id="confirmEmail-error" className="field-error" role="alert">{fieldErrors.confirmEmail}</span>
-            )}
-          </div>
+          <input name="email" type="email" placeholder="Email *" required value={form.email} onChange={handleChange} />
+          <input name="confirmEmail" type="email" placeholder="Confirm Email *" required value={form.confirmEmail} onChange={handleChange} />
 
           <label>
             Upload Other Documents *
             <input type="file" name="otherDocument" accept=".jpg,.jpeg,.png,.pdf" required onChange={handleChange} />
+            <small style={{ color: "#666", marginTop: "5px", display: "block" }}>Max file size: 1 MB. Allowed formats: PDF, JPEG, PNG</small>
           </label>
 
           <label className="checkbox-container">
@@ -300,13 +308,9 @@ function ApplyToday() {
           </label>
         </div>
 
-        {message && (
-          <div className={`form-message ${message.startsWith("🎉") ? "success" : ""}`}>
-            {message}
-          </div>
-        )}
+        {message && <div className="form-message">{message}</div>}
 
-        <button className="submit-btn full" type="submit" disabled={loading} aria-label="Submit application">
+        <button className="submit-btn full" type="submit" disabled={loading}>
           {loading ? "Submitting..." : "Submit Application"}
         </button>
       </form>
