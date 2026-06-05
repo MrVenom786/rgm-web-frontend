@@ -67,6 +67,72 @@ function ApplyToday() {
     return { valid: true, error: null };
   };
 
+  const getGuidanceHint = (fieldName, value) => {
+    const hints = {
+      // Personal Information
+      firstName: "📝 Great! Now add your middle name.",
+      middleName: "✅ Perfect! Let's get your last name.",
+      lastName: "👏 Excellent! Do you have a suffix?",
+      ssn: "🎯 Got your SIN/HST! Now your date of birth.",
+      dob: "🗓️ Thanks! Now your license number.",
+      license: "🚗 License number saved! Now upload your license photo.",
+      licenseFile: "📸 License photo received! Now upload immigration document.",
+      immigrationFile: "🛂 Immigration document saved! Now upload other documents.",
+      otherDocument: "📄 Great! Now let's fill your address.",
+      
+      // Address
+      address1: "📍 Address saved! Add line 2 if needed.",
+      address2: "📍 Perfect! Now your city.",
+      city: "🏙️ Got your city! Now the state/province.",
+      state: "🏞️ State saved! Now your zip code.",
+      zip: "📮 Great! Now let's add your contact info.",
+      
+      // Contact Information
+      primaryPhone: "📱 Phone saved! Now your cell phone.",
+      cellPhone: "📞 Perfect! Now your email address.",
+      email: "📧 Email saved! Confirm it by entering again.",
+      confirmEmail: "✅ All set! Now let's finalize.",
+      
+      // Consent
+      consent: "🎉 Almost there! Review and submit your application!",
+    };
+
+    return hints[fieldName] || "✍️ Keep filling the form!";
+  };
+
+  const getAnimationSegment = (fieldName) => {
+    const segments = {
+      // Personal Information animations
+      firstName: [0, 10],
+      middleName: [10, 20],
+      lastName: [20, 30],
+      ssn: [30, 40],
+      dob: [40, 50],
+      license: [50, 60],
+      licenseFile: [60, 70],
+      immigrationFile: [70, 80],
+      otherDocument: [80, 90],
+      
+      // Address animations
+      address1: [90, 100],
+      address2: [100, 110],
+      city: [110, 120],
+      state: [120, 130],
+      zip: [130, 140],
+      
+      // Contact animations
+      primaryPhone: [140, 150],
+      cellPhone: [150, 160],
+      email: [160, 170],
+      confirmEmail: [170, 180],
+      
+      // Final animations
+      consent: [180, 200],
+    };
+
+    return segments[fieldName] || [0, 10];
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
 
@@ -93,12 +159,28 @@ function ApplyToday() {
         // File is valid, clear any previous error message and update form
         setMessage("");
         setForm((prev) => ({ ...prev, [name]: file }));
+        
+        // Add guidance for file uploads
+        const guideHint = getGuidanceHint(name, file.name);
+        setHint(guideHint);
+        const [from, to] = getAnimationSegment(name);
+        play(from, to);
       }
       return;
     }
 
     const val = type === "checkbox" ? checked : value;
     setForm((prev) => ({ ...prev, [name]: val }));
+    
+    // Show guidance hint when field has value
+    if (value || checked) {
+      const guideHint = getGuidanceHint(name, val);
+      setHint(guideHint);
+      
+      // Trigger animation
+      const [from, to] = getAnimationSegment(name);
+      play(from, to);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -106,22 +188,29 @@ function ApplyToday() {
 
     if (!API_URL) {
       setMessage("❌ API URL not configured. Contact developer.");
+      setHint("❌ System configuration error. Please contact support.");
       return;
     }
 
     // Validate all required documents
     if (!form.licenseFile) {
       setMessage("❌ License Photo is required.");
+      setHint("📸 Please upload your license photo to continue.");
+      play(60, 70);
       return;
     }
 
     if (!form.immigrationFile) {
       setMessage("❌ Immigration Document is required.");
+      setHint("🛂 Please upload your immigration document to continue.");
+      play(70, 80);
       return;
     }
 
     if (!form.otherDocument) {
       setMessage("❌ Other Documents are required.");
+      setHint("📄 Please upload other documents to continue.");
+      play(80, 90);
       return;
     }
 
@@ -149,16 +238,20 @@ function ApplyToday() {
 
     if (form.email !== form.confirmEmail) {
       setMessage("❌ Emails do not match.");
+      setHint("📧 Please make sure your emails match!");
       return;
     }
 
     if (!form.consent) {
       setMessage("❌ Consent is required.");
+      setHint("✅ Please check the consent checkbox to continue.");
+      play(180, 200);
       return;
     }
 
     try {
       setLoading(true);
+      setHint("⏳ Submitting your application...");
       setMessage("");
 
       // Check if API URL is configured
@@ -202,6 +295,9 @@ function ApplyToday() {
       }
 
       setMessage("🎉 Application submitted successfully!");
+      setHint("🎉 Congratulations! Your application has been submitted. Our team will review it shortly!");
+      play(180, 200);
+      
       setForm({
         firstName: "",
         middleName: "",
@@ -234,12 +330,16 @@ function ApplyToday() {
       
       if (error.message.includes("Failed to fetch")) {
         displayMessage += "Unable to connect to server. Check your internet connection and try again.";
+        setHint("🌐 Connection issue. Please check your internet and try again.");
       } else if (error.message.includes("API URL is not configured")) {
         displayMessage += error.message;
+        setHint("⚙️ System configuration error. Please contact support.");
       } else if (error.message.includes("License Photo") || error.message.includes("Immigration Document") || error.message.includes("Other Documents")) {
         displayMessage += error.message;
+        setHint("📎 Please check your document uploads.");
       } else {
         displayMessage += error.message || "Submission failed. Please try again.";
+        setHint("😟 Oops! Something went wrong. Please try again.");
       }
       
       setMessage(displayMessage);
