@@ -162,4 +162,3 @@ const Haul = () => {
 };
 
 export default Haul;
-
