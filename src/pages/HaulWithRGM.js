@@ -2,8 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import Lottie from "lottie-react";
 import "../styles/HaulWithRGM.css";
 import characterAnimation from "../assets/animations/character.json";
-import { API_BASE } from "../api";
-import { isValidName, isValidPhone, isValidGmail, isValidWebsiteWww } from "../utils/validation";
+import { API_URL } from "../config/apiConfig";
 
 function HaulWithRGM() {
   const [form, setForm] = useState({
@@ -23,17 +22,16 @@ function HaulWithRGM() {
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [fieldErrors, setFieldErrors] = useState({ companyWebsite: "", email: "" });
 
   const [botText, setBotText] = useState("");
   const [fullText, setFullText] = useState(
-    "Hi 👋 I’ll help you get a quick rate quote."
+    " .Hi 👋 I’ll help you get a quick rate quote."
   );
 
   const lottieRef = useRef(null);
 
   /* ===========================
-     TYPEWRITER EFFECT
+     TYPEWRITER EFFECT (FIXED)
   =========================== */
   useEffect(() => {
     let index = 0;
@@ -71,38 +69,25 @@ function HaulWithRGM() {
       [name]: val,
     }));
 
-    // Clear inline error when user types
-    if (name === "companyWebsite" || name === "email") {
-      setFieldErrors((prev) => ({ ...prev, [name]: "" }));
-    }
-
+    // Smart Bot Reactions
     if (name === "companyName" && value.length > 2) {
-      setFullText("Nice! Tell me more about your shipment.");
+      setFullText(" .Nice! Tell me more about your shipment.");
       play(0, 30);
     }
 
-    if (name === "companyWebsite") {
-      if (value.length > 4 && !isValidWebsiteWww(value)) {
-        setFullText("🌐 Use format: www.example.com");
-        play(120, 150);
-      } else if (value.length > 4 && isValidWebsiteWww(value)) {
-        setFullText("✓ Website looks good!");
-        play(60, 90);
-      }
-    }
-
     if (name === "email") {
-      if (value.length > 4 && !isValidGmail(value)) {
-        setFullText("📧 Use a Gmail address: yourname@gmail.com");
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      if (!valid && value.length > 3) {
+        setFullText(" .Hmm 🤔 that email looks incorrect.");
         play(120, 150);
-      } else if (isValidGmail(value)) {
-        setFullText("Perfect! We'll contact you there.");
+      } else if (valid) {
+        setFullText(" .Perfect! We'll contact you there.");
         play(60, 90);
       }
     }
 
     if ((name === "agreeSms" || name === "agreeEmail") && val === true) {
-      setFullText("Great 👍 You're ready to submit!");
+      setFullText(" .Great 👍 You're ready to submit!");
       play(150, 180);
     }
   };
@@ -113,36 +98,15 @@ function HaulWithRGM() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.agreeSms && !form.agreeEmail) {
-      setMessage("Please agree to at least one communication option.");
-      setFullText("Consent is required before submitting.");
-      play(120, 150);
+    if (!API_URL) {
+      setMessage(" .API URL not configured.");
+      setFullText(" .System configuration error.");
       return;
     }
 
-    if (!isValidName(form.name)) {
-      setMessage("Name should contain only letters (no numbers).");
-      setFullText("Name must be letters only.");
-      play(120, 150);
-      return;
-    }
-    if (!isValidPhone(form.phone)) {
-      setMessage("Phone must contain at least 10 digits (no letters).");
-      setFullText("Phone needs at least 10 digits.");
-      play(120, 150);
-      return;
-    }
-    if (!isValidGmail(form.email)) {
-      setMessage("Please enter a valid Gmail address (e.g. yourname@gmail.com).");
-      setFieldErrors((prev) => ({ ...prev, email: "Use format: yourname@gmail.com" }));
-      setFullText("📧 Enter a Gmail address like yourname@gmail.com");
-      play(120, 150);
-      return;
-    }
-    if (!isValidWebsiteWww(form.companyWebsite)) {
-      setMessage("Please enter website in format: www.example.com");
-      setFieldErrors((prev) => ({ ...prev, companyWebsite: "Use format: www.example.com" }));
-      setFullText("🌐 Use format: www.example.com");
+    if (!form.agreeSms && !form.agreeEmail) {
+      setMessage(" .Please agree to at least one communication option.");
+      setFullText(" .Consent is required before submitting.");
       play(120, 150);
       return;
     }
@@ -150,25 +114,39 @@ function HaulWithRGM() {
     try {
       setLoading(true);
       setMessage("");
-      setFullText("Submitting your request… 🚚");
+      setFullText(" .Submitting your request… 🚚");
       play(150, 180);
 
-      const res = await fetch(`${API_BASE}/api/rate-quote`, {
+      if (!API_URL || API_URL.trim() === "") {
+        throw new Error("API URL is not configured. Please contact support.");
+      }
+
+      const submitUrl = `${API_URL}/rate-quote`;
+      console.log("Submitting rate quote to:", submitUrl);
+
+      const res = await fetch(submitUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
 
-      const data = await res.json();
+      console.log("Response status:", res.status);
 
-      if (!res.ok) {
-        throw new Error(data.message || "Failed");
+      let data;
+      try {
+        data = await res.json();
+      } catch (parseError) {
+        console.error("Failed to parse response as JSON:", parseError);
+        data = {};
       }
 
-      setMessage("Rate quote submitted successfully!");
-      setFullText("All done 🎉 Our team will contact you soon.");
+      if (!res.ok) {
+        throw new Error(data.message || "Failed to submit rate quote");
+      }
+
+      setMessage(" .Rate quote submitted successfully!");
+      setFullText(" .All done 🎉 Our team will contact you soon.");
       play(180, 210);
-      setFieldErrors({ companyWebsite: "", email: "" });
 
       setForm({
         companyName: "",
@@ -184,10 +162,24 @@ function HaulWithRGM() {
         agreeSms: false,
         agreeEmail: false,
       });
-
     } catch (err) {
-      setMessage("Something went wrong. Please try again.");
-      setFullText("Submission failed. Try again.");
+      console.error("Form submission error:", err);
+      
+      let errorText = "Submission failed. Try again.";
+      let errorMessage = " .Something went wrong. Please try again.";
+      
+      if (err.message.includes("Failed to fetch")) {
+        errorMessage = " .Unable to connect to server. Check your internet connection.";
+        errorText = " .Network error. Please try again.";
+      } else if (err.message.includes("API URL is not configured")) {
+        errorMessage = " .System configuration error.";
+        errorText = " .API not configured. Contact support.";
+      } else {
+        errorMessage = " ." + err.message;
+      }
+      
+      setMessage(errorMessage);
+      setFullText(errorText);
       play(120, 150);
     } finally {
       setLoading(false);
@@ -224,21 +216,13 @@ function HaulWithRGM() {
           onChange={handleChange}
         />
 
-        <div className="input-group">
-          <input
-            name="companyWebsite"
-            placeholder="Company Website (e.g. www.example.com) *"
-            required
-            value={form.companyWebsite}
-            onChange={handleChange}
-            className={fieldErrors.companyWebsite ? "input-error" : ""}
-            aria-invalid={!!fieldErrors.companyWebsite}
-            aria-describedby={fieldErrors.companyWebsite ? "website-error" : undefined}
-          />
-          {fieldErrors.companyWebsite && (
-            <span id="website-error" className="field-error" role="alert">{fieldErrors.companyWebsite}</span>
-          )}
-        </div>
+        <input
+          name="companyWebsite"
+          placeholder="Company Website *"
+          required
+          value={form.companyWebsite}
+          onChange={handleChange}
+        />
 
         <input
           name="name"
@@ -256,22 +240,14 @@ function HaulWithRGM() {
           onChange={handleChange}
         />
 
-        <div className="input-group">
-          <input
-            type="email"
-            name="email"
-            placeholder="Email (Gmail only, e.g. name@gmail.com) *"
-            required
-            value={form.email}
-            onChange={handleChange}
-            className={fieldErrors.email ? "input-error" : ""}
-            aria-invalid={!!fieldErrors.email}
-            aria-describedby={fieldErrors.email ? "email-error" : undefined}
-          />
-          {fieldErrors.email && (
-            <span id="email-error" className="field-error" role="alert">{fieldErrors.email}</span>
-          )}
-        </div>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email *"
+          required
+          value={form.email}
+          onChange={handleChange}
+        />
 
         <textarea
           name="freightDetails"
@@ -303,7 +279,7 @@ function HaulWithRGM() {
 
         {message && <div className="form-message">{message}</div>}
 
-        <button type="submit" className="submit-btn" disabled={loading} aria-label="Get rate quote">
+        <button type="submit" disabled={loading}>
           {loading ? "Submitting..." : "Get Rate Quote"}
         </button>
       </form>
