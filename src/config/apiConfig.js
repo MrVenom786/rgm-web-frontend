@@ -7,24 +7,28 @@ export const getApiUrl = () => {
   const hostname = window.location.hostname;
   const protocol = window.location.protocol;
 
-  // Local development
-  if (hostname === "localhost" || hostname === "127.0.0.1") {
+  // Local development - ALWAYS use localhost for testing
+  if (hostname === "localhost" || hostname === "127.0.0.1" || hostname === "www.rgminc.ca") {
+    console.log("🔧 Using LOCAL backend for testing");
     return "http://localhost:5000";
   }
 
-  // Production on rgminc.ca
-  if (hostname === "rgminc.ca" || hostname === "www.rgminc.ca") {
+  // Production on rgminc.ca (only when deployed)
+  if (hostname === "rgminc.ca") {
+    console.log("🚀 Using PRODUCTION backend");
     return "https://rgm-web-backend.vercel.app";
   }
 
   // Production on Vercel (rgmline.vercel.app)
   if (hostname.includes("vercel.app")) {
+    console.log("🚀 Using VERCEL production backend");
     return "https://rgm-web-backend.vercel.app";
   }
 
   // Fallback to environment variable or localhost
   const envUrl = process.env.REACT_APP_API_URL;
   if (envUrl) {
+    console.log("🔌 Using environment variable API URL:", envUrl);
     return envUrl;
   }
 
