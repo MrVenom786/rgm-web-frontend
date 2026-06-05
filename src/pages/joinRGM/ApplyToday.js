@@ -171,6 +171,12 @@ function ApplyToday() {
         formData.append(key, form[key]);
       });
 
+      // Log files being sent
+      console.log("📤 Files to upload:");
+      console.log("  - License File:", form.licenseFile ? `${form.licenseFile.name} (${(form.licenseFile.size / 1024).toFixed(2)} KB)` : "Missing");
+      console.log("  - Immigration File:", form.immigrationFile ? `${form.immigrationFile.name} (${(form.immigrationFile.size / 1024).toFixed(2)} KB)` : "Missing");
+      console.log("  - Other Document:", form.otherDocument ? `${form.otherDocument.name} (${(form.otherDocument.size / 1024).toFixed(2)} KB)` : "Missing");
+
       const submitUrl = `${API_URL}/apply`;
       console.log("Submitting to:", submitUrl);
 
@@ -227,8 +233,10 @@ function ApplyToday() {
       let displayMessage = "❌ ";
       
       if (error.message.includes("Failed to fetch")) {
-        displayMessage += "Unable to connect to server. Please check your internet connection and try again.";
+        displayMessage += "Unable to connect to server. Check your internet connection and try again.";
       } else if (error.message.includes("API URL is not configured")) {
+        displayMessage += error.message;
+      } else if (error.message.includes("License Photo") || error.message.includes("Immigration Document") || error.message.includes("Other Documents")) {
         displayMessage += error.message;
       } else {
         displayMessage += error.message || "Submission failed. Please try again.";
