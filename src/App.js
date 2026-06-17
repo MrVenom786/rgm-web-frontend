@@ -17,7 +17,7 @@ import CurrentOpenings from "./pages/joinRGM/CurrentOpenings";
 import Pay from "./pages/joinRGM/Pay";
 import Equipment from "./pages/joinRGM/Equipment";
 import Benefits from "./pages/joinRGM/Benefits";
-import CDLSchools from "./pages/joinRGM/CDLSchools";
+//import CDLSchools from "./pages/joinRGM/CDLSchools";
 
 // Solutions
 import Solutions from "./pages/solutions/Solutions";
@@ -60,7 +60,6 @@ function App() {
         <Route path="/join/pay" element={<Pay />} />
         <Route path="/join/equipment" element={<Equipment />} />
         <Route path="/join/benefits" element={<Benefits />} />
-        <Route path="/join/cdl-schools" element={<CDLSchools />} />
 
         {/* Solutions */}
         <Route path="/solutions" element={<Solutions />} />
