@@ -109,7 +109,6 @@ const Navbar = () => {
                 <Link to="/join/pay" onClick={closeMenu}>Pay</Link>
                 <Link to="/join/equipment" onClick={closeMenu}>Equipment</Link>
                 <Link to="/join/benefits" onClick={closeMenu}>Benefits</Link>
-                <Link to="/join/cdl-schools" onClick={closeMenu}>CDL Schools</Link>
               </div>
             )}
           </li>
