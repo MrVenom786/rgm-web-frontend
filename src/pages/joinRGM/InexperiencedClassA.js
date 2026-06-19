@@ -83,7 +83,7 @@ function InexperiencedClassA() {
         <h2>Why RGM Family?</h2>
         <ul>
           <li>Our trips depend upon weekly/bi-weekly over the roads.</li>
-          <li>Layover is paid 100$ when 36 hour reset on road no matter where.</li>
+          <li>Layover is paid 100$ USD when 36 hour reset on road no matter where.</li>
           <li>Waiting and detention also covered by our most of the business partners.</li>
           <li>Industry leading pay-package along with other perks like cellphone bill upto -100$ CAD and food expenses upto-100$ CAD per month once completed-2 years with RGM.</li>
         </ul>
