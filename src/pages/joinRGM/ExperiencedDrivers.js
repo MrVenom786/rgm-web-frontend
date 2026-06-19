@@ -99,7 +99,7 @@ function ExperiencedDrivers() {
 
         <h2>Orientation Facilities</h2>
         <p>
-          Training is conducted at our facilities in Des Moines, Iowa or Columbia, South Carolina. 
+          Training is conducted at our facilities in Mississauga, ON L4W 4J4. 
           Orientation length and pay vary depending on experience. Contact a recruiter for details.
         </p>
 
