@@ -84,8 +84,6 @@ function ExperiencedDrivers() {
           <li>Comprehensive Benefits: Paid vacation, health/dental/vision insurance, 401k with match, and more.</li>
         </ul>
 
-        <h2>Military Veterans</h2>
-        <p>Visit our Veteran Page for special programs and benefits.</p>
 
         <h2>Employee-Owned</h2>
         <p>
