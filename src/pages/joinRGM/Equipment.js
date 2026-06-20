@@ -60,8 +60,9 @@ function Equipment() {
       <div className="equipment-content">
         <h2>Why Our Flatbeds Lead the Industry</h2>
         <ul className="equipment-list">
+          <li>🚛 Our fleet consist of 53 FB and CN/RT.</li>
           <li>🛋️ Driver Comfort First: Leather air-ride seats with lumbar support.</li>
-          <li>📡 Equipped with the industry's ELD.</li>
+          <li>📡 Equipped with the leading industry's ELD.</li>
           <li>🧼 Fleet Maintenance: Weekly random inspections at yard as well as Preventive Maintenance in 120 days once of every unit.</li>
           <li>⚙️ Transmission Options: Manual & Automatic.</li>
           <li>📦 Flatbed-Specific Features: Specialized tie-down equipment.</li>
