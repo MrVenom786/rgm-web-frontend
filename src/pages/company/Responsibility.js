@@ -105,7 +105,6 @@ function Responsibility() {
         <ul>
           <li>Local food & hunger relief</li>
           <li>Education & youth programs</li>
-          <li>Veteran assistance</li>
           <li>Animal & environmental care</li>
         </ul>
       </section>
