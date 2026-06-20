@@ -72,8 +72,15 @@ function Founder() {
             Our founder believes true success comes when people feel valued and protected.
           </p>
           <p>
-            Though unseen, his principles guide every decision, driver, and partnership.
-          </p>
+  Though unseen, his principles guide every decision, driver, and partnership.
+</p>
+
+<div className="founder-signature">
+  <p className="quote-signoff">
+    — Chairperson Sukhwinder Singh, +1 (437) 230-0451, info@rgminc.ca
+  </p>
+  
+</div>
         </div>
 
         <div className="story-visual">
@@ -161,6 +168,7 @@ function Founder() {
           Apply Now
         </Link>
       </section>
+      
 
     </div>
   );
