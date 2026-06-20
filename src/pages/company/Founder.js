@@ -76,9 +76,23 @@ function Founder() {
 </p>
 
 <div className="founder-signature">
+  <div className="founder-signature">
   <p className="quote-signoff">
-    — Chairperson Sukhwinder Singh, +1 (437) 230-0451, info@rgminc.ca
+    — Chairperson Sukhwinder Singh
   </p>
+
+  <div className="founder-contact">
+    <a href="tel:+14372300451" className="founder-phone">
+      +1 (437) 230-0451
+    </a>
+
+    <span className="contact-separator"> | </span>
+
+    <a href="mailto:info@rgminc.ca" className="founder-email">
+      info@rgminc.ca
+    </a>
+  </div>
+</div>
   
 </div>
         </div>
