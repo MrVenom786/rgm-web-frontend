@@ -155,7 +155,6 @@ const Navbar = () => {
               <div className="dropdown">
                 <Link to="/logistics/ltl" onClick={closeMenu}>LTL</Link>
                 <Link to="/logistics/truckload" onClick={closeMenu}>Truckload</Link>
-                <Link to="/logistics/why-rgm" onClick={closeMenu}>Why RGM Family</Link>
               </div>
             )}
           </li>
