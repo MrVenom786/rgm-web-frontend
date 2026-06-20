@@ -336,3 +336,20 @@
   }
 
 }
+.contact-solutions-btn {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 16px 40px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 40px;
+  background: #fff;
+  color: var(--blue);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.contact-solutions-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 10px 30px rgba(255,255,255,0.4);
+}
