@@ -42,18 +42,7 @@ function Benefits() {
 
       {/* ABOUT & BENEFITS SECTION */}
       <div className="company-content">
-        <h2>Who We Are</h2>
-        <p>
-          RGM is a fast-growing transportation company built with one clear
-          mission — <strong>put drivers and employees first</strong>.  
-           Our focus on transparency, performance-based growth and family values sets us apart.
-        </p>
-
-        <p>
-          We believe great service to our customers begins with taking care of
-          our people. That’s why RGM is committed to building a culture where
-          dedication is rewarded and every team member feels valued.
-        </p>
+       
 
 
         <h2>Investing in Our People</h2>
