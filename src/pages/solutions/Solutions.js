@@ -122,13 +122,6 @@ function Solutions() {
         </div>
       </section>
 
-      {/* EQUIPMENT */}
-      <section className="equipment-section">
-        <h2>Our Equipment</h2>
-        <div className="equipment-list">
-          <span>53’ Flatbeds</span>
-        </div>
-      </section>
 
       {/* GALLERY */}
       <section className="gallery-section">
