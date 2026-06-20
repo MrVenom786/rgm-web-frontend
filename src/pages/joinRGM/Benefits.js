@@ -42,9 +42,7 @@ function Benefits() {
 
       {/* ABOUT & BENEFITS SECTION */}
       <div className="company-content">
-       
-
-
+        
         <h2>Investing in Our People</h2>
         <p>
           At RGM, we don’t just focus on today — we build for tomorrow.
@@ -76,21 +74,6 @@ function Benefits() {
           </div>
         </div>
 
-        <h2>Gallery</h2>
-        <div className="gallery-collage">
-          {visibleImages.map((img, index) => (
-            <div key={index} className="collage-item">
-              <img src={img} alt={`Gallery ${index}`} />
-            </div>
-          ))}
-        </div>
-
-        <h2>Our Vision</h2>
-        <p>
-          RGM is committed to becoming a company where employees feel proud to
-          work, customers trust our service, and long-term partnerships thrive.
-          We are building something meaningful — together.
-        </p>
       </div>
     </div>
   );
