@@ -257,3 +257,28 @@
   font-size: 16.5px;
   line-height: 1.7;
 }
+.founder-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.founder-phone,
+.founder-email {
+  color: #1a4f8b;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.founder-phone:hover,
+.founder-email:hover {
+  color: #0f2f52;
+  text-decoration: underline;
+}
+
+.contact-separator {
+  color: #888;
+}
