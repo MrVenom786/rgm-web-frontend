@@ -64,13 +64,6 @@ function CDLSchools() {
             Apply Today
           </Link>
 
-          <Link to="/join/pay" className="cdl-btn secondary">
-            Driver Pay
-          </Link>
-
-          <Link to="/contact" className="cdl-btn secondary">
-            Contact Us
-          </Link>
         </div>
       </div>
 
