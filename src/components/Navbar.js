@@ -181,7 +181,6 @@ const Navbar = () => {
                 <Link to="/company/employee-ownership" onClick={closeMenu}>
                   Employee Ownership
                 </Link>
-                <Link to="/company/benefits" onClick={closeMenu}>Benefits</Link>
                 <Link to="/company/responsibility" onClick={closeMenu}>
                   Corporate Responsibility
                 </Link>
