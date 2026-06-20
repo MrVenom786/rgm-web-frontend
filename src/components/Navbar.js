@@ -131,9 +131,7 @@ const Navbar = () => {
             {(active === "transport" || mobileSubMenu === "transport") && (
               <div className="dropdown">
                 <Link to="/solutions" onClick={closeMenu}>Solutions</Link>
-                <Link to="/solutions/why-rgm" onClick={closeMenu}>
-                  Why RGM Family
-                </Link>
+                
               </div>
             )}
           </li>
