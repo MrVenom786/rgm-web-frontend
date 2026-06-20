@@ -186,7 +186,7 @@ const Navbar = () => {
                   Corporate Responsibility
                 </Link>
                 <Link to="/company/founder" onClick={closeMenu}>
-                  About RGM Family Founder
+                  About RGM
                 </Link>
               </div>
             )}
