@@ -21,7 +21,6 @@ import Benefits from "./pages/joinRGM/Benefits";
 
 // Solutions
 import Solutions from "./pages/solutions/Solutions";
-import WhyRGM from "./pages/solutions/WhyRGM";
 
 // Logistics
 import LTL from "./pages/logistics/LTL";
@@ -63,7 +62,6 @@ function App() {
 
         {/* Solutions */}
         <Route path="/solutions" element={<Solutions />} />
-        <Route path="/solutions/why-rgm" element={<WhyRGM />} />
 
         {/* Logistics */}
         <Route path="/logistics/ltl" element={<LTL />} />
