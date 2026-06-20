@@ -61,9 +61,7 @@ function Equipment() {
         <h2>Why Our Flatbeds Lead the Industry</h2>
         <ul className="equipment-list">
           <li>🛋️ Driver Comfort First: Leather air-ride seats with lumbar support.</li>
-          <li>📡 ELD Mandate prime with -24*7 assist.</li>
-          <li>🛡️ Advanced Safety Systems: Power mirrors, collision avoidance.</li>
-          <li>🎵 Entertainment & Comfort: Premium audio system.</li>
+          <li>📡 Equipped with the industry's ELD.</li>
           <li>🧼 Fleet Maintenance: Weekly random inspections at yard as well as Preventive Maintenance in 120 days once of every unit.</li>
           <li>⚙️ Transmission Options: Manual & Automatic.</li>
           <li>📦 Flatbed-Specific Features: Specialized tie-down equipment.</li>
