@@ -156,7 +156,6 @@ const Navbar = () => {
                 <Link to="/logistics/ltl" onClick={closeMenu}>LTL</Link>
                 <Link to="/logistics/truckload" onClick={closeMenu}>Truckload</Link>
                 <Link to="/logistics/why-rgm" onClick={closeMenu}>Why RGM Family</Link>
-                <Link to="/logistics/who-we-are" onClick={closeMenu}>Who We Are</Link>
               </div>
             )}
           </li>
@@ -181,6 +180,8 @@ const Navbar = () => {
                 <Link to="/company/employee-ownership" onClick={closeMenu}>
                   Employee Ownership
                 </Link>
+              
+                <Link to="/logistics/who-we-are" onClick={closeMenu}>Who We Are</Link>
                 <Link to="/company/responsibility" onClick={closeMenu}>
                   Corporate Responsibility
                 </Link>
