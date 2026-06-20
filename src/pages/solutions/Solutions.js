@@ -215,10 +215,16 @@ function Solutions() {
 
       {/* CTA */}
       <section className="solutions-cta">
-        <h2>Start Shipping With RGM</h2>
-        <p>Let our team build a transportation solution that fits your business.</p>
-        <button>Contact Our Solutions Team</button>
-      </section>
+  <h2>Start Shipping With RGM</h2>
+  <p>Let our team build a transportation solution that fits your business.</p>
+
+  <a
+    href="mailto:info@rgminc.co"
+    className="contact-solutions-btn"
+  >
+    Contact Our Solutions Team
+  </a>
+</section>
     </div>
   );
 }
