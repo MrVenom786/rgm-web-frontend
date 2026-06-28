@@ -1,20 +1,21 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./Gallery.css";
 
-/* AUTO LOAD MEDIA */
+/* IMAGES */
 const imgCtx = require.context(
   "../assets/gallery/images",
   false,
-  /\.(jpg|png|jpeg|webp)$/
+  /\.(jpg|jpeg|png|webp)$/
 );
 
+/* VIDEOS */
 const vidCtx = require.context(
   "../assets/gallery/videos",
   false,
   /\.(mp4)$/
 );
 
-/* SMART CATEGORY DETECTION */
+/* CATEGORY DETECTION */
 const detectCategory = (name) => {
   const n = name.toLowerCase();
   if (n.includes("fleet") || n.includes("truck")) return "Fleet";
@@ -23,76 +24,34 @@ const detectCategory = (name) => {
   return "General";
 };
 
-/* PREPARE IMAGES (gallery64–66 REMOVED) */
-const images = imgCtx
-  .keys()
-  .filter((k) => {
-    const name = k.toLowerCase();
-    return !(
-      name.includes("gallery64") ||
-      name.includes("gallery65") ||
-      name.includes("gallery66")
-    );
-  })
-  .map((k) => ({
-    src: imgCtx(k),
-    type: "image",
-    category: detectCategory(k),
-  }));
+const images = imgCtx.keys().map((k) => ({
+  src: imgCtx(k),
+  type: "image",
+  category: detectCategory(k),
+}));
 
-/* PREPARE VIDEOS (DEDUPLICATED) */
-const videos = Array.from(
-  new Map(
-    vidCtx.keys().map((k) => {
-      const src = vidCtx(k);
-      return [
-        src,
-        {
-          src,
-          type: "video",
-          category: "Videos",
-        },
-      ];
-    })
-  ).values()
-);
+const videos = vidCtx.keys().map((k) => ({
+  src: vidCtx(k),
+  type: "video",
+  category: "Videos",
+}));
 
-/* FILTER CATEGORIES */
 const categories = ["All", "Fleet", "Drivers", "On Road", "Videos"];
 
 const Gallery = () => {
   const [active, setActive] = useState("All");
   const [lightbox, setLightbox] = useState(null);
   const [videoModal, setVideoModal] = useState(null);
-  const [currentVideo, setCurrentVideo] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const videoRef = useRef(null);
-
-  /* VIDEO AUTO-LOOP */
-  useEffect(() => {
-    if (!videos.length) return;
-
-    const vid = videoRef.current;
-    const handleEnded = () => {
-      setCurrentVideo((prev) => (prev + 1) % videos.length);
-    };
-
-    vid?.addEventListener("ended", handleEnded);
-    return () => vid?.removeEventListener("ended", handleEnded);
-  }, []);
 
   /* HEADER SLIDESHOW */
-  const slideshowImages = [
-    ...images.slice(20),
-    ...images.slice(0, 20),
-  ];
+  const slideshowImages = [...images];
 
   useEffect(() => {
-    const slideInterval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slideshowImages.length);
+    const interval = setInterval(() => {
+      setCurrentSlide((p) => (p + 1) % slideshowImages.length);
     }, 4000);
-
-    return () => clearInterval(slideInterval);
+    return () => clearInterval(interval);
   }, [slideshowImages.length]);
 
   /* FILTER MEDIA */
@@ -103,26 +62,11 @@ const Gallery = () => {
       ? videos
       : images.filter((i) => i.category === active);
 
-  /* SCROLL ANIMATION */
-  useEffect(() => {
-    const items = document.querySelectorAll(".gallery-item");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add("animate");
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    items.forEach((item) => observer.observe(item));
-    return () => items.forEach((item) => observer.unobserve(item));
-  }, [media]);
-
   return (
-    <div className="gallery-page">
-      {/* HEADER SLIDESHOW */}
-      <section className="header-slideshow">
+    <div className="gnm-gallery-page">
+
+      {/* HERO SLIDESHOW */}
+      <section className="gallery-header-slideshow">
         {slideshowImages.map((img, i) => (
           <div
             key={i}
@@ -132,22 +76,19 @@ const Gallery = () => {
         ))}
 
         <div className="slide-overlay">
-          <div>
-            <h1 style={{ color: "#1a4f8b" }}>RGM Family</h1>
-            <p style={{ fontSize: "1.5rem", marginTop: "8px", color: "#fff" }}>
-              Driven by Commitment • Powered by Precision • Delivering Trust Every
-              Mile
-            </p>
-          </div>
+          <h1>GNM Family Gallery</h1>
+          <p>
+            Driven by Commitment • Powered by Precision • Delivering Trust Every Mile
+          </p>
         </div>
       </section>
 
-      {/* FILTER TABS */}
+      {/* FILTER BUTTONS (Gold Pill Style) */}
       <div className="gallery-tabs">
         {categories.map((c) => (
           <button
             key={c}
-            className={active === c ? "active" : ""}
+            className={`filter-btn ${active === c ? "active" : ""}`}
             onClick={() => setActive(c)}
           >
             {c}
@@ -155,28 +96,25 @@ const Gallery = () => {
         ))}
       </div>
 
-      {/* MEDIA GRID */}
+      {/* MASONRY GRID */}
       <div className="gallery-masonry">
         {media.map((item, i) => (
           <div className="gallery-item" key={i}>
             {item.type === "image" ? (
               <img
                 src={item.src}
+                alt="GNM Fleet"
                 loading="lazy"
-                alt=""
                 onClick={() => setLightbox(item.src)}
               />
             ) : (
               <video
-                ref={i === currentVideo ? videoRef : null}
                 src={item.src}
                 muted
                 playsInline
+                loop
                 autoPlay
-                loop={false}
                 onClick={() => setVideoModal(item.src)}
-                onMouseEnter={(e) => e.target.play()}
-                onMouseLeave={(e) => e.target.pause()}
               />
             )}
             <div className="gallery-overlay">
@@ -189,7 +127,7 @@ const Gallery = () => {
       {/* IMAGE LIGHTBOX */}
       {lightbox && (
         <div className="lightbox" onClick={() => setLightbox(null)}>
-          <img src={lightbox} alt="" />
+          <img src={lightbox} alt="Full View" />
         </div>
       )}
 
@@ -199,6 +137,7 @@ const Gallery = () => {
           <video src={videoModal} controls autoPlay />
         </div>
       )}
+
     </div>
   );
 };
